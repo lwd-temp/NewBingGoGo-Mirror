@@ -2,8 +2,8 @@
 
 NewBingGoGo是一个基于微软bingChat接口的浏览器AI对话插件。提供了好看的对话页面。实现了bingChat的大多数功能。
 
-![](/images/1.png)
-![](/images/1.1.png)
+![](./images/1.png)
+![](./images/1.1.png)
 
 ## 使用方法
 使用方法请阅读以下文档

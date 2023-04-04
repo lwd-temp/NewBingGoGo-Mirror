@@ -1,3 +1,4 @@
+~~~ js
 export default {
 	async fetch(request, _env) {
 		return await handleRequest(request);
@@ -177,3 +178,5 @@ async function bingcopilotwaitlist(request) {
 	return await fetch('https://www.bing.com/msrewards/api/v1/enroll?publ=BINGIP&crea=MY00IA&pn=bingcopilotwaitlist&partnerId=BingRewards&pred=true&wtc=MktPage_MY0291', fp);
 }
 
+
+~~~

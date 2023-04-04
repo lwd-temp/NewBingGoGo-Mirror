@@ -8,9 +8,9 @@
 
 下载完成之后解压压缩包。
 
-![](/img/4.png)
-![](/img/5.png)
-![](/img/6.png)
-![](/img/7.png)
-![](/img/8.png)
+![](/images/4.png)
+![](/images/5.png)
+![](/images/6.png)
+![](/images/7.png)
+![](/images/8.png)
 之后就进入到聊天页面啦！如果没用登录bing就去bing登录一下，插件会自动读取Cookie之后就可以用啦。

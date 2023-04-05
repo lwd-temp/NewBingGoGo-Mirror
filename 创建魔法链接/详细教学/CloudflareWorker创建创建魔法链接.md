@@ -20,4 +20,4 @@ https://workers.cloudflare.com/
 ~~~
 https://www.bing.com/turing/conversation/create
 ~~~
-当然不使用 cloudflare 的 worker 用别的方法代理也是可以的，只要请求的地址返回从这个api获取的数据就可以了。当然请求的时候记得带上Cookit，甚至可以用这个方法分享自己的newbing资格给其他人用。
+当然不使用 cloudflare 的 worker 用别的方法代理也是可以的，只要请求的地址返回从这个api获取的数据就可以了。当然请求的时候记得带上Cookie，甚至可以用这个方法分享自己的newbing资格给其他人用。

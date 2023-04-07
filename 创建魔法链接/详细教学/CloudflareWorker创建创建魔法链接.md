@@ -14,3 +14,5 @@ https://workers.cloudflare.com/
 
 .workers.dev 结尾的域名在国内DNS被污染得很严重，甚至有些地区完全无法访问，建议绑定一个自己的域名，这样访问速度更快。当然你可以通过设置host文件解决这个问题，这里我就不细说了。
 
+绑定完自己的域名后记得关闭ipv6兼容性，因为微软屏蔽了cloudflare的ipv6.
+![](/images/43.jpg)

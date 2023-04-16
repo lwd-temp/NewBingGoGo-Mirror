@@ -35,6 +35,13 @@ async function handleRequest(request) {
 			"referer":"https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000"
 		});
 	}
+	//用于测试
+	if(isEquals(request,"/test/(.*)")){
+		let reg = new RegExp(`^(https?://)([-a-zA-z0-9]+\\.)+([-a-zA-z0-9]+)+(${"/test/(.*)"})$`);
+		let a = request.url.replace(reg,"$5");
+		return goUrl(request,a);
+	}
+
 	return getReturnError('由于NewBing策略更新，请更新NewBingGoGo到2023.4.5版本以上。');
 }
 
@@ -68,8 +75,14 @@ function goUrl(request, url, addHeaders) {
 			fp.headers[h] = addHeaders[h];
 		}
 	}
+	fp.headers['X-forwarded-for']=`${getRndInteger(1,5)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}`;
 	return fetch(url, fp);
 }
+
+//随机数生成
+function getRndInteger(min, max) {
+	return Math.floor(Math.random() * (max - min) ) + min;
+  }
 
 //获取用于返回的错误信息
 function getReturnError(error){

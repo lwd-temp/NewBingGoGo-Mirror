@@ -265,7 +265,7 @@ function handleScroll() {
 	var docHeight = document.body.scrollHeight;
 	var scrollPos = window.pageYOffset;
 	// 如果滚动到底部，显示元素，否则隐藏元素
-	if (scrollPos + window.innerHeight >= docHeight - 50) {
+	if (scrollPos + window.innerHeight >= docHeight - 25) {
 		searchSuggestions.style.opacity = 1;
 	} else {
 		searchSuggestions.style.opacity = 0;

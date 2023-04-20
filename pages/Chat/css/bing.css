@@ -268,7 +268,7 @@ body {
 }
 
 #body-bottom {
-    height: 15rem;
+    height: 10rem;
     width: 100%;
 }
 
@@ -369,8 +369,7 @@ body {
 /* 聊天部分,在页面内 */
 @keyframes acceptMeaaage {
     from {
-        margin-top: 1em;
-        margin-left: -4em;
+        transform: translate(-4rem, 1rem);
         opacity: 0;
     }
 
@@ -379,8 +378,7 @@ body {
 
 @keyframes sendMeaaage {
     from {
-        margin-top: 1em;
-        margin-right: -4em;
+        transform: translate(4rem, 1rem);
         opacity: 0;
     }
 
@@ -671,24 +669,4 @@ div.markdown-body {
         opacity: 0;
     }
 
-    /* 聊天部分,在页面内 */
-    @keyframes acceptMeaaage {
-        from {
-            margin-top: 1em;
-            margin-left: 0em;
-            opacity: 0;
-        }
-
-        to {}
-    }
-
-    @keyframes sendMeaaage {
-        from {
-            margin-top: 1em;
-            margin-right: 0em;
-            opacity: 0;
-        }
-
-        to {}
-    }
 }

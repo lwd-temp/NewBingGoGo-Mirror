@@ -34,12 +34,14 @@
     flex-direction: row;
     align-items: center;
 }
-#head-li-div>li{
+
+#head-li-div>li {
     list-style: none;
     margin-right: 1rem;
     font-size: 1rem;
 }
-#ChatRecordsNameInputDiv{
+
+#ChatRecordsNameInputDiv {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -48,45 +50,51 @@
     border-radius: 1rem;
     /* border: 0.1rem solid #000000ab; */
     padding: 0 0.2rem;
-    width:10rem;
-    transition: padding 0.5s,width 0.5s;
+    width: 10rem;
+    transition: padding 0.5s, width 0.5s;
 }
+
 #ChatRecordsServer.noshow,
-#ChatRecordsNameInputDiv.noshow{
+#ChatRecordsNameInputDiv.noshow {
     padding: 0;
     width: 0;
     margin: 0;
     overflow: hidden;
 }
 
-.ChatRecordsNameli{
+.ChatRecordsNameli {
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
 }
-#ChatRecordsNameInput{
+
+#ChatRecordsNameInput {
     background-color: #ffffff00;
     border: 0;
     outline: none;
     flex: 1;
     width: 100%;
 }
-#ChatRecordsNameNo{
+
+#ChatRecordsNameNo {
     color: red;
     cursor: pointer;
 }
-#ChatRecordsServer{
+
+#ChatRecordsServer {
     white-space: nowrap;
-    width:2rem;
-    transition: padding 0.5s,width 0.5s;
+    width: 2rem;
+    transition: padding 0.5s, width 0.5s;
     cursor: pointer;
 }
-#showChatRecords{
+
+#showChatRecords {
     cursor: pointer;
 }
+
 #showChatRecords:hover,
-#ChatRecordsServer:hover{
+#ChatRecordsServer:hover {
     color: #ff8300;
 }
 
@@ -103,18 +111,21 @@
     z-index: -1;
     background: repeating-linear-gradient(359deg, rgb(182 196 255) 0%, rgb(207 225 255 / 78%) 100%);
 }
+
 #background.a,
-body:has(#background.a) .ThemeColors{
+body:has(#background.a) .ThemeColors {
     transition: filter 1s;
     filter: hue-rotate(10deg);
 }
+
 #background.b,
-body:has(#background.b) .ThemeColors{
+body:has(#background.b) .ThemeColors {
     transition: filter 1s;
     filter: hue-rotate(-15deg);
 }
+
 #background.c,
-body:has(#background.c) .ThemeColors{
+body:has(#background.c) .ThemeColors {
     transition: filter 1s;
     filter: hue-rotate(-40deg);
 }
@@ -178,14 +189,12 @@ body:has(#background.c) .ThemeColors{
 }
 
 
-#restart:hover 
-{
+#restart:hover {
     background-color: #ffffff;
     cursor: pointer;
 }
 
-#restart
-{
+#restart {
     border: 0;
     border-radius: 1.5rem;
     background-color: #ffffff9e;
@@ -258,22 +267,24 @@ body:has(.my) #restart {
 body {
     overflow-x: hidden;
 }
-#body{
+
+#body {
     max-width: 75rem;
     margin: auto;
 }
+
 #body-top {
     height: 20vh;
     width: 100%;
 }
 
 #body-bottom {
-    height: 15rem;
+    height: 10rem;
     width: 100%;
 }
 
 /**聊天记录部分*/
-#ChatRecordsListDivOut{
+#ChatRecordsListDivOut {
     position: fixed;
     right: 0;
     top: 0;
@@ -285,28 +296,33 @@ body {
     overflow: hidden;
     transition: all 0.5s;
 }
-#ChatRecordsListDivOut.notShow{
+
+#ChatRecordsListDivOut.notShow {
     width: 0;
 }
-#ChatRecordsListDiv{
+
+#ChatRecordsListDiv {
     margin-top: 4rem;
     margin-bottom: 7rem;
     width: 100%;
     background-color: #ffffff33;
     overflow-y: auto;
 }
-#ChatRecordsListDiv>div{
+
+#ChatRecordsListDiv>div {
     margin: 0.5rem 0;
     padding: 0.5rem 0.5rem;
     background-color: #ffffff70;
     cursor: pointer;
     backdrop-filter: blur(10px);
 }
-#ChatRecordsListDiv>div:hover{
+
+#ChatRecordsListDiv>div:hover {
     background-color: #fffffff5;
 }
+
 #ChatRecordsListDiv>div>h3,
-#ChatRecordsListDiv>div>p{
+#ChatRecordsListDiv>div>p {
     margin: 0;
 }
 
@@ -369,8 +385,7 @@ body {
 /* 聊天部分,在页面内 */
 @keyframes acceptMeaaage {
     from {
-        margin-top: 1em;
-        margin-left: -4em;
+        transform: translate(-4rem, 1rem);
         opacity: 0;
     }
 
@@ -379,8 +394,7 @@ body {
 
 @keyframes sendMeaaage {
     from {
-        margin-top: 1em;
-        margin-right: -4em;
+        transform: translate(4rem, 1rem);
         opacity: 0;
     }
 
@@ -584,12 +598,12 @@ div.markdown-body {
 
 /* 窄窗口 */
 @media screen and (max-width:600px) {
-    :root{
+    :root {
         font-size: 3.5vmin;
     }
 
     #tail-in:has(#input:focus-visible) #restart,
-    #tail-in:has(#input:hover) #restart{
+    #tail-in:has(#input:hover) #restart {
         width: 0;
         margin: 0;
         padding: 0;
@@ -605,6 +619,7 @@ div.markdown-body {
         /* max-width: 90%; */
         flex-wrap: wrap;
     }
+
     /* .adaptiveCardsFatherDIV,
     .my>.bobo {
         max-width: 90%;
@@ -613,12 +628,31 @@ div.markdown-body {
     .bing>.sourceAttributions>a:hover {
         flex: auto;
     }
+
+    /* 聊天部分,在页面内 */
+    @keyframes acceptMeaaage {
+        from {
+            transform: translate(0rem, 1rem);
+            opacity: 0;
+        }
+
+        to {}
+    }
+
+    @keyframes sendMeaaage {
+        from {
+            transform: translate(0rem, 1rem);
+            opacity: 0;
+        }
+
+        to {}
+    }
 }
 
 /*手机 css*/
 
 @media screen and (orientation:portrait) and (max-device-width:800px) and (max-device-height:1000px) {
-    :root{
+    :root {
         font-size: 3.5vmin;
     }
 
@@ -640,7 +674,7 @@ div.markdown-body {
         /* max-width: 90%; */
         flex-wrap: wrap;
     }
-    
+
     .bing>.sourceAttributions>a:hover {
         flex: auto;
     }
@@ -674,8 +708,7 @@ div.markdown-body {
     /* 聊天部分,在页面内 */
     @keyframes acceptMeaaage {
         from {
-            margin-top: 1em;
-            margin-left: 0em;
+            transform: translate(0rem, 1rem);
             opacity: 0;
         }
 
@@ -684,11 +717,11 @@ div.markdown-body {
 
     @keyframes sendMeaaage {
         from {
-            margin-top: 1em;
-            margin-right: 0em;
+            transform: translate(0rem, 1rem);
             opacity: 0;
         }
 
         to {}
     }
+
 }

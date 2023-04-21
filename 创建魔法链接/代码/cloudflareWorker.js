@@ -75,7 +75,7 @@ function goUrl(request, url, addHeaders) {
 			fp.headers[h] = addHeaders[h];
 		}
 	}
-	fp.headers['X-forwarded-for']=`${getRndInteger(1,5)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}`;
+	fp.headers['X-forwarded-for']=`${getRndInteger(3,5)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}`;
 	return fetch(url, fp);
 }
 

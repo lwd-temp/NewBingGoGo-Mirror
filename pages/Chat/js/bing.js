@@ -15,6 +15,10 @@ let chatRecordsNameNo = document.getElementById('ChatRecordsNameNo');
 let showChatRecords = document.getElementById('showChatRecords');
 let chatRecordsListDivOut = document.getElementById("ChatRecordsListDivOut");
 let chatRecordsListDiv = document.getElementById("ChatRecordsListDiv");
+let expand  = document.getElementById("expand");
+let cueWordSelectsList = document.getElementById("cueWord-selects-list");
+let cueWordSelected = document.getElementById("cueWord-selected");
+let cueWordSearchInput = document.getElementById("cueWord-search-input");
 var isSaveChatRecords = false;
 var thisChatType;
 
@@ -54,7 +58,7 @@ function addError(message) {
 function addNoPower() {
 	let go = document.createElement('div');
 	go.classList.add('NoPower');
-	go.innerHTML = '点击尝试申请加入候补名单获取NewBing聊天权限';
+	go.innerText = '>>> 点击尝试申请加入候补名单获取NewBing聊天权限 <<<';
 	chat.appendChild(go);
 	go.onclick = () => {
 		if (go.geting) {
@@ -70,6 +74,17 @@ function addNoPower() {
 			go.innerHTML = '发生错误：' + rett.message;
 		});
 	}
+}
+
+//添加去登录按钮
+function addNoLogin(){
+	let go = document.createElement('a');
+	go.classList.add('NoPower');
+	go.innerText = '>>> 点击跳转到登录页面 <<<';
+	go.style.display = 'block';
+	chat.appendChild(go);
+	go.href = 'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&id=264960&wreply=https%3A%2F%2Fcn.bing.com%2Fsecure%2FPassport.aspx%3Fedge_suppress_profile_switch%3D1%26requrl%3Dhttps%253a%252f%252fcn.bing.com%252f%253fwlexpsignin%253d1&wp=MBI_SSL&lc=2052&aadredir=1';
+	go.target = '_blank';
 }
 
 let onMessageIsOKClose = false;
@@ -105,6 +120,10 @@ function onMessage(json, returnMessage) {
 
 //回车键发送 ctrl+回车换行
 input_text.addEventListener('keydown', (event) => {
+	//如果是展开状态就使用默认换行逻辑
+	if (expand.classList.contains('open')) {
+		return;
+	}
 	if (event.key === 'Enter' && !event.altKey) {
 		event.preventDefault();
 		//调用发送消息的函数
@@ -205,6 +224,9 @@ async function send(text) {
 			if (r.type == 'NoPower') {
 				addNoPower();
 			}
+			if(r.type == 'NoLogin'){
+				addNoLogin();
+			}
 			isSpeakingFinish();
 			return;
 		}
@@ -227,12 +249,23 @@ send_button.onclick = () => {
 	}
 	let text = input_text.value;
 	input_text.value = '';
+	//连接提示词
+	text = text+getCutWordString();
+	//清空提示词
+	clearCutWordString();
+
+	//显示逻辑
 	input_update_input_text_sstyle_show_update({ target: input_text });
 	if (!text) {
 		alert('什么都没有输入呀！');
 		return;
 	}
+
+	//发送
 	send(text);
+
+	//关闭大输入框
+	expand.classList.remove('open');
 };
 
 //开始新主题
@@ -503,12 +536,118 @@ showChatRecords.onclick = () => {
 	reloadChatRecordsList();
 }
 
+//展开和缩小输入框
+expand.onclick = ()=>{
+	if (!expand.classList.contains('open')) {
+		expand.classList.add('open');
+		return;
+	}
+	expand.classList.remove('open');
+}
+//添加和删除提示词
+//添加提示词
+cueWordSelectsList.onclick = (exent)=>{
+	if(exent.target.parentElement == cueWordSelectsList){
+		cueWordSelected.appendChild(exent.target);
+		//exent.target.style.display = 'inline-block';
+	}
+}
+//取消选择提示词
+cueWordSelected.onclick = (exent)=>{
+	if(exent.target.parentElement == cueWordSelected){
+		cueWordSelectsList.appendChild(exent.target);
+	}
+}
+//搜索提示词
+cueWordSearchInput.oninput = ()=>{
+	let lis = cueWordSelectsList.getElementsByTagName("li");
+	let text = cueWordSearchInput.value;
+	for(let i=0;i<lis.length;i++){
+		let li = lis[i];
+		let show = false;
+		if(!text){
+			show = true;
+		}
+		if(li.innerHTML.indexOf(text)>=0){
+			show = true;
+		}
+		if(li.dataset.word){
+			if(li.dataset.word.indexOf(text)>=0){
+				show = true;
+			}
+		}
+		if(li.dataset.tags){
+			if(li.dataset.tags.indexOf(text)>=0){
+				show = true;
+			}
+		}
+		if(show){
+			li.style.display = 'inline-block';
+		}else{
+			li.style.display = 'none';
+		}
+	}
+}
+
+//清空已选择的提示词
+function clearCutWordString(){
+	let lis = cueWordSelected.getElementsByTagName("li");
+	for(let i=lis.length-1;i>=0;i--){
+		let li = lis[i];
+		cueWordSelectsList.appendChild(li);
+	}
+}
+
+//获取提示词文本
+function getCutWordString(){
+	let lis = cueWordSelected.getElementsByTagName("li");
+	let string = '';
+	for(let i=0;i<lis.length;i++){
+		let li = lis[i];
+		string = string+";"+li.dataset.word;
+	}
+	return string;
+}
+
+//加载提示词,从本地和网络
+async function loadcueWorld(){
+	try{
+		let re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/master/cueWorld.json');
+		let cueWords = await re.json();
+		for(let i=0;i<cueWords.length;i++){
+			let cue = cueWords[i];
+			let li = document.createElement('li');
+	
+			//加载tags
+			let tags = cue.tags;
+			let tagsString = '';
+			for(let j=0;j<tags.length;j++){
+				let tag = tags[j];
+				tagsString = tagsString+tag+'|'
+			}
+			li.dataset.tags = tagsString;
+	
+			//加载word
+			li.dataset.word = cue.word;
+			//加载name
+			li.innerText = cue.name;
+	
+			cueWordSelectsList.appendChild(li);
+		}
+	}catch(r){
+		console.warn(r);
+	}
+	
+}
+
+
 
 
 //页面加载完成之后执行
 window.addEventListener('load',()=>{
 	reSetStartChatMessage();
 	input_update_input_text_sstyle_show_update({ target: input_text });
+	loadcueWorld();
 });
 
 

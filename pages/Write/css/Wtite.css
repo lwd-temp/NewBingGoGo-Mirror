@@ -160,6 +160,7 @@
 
 #chat>.my,
 #chat>.bing>.InternalSearchQuery,
+#chat>.bing>.InternalLoaderMessage,
 #chat>.bing>.sourceAttributions {
     display: none;
 }

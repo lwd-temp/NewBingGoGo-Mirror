@@ -350,6 +350,7 @@ div#cueWord-search{
     border-radius: 1rem;
     align-self: center;
     margin-top: 0.5rem;
+    border: 1px solid #0000002e;
 }
 #cueWord-search-input{
     background-color: #00000000;
@@ -361,17 +362,55 @@ div#cueWord-search{
 }
 #cueWord-selects{
     flex: 1;
+    height: 100%;
+    overflow: auto;
     background-color: #ffffff75;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     flex-wrap: nowrap;
+    border: 1px solid #0000002e;
 }
 #cueWord-selected{
-    height: 2rem;
+    min-height: 2rem;
     background-color: #ffffff75;
     border-radius: 1rem;
+    border: 1px solid #0000002e;
+    flex: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 0.5rem;
+}
+#cueWord-selects-list{
+    overflow: auto;
+    height: 100%;
+    flex: 1;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    align-content: flex-start;
+}
+#cueWord-selected>li,
+#cueWord-selects-list>li{
+    list-style: none;
+    background-color: #ffffffb1;
+    border-radius: 1rem;
+    height: 2rem;
+    line-height: 2rem;
+    margin: 0rem 0.3rem 0.5rem 0.3rem;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+
+#cueWord-selects-list>li:hover{
+    cursor: pointer;
+    background-color: #ffffff;
 }
 
 @media screen and (max-height:52rem){

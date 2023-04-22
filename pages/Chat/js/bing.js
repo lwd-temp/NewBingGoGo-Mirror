@@ -249,11 +249,16 @@ send_button.onclick = () => {
 	}
 	let text = input_text.value;
 	input_text.value = '';
+	//连接提示词
+	text = text+getCutWordString();
+	//显示逻辑
 	input_update_input_text_sstyle_show_update({ target: input_text });
 	if (!text) {
 		alert('什么都没有输入呀！');
 		return;
 	}
+
+	//发送
 	send(text);
 };
 
@@ -560,8 +565,8 @@ cueWordSearchInput.oninput = ()=>{
 		if(li.innerHTML.indexOf(text)>=0){
 			show = true;
 		}
-		if(li.dataset.world){
-			if(li.dataset.world.indexOf(text)>=0){
+		if(li.dataset.word){
+			if(li.dataset.word.indexOf(text)>=0){
 				show = true;
 			}
 		}
@@ -577,9 +582,42 @@ cueWordSearchInput.oninput = ()=>{
 		}
 	}
 }
+
+//获取提示词文本
+function getCutWordString(){
+	let lis = cueWordSelected.getElementsByTagName("li");
+	let string = '';
+	for(let i=0;i<lis.length;i++){
+		let li = lis[i];
+		string = ";"+li.dataset.word;
+	}
+	return string;
+}
+
 //加载提示词,从本地和网络
 async function loadcueWorld(){
+	let re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/dev/cueWorld.json');
+	let cueWords = await re.json();
+	for(let i=0;i<cueWords.length;i++){
+		let cue = cueWords[i];
+		let li = document.createElement('li');
 
+		//加载tags
+		let tags = cue.tags;
+		let tagsString = '';
+		for(let j=0;j<tags.length;j++){
+			let tag = tags[j];
+			tagsString = tagsString+tag+'|'
+		}
+		li.dataset.tags = tagsString;
+
+		//加载word
+		li.dataset.word = cue.word;
+		//加载name
+		li.innerText = cue.name;
+
+		cueWordSelectsList.appendChild(li);
+	}
 }
 
 

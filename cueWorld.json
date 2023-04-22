@@ -2,126 +2,121 @@
     {
         "name":"角色扮演",
         "tags":["聊天","对话"],
-        "world":"act_as"
+        "word":"act_as"
     },
     {
         "name":"生成字符画",
         "tags":["聊天","对话","绘画","画图"],
-        "world":"ascii_art"
+        "word":"ascii_art"
     },
     {
-        "name":"生成代码",
-        "tags":["聊天","对话","代码"],
-        "world":"act_as"
-    },
-    {
-        "name":"java",
+        "name":"生成java代码",
         "tags":["代码"],
-        "world":"java"
+        "word":"act_as;java"
     },
     {
-        "name":"python",
+        "name":"生成python代码",
         "tags":["代码"],
-        "world":"python"
+        "word":"act_as;python"
     },
     {
         "name":"画图",
         "tags":["画图","绘画"],
-        "world":"draw"
+        "word":"draw"
     },
     {
         "name":"线条风格",
         "tags":["画图","绘画","风格"],
-        "world":"line-art"
+        "word":"line-art"
     },
     {
         "name":"emoji表情",
         "tags":["表情"],
-        "world":"emoji"
+        "word":"emoji"
     },
     {
         "name":"强制搜索",
         "tags":["搜索","对话"],
-        "world":"force_search"
+        "word":"force_search"
     },
     {
         "name":"打招呼",
         "tags":["对哈"],
-        "world":"hi"
+        "word":"hi"
     },
     {
         "name":"提问:如何..",
         "tags":["对话","提问"],
-        "world":"how_to"
+        "word":"how_to"
     },
     {
         "name":"玩游戏",
         "tags":["对话","娱乐"],
-        "world":"let's_play"
+        "word":"let's_play"
     },
     {
         "name":"不搜索",
         "tags":["对话","搜索"],
-        "world":"no_search"
+        "word":"no_search"
     },
     {
         "name":"生成大纲",
         "tags":["生成","写作"],
-        "world":"outline"
+        "word":"outline"
     },
     {
         "name":"仅输出代码",
         "tags":["条件"],
-        "world":"output the result only code"
+        "word":"output the result only code"
     },
     {
         "name":"仅输出表情",
         "tags":["条件"],
-        "world":"output the result only emoji"
+        "word":"output the result only emoji"
     },
     {
         "name":"美丽的",
         "tags":["画图","绘画"],
-        "world":"photograph"
+        "word":"photograph"
     },
     {
         "name":"答题",
         "tags":["对话"],
-        "world":"quiz"
+        "word":"quiz"
     },
     {
         "name":"找类似的东西",
         "tags":["对话","聊天"],
-        "world":"similar_to"
+        "word":"similar_to"
     },
     {
         "name":"指定搜索",
         "tags":["对话","聊天","搜索"],
-        "world":"search_query"
+        "word":"search_query"
     },
     {
         "name":"翻译",
         "tags":["翻译"],
-        "world":"translate"
+        "word":"translate"
     },
     {
         "name":"英文",
         "tags":["翻译"],
-        "world":"English"
+        "word":"English"
     },
     {
         "name":"中文",
         "tags":["翻译"],
-        "world":"Chinese"
+        "word":"Chinese"
     },
     {
         "name":"定义主题",
         "tags":["对话","聊天","定义"],
-        "world":"topic"
+        "word":"topic"
     },
     {
         "name":"比较",
         "tags":["对话","聊天","对比","评测"],
-        "world":"vs"
+        "word":"vs"
     }
 ]

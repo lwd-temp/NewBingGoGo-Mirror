@@ -611,28 +611,33 @@ function getCutWordString(){
 
 //加载提示词,从本地和网络
 async function loadcueWorld(){
-	let re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/master/cueWorld.json');
-	let cueWords = await re.json();
-	for(let i=0;i<cueWords.length;i++){
-		let cue = cueWords[i];
-		let li = document.createElement('li');
-
-		//加载tags
-		let tags = cue.tags;
-		let tagsString = '';
-		for(let j=0;j<tags.length;j++){
-			let tag = tags[j];
-			tagsString = tagsString+tag+'|'
+	try{
+		let re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/master/cueWorld.json');
+		let cueWords = await re.json();
+		for(let i=0;i<cueWords.length;i++){
+			let cue = cueWords[i];
+			let li = document.createElement('li');
+	
+			//加载tags
+			let tags = cue.tags;
+			let tagsString = '';
+			for(let j=0;j<tags.length;j++){
+				let tag = tags[j];
+				tagsString = tagsString+tag+'|'
+			}
+			li.dataset.tags = tagsString;
+	
+			//加载word
+			li.dataset.word = cue.word;
+			//加载name
+			li.innerText = cue.name;
+	
+			cueWordSelectsList.appendChild(li);
 		}
-		li.dataset.tags = tagsString;
-
-		//加载word
-		li.dataset.word = cue.word;
-		//加载name
-		li.innerText = cue.name;
-
-		cueWordSelectsList.appendChild(li);
+	}catch(r){
+		console.warn(r);
 	}
+	
 }
 
 

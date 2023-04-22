@@ -260,6 +260,9 @@ send_button.onclick = () => {
 
 	//发送
 	send(text);
+
+	//关闭大输入框
+	expand.classList.remove('open');
 };
 
 //开始新主题
@@ -589,7 +592,7 @@ function getCutWordString(){
 	let string = '';
 	for(let i=0;i<lis.length;i++){
 		let li = lis[i];
-		string = ";"+li.dataset.word;
+		string = string+";"+li.dataset.word;
 	}
 	return string;
 }

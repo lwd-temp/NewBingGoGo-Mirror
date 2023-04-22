@@ -95,19 +95,14 @@
         "word":"search_query"
     },
     {
-        "name":"翻译",
+        "name":"翻译成英文",
         "tags":["翻译"],
-        "word":"translate"
+        "word":"translate;English"
     },
     {
-        "name":"英文",
+        "name":"翻译成中文",
         "tags":["翻译"],
-        "word":"English"
-    },
-    {
-        "name":"中文",
-        "tags":["翻译"],
-        "word":"Chinese"
+        "word":"translate;Chinese"
     },
     {
         "name":"定义主题",

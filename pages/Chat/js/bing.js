@@ -565,6 +565,11 @@ cueWordSearchInput.oninput = ()=>{
 				show = true;
 			}
 		}
+		if(li.dataset.tags){
+			if(li.dataset.tags.indexOf(text)>=0){
+				show = true;
+			}
+		}
 		if(show){
 			li.style.display = 'inline-block';
 		}else{

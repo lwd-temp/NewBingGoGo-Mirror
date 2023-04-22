@@ -15,6 +15,7 @@ let chatRecordsNameNo = document.getElementById('ChatRecordsNameNo');
 let showChatRecords = document.getElementById('showChatRecords');
 let chatRecordsListDivOut = document.getElementById("ChatRecordsListDivOut");
 let chatRecordsListDiv = document.getElementById("ChatRecordsListDiv");
+let expand  = document.getElementById("expand");
 var isSaveChatRecords = false;
 var thisChatType;
 
@@ -54,7 +55,7 @@ function addError(message) {
 function addNoPower() {
 	let go = document.createElement('div');
 	go.classList.add('NoPower');
-	go.innerHTML = '点击尝试申请加入候补名单获取NewBing聊天权限';
+	go.innerText = '>>> 点击尝试申请加入候补名单获取NewBing聊天权限 <<<';
 	chat.appendChild(go);
 	go.onclick = () => {
 		if (go.geting) {
@@ -70,6 +71,17 @@ function addNoPower() {
 			go.innerHTML = '发生错误：' + rett.message;
 		});
 	}
+}
+
+//添加去登录按钮
+function addNoLogin(){
+	let go = document.createElement('a');
+	go.classList.add('NoPower');
+	go.innerText = '>>> 点击跳转到登录页面 <<<';
+	go.style.display = 'block';
+	chat.appendChild(go);
+	go.href = 'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&id=264960&wreply=https%3A%2F%2Fcn.bing.com%2Fsecure%2FPassport.aspx%3Fedge_suppress_profile_switch%3D1%26requrl%3Dhttps%253a%252f%252fcn.bing.com%252f%253fwlexpsignin%253d1&wp=MBI_SSL&lc=2052&aadredir=1';
+	go.target = '_blank';
 }
 
 let onMessageIsOKClose = false;
@@ -105,6 +117,10 @@ function onMessage(json, returnMessage) {
 
 //回车键发送 ctrl+回车换行
 input_text.addEventListener('keydown', (event) => {
+	//如果是展开状态就使用默认换行逻辑
+	if (expand.classList.contains('open')) {
+		return;
+	}
 	if (event.key === 'Enter' && !event.altKey) {
 		event.preventDefault();
 		//调用发送消息的函数
@@ -204,6 +220,9 @@ async function send(text) {
 			addError(r.message);
 			if (r.type == 'NoPower') {
 				addNoPower();
+			}
+			if(r.type == 'NoLogin'){
+				addNoLogin();
 			}
 			isSpeakingFinish();
 			return;
@@ -501,6 +520,16 @@ showChatRecords.onclick = () => {
 	chatRecordsListDivOut.classList.remove('notShow');
 	//加载聊天记录列表
 	reloadChatRecordsList();
+}
+
+//展开和缩小输入框
+
+expand.onclick = ()=>{
+	if (!expand.classList.contains('open')) {
+		expand.classList.add('open');
+		return;
+	}
+	expand.classList.remove('open');
 }
 
 

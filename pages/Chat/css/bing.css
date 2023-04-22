@@ -327,7 +327,7 @@ body:has(.my) #restart {
     flex-wrap: nowrap;
     align-items: stretch;
     opacity: 0;
-    background-color: rgb(255 255 255 / 20%);
+    background-color: rgba(182,196,255,20%);
     border-radius: 1rem;
     backdrop-filter: blur(10px);
 }
@@ -407,7 +407,7 @@ div#cueWord-search{
     font-size: 0.7rem;
     white-space: nowrap;
 }
-
+#cueWord-selected>li:hover,
 #cueWord-selects-list>li:hover{
     cursor: pointer;
     background-color: #ffffff;

@@ -16,6 +16,9 @@ let showChatRecords = document.getElementById('showChatRecords');
 let chatRecordsListDivOut = document.getElementById("ChatRecordsListDivOut");
 let chatRecordsListDiv = document.getElementById("ChatRecordsListDiv");
 let expand  = document.getElementById("expand");
+let cueWordSelectsList = document.getElementById("cueWord-selects-list");
+let cueWordSelected = document.getElementById("cueWord-selected");
+let cueWordSearchInput = document.getElementById("cueWord-search-input");
 var isSaveChatRecords = false;
 var thisChatType;
 
@@ -523,7 +526,6 @@ showChatRecords.onclick = () => {
 }
 
 //展开和缩小输入框
-
 expand.onclick = ()=>{
 	if (!expand.classList.contains('open')) {
 		expand.classList.add('open');
@@ -531,6 +533,50 @@ expand.onclick = ()=>{
 	}
 	expand.classList.remove('open');
 }
+//添加和删除提示词
+//添加提示词
+cueWordSelectsList.onclick = (exent)=>{
+	if(exent.target.parentElement == cueWordSelectsList){
+		cueWordSelected.appendChild(exent.target);
+		//exent.target.style.display = 'inline-block';
+	}
+}
+//取消选择提示词
+cueWordSelected.onclick = (exent)=>{
+	if(exent.target.parentElement == cueWordSelected){
+		cueWordSelectsList.appendChild(exent.target);
+	}
+}
+//搜索提示词
+cueWordSearchInput.oninput = ()=>{
+	let lis = cueWordSelectsList.getElementsByTagName("li");
+	let text = cueWordSearchInput.value;
+	for(let i=0;i<lis.length;i++){
+		let li = lis[i];
+		let show = false;
+		if(!text){
+			show = true;
+		}
+		if(li.innerHTML.indexOf(text)>=0){
+			show = true;
+		}
+		if(li.dataset.world){
+			if(li.dataset.world.indexOf(text)>=0){
+				show = true;
+			}
+		}
+		if(show){
+			li.style.display = 'inline-block';
+		}else{
+			li.style.display = 'none';
+		}
+	}
+}
+//加载提示词,从本地和网络
+async function loadcueWorld(){
+
+}
+
 
 
 
@@ -538,6 +584,7 @@ expand.onclick = ()=>{
 window.addEventListener('load',()=>{
 	reSetStartChatMessage();
 	input_update_input_text_sstyle_show_update({ target: input_text });
+	loadcueWorld();
 });
 
 

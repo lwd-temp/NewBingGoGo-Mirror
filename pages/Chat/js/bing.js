@@ -251,6 +251,9 @@ send_button.onclick = () => {
 	input_text.value = '';
 	//连接提示词
 	text = text+getCutWordString();
+	//清空提示词
+	clearCutWordString();
+
 	//显示逻辑
 	input_update_input_text_sstyle_show_update({ target: input_text });
 	if (!text) {
@@ -583,6 +586,15 @@ cueWordSearchInput.oninput = ()=>{
 		}else{
 			li.style.display = 'none';
 		}
+	}
+}
+
+//清空已选择的提示词
+function clearCutWordString(){
+	let lis = cueWordSelected.getElementsByTagName("li");
+	for(let i=lis.length-1;i>=0;i--){
+		let li = lis[i];
+		cueWordSelectsList.appendChild(li);
 	}
 }
 

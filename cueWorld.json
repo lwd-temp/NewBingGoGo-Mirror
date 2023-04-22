@@ -12,12 +12,12 @@
     {
         "name":"生成java代码",
         "tags":["代码"],
-        "word":"act_as;java"
+        "word":"code-generator;java"
     },
     {
         "name":"生成python代码",
         "tags":["代码"],
-        "word":"act_as;python"
+        "word":"code-generator;python"
     },
     {
         "name":"画图",

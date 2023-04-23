@@ -5,19 +5,29 @@
         "word":"act_as"
     },
     {
+        "name":"翻译成英文",
+        "tags":["翻译"],
+        "word":"translate;English"
+    },
+    {
+        "name":"翻译成中文",
+        "tags":["翻译"],
+        "word":"translate;Chinese"
+    },
+    {
         "name":"生成字符画",
         "tags":["聊天","对话","绘画","画图"],
         "word":"ascii_art"
     },
     {
-        "name":"生成java代码",
-        "tags":["代码"],
-        "word":"code-generator;java"
+        "name":"不搜索",
+        "tags":["对话","搜索"],
+        "word":"no_search"
     },
     {
-        "name":"生成python代码",
-        "tags":["代码"],
-        "word":"code-generator;python"
+        "name":"强制搜索",
+        "tags":["搜索","对话"],
+        "word":"force_search"
     },
     {
         "name":"生成线条风格图片",
@@ -25,14 +35,29 @@
         "word":"draw;line-art"
     },
     {
+        "name":"生成java代码",
+        "tags":["代码"],
+        "word":"code-generator;java"
+    },
+    {
+        "name":"生成C++代码",
+        "tags":["代码"],
+        "word":"code-generator;C++"
+    },
+    {
+        "name":"生成Go语言代码",
+        "tags":["代码"],
+        "word":"code-generator;Golang"
+    },
+    {
+        "name":"生成python代码",
+        "tags":["代码"],
+        "word":"code-generator;python"
+    },
+    {
         "name":"emoji表情",
         "tags":["表情"],
         "word":"emoji"
-    },
-    {
-        "name":"强制搜索",
-        "tags":["搜索","对话"],
-        "word":"force_search"
     },
     {
         "name":"打招呼",
@@ -48,11 +73,6 @@
         "name":"玩游戏",
         "tags":["对话","娱乐"],
         "word":"let's_play"
-    },
-    {
-        "name":"不搜索",
-        "tags":["对话","搜索"],
-        "word":"no_search"
     },
     {
         "name":"生成大纲",
@@ -86,18 +106,8 @@
     },
     {
         "name":"指定搜索",
-        "tags":["对话","聊天","搜索"],
+        "tags":["搜索"],
         "word":"search_query"
-    },
-    {
-        "name":"翻译成英文",
-        "tags":["翻译"],
-        "word":"translate;English"
-    },
-    {
-        "name":"翻译成中文",
-        "tags":["翻译"],
-        "word":"translate;Chinese"
     },
     {
         "name":"定义主题",
@@ -106,7 +116,7 @@
     },
     {
         "name":"作比较",
-        "tags":["对话","聊天","对比","评测"],
+        "tags":["对比","评测"],
         "word":"vs"
     }
 ]

@@ -236,7 +236,7 @@ body:has(.my) #restart {
 
 #expand{
     font-size: 1rem;
-    transform:rotate(-90deg);
+    transform:rotate(270deg);
     margin-top: 0.5rem;
     transition: transform 0.5s;
     cursor: pointer;

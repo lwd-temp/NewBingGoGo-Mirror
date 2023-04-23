@@ -1,6 +1,6 @@
 [
     {
-        "name":"角色扮演",
+        "name":"扮演一个角色",
         "tags":["聊天","对话"],
         "word":"act_as"
     },
@@ -20,14 +20,9 @@
         "word":"code-generator;python"
     },
     {
-        "name":"画图",
+        "name":"生成线条风格图片",
         "tags":["画图","绘画"],
-        "word":"draw"
-    },
-    {
-        "name":"线条风格",
-        "tags":["画图","绘画","风格"],
-        "word":"line-art"
+        "word":"draw;line-art"
     },
     {
         "name":"emoji表情",
@@ -75,7 +70,7 @@
         "word":"output the result only emoji"
     },
     {
-        "name":"美丽的",
+        "name":"使生成的图片更好看",
         "tags":["画图","绘画"],
         "word":"photograph"
     },
@@ -110,7 +105,7 @@
         "word":"topic"
     },
     {
-        "name":"比较",
+        "name":"作比较",
         "tags":["对话","聊天","对比","评测"],
         "word":"vs"
     }

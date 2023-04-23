@@ -612,7 +612,7 @@ function getCutWordString(){
 //加载提示词,从本地和网络
 async function loadcueWorld(){
 	try{
-		let re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/master/cueWorld.json');
+		let re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/master/cueWord.json');
 		let cueWords = await re.json();
 		for(let i=0;i<cueWords.length;i++){
 			let cue = cueWords[i];

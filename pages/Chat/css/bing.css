@@ -236,7 +236,7 @@ body:has(.my) #restart {
 
 #expand{
     font-size: 1rem;
-    transform:rotate(-90deg);
+    transform:rotate(270deg);
     margin-top: 0.5rem;
     transition: transform 0.5s;
     cursor: pointer;
@@ -252,6 +252,11 @@ body:has(.my) #restart {
     align-items: center;
     justify-content: space-between;
     height: 100%;
+}
+#cueWord-selects-h3{
+    margin: 0;
+    margin-top: 0.5rem;
+    text-align: center;
 }
 
 #send {

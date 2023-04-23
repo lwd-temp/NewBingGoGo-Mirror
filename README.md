@@ -1,6 +1,12 @@
 # NewBingGoGo : 简单开始和NewBing聊天
 一个基于微软ChatGTP GTP4的NewBing接口的浏览器AI对话插件。提供了好看的对话页面。实现了NewBing的大多数功能，还添加了一些自己的特色功能。开源免费，国内可用！
 
+## 精简Web版本
+如果你是一个喜欢分享的折腾爱好者，可以试试这个精简版，无需安装插件就可以分享给他人使用。这个几乎兼容所有浏览器！
+
+. >>> [NewBingGoGo-Web](https://github.com/jianjianai/NewBingGoGo-Web) <<<
+
+
 ## 主要功能展示
 ### 聊天功能
 聊天实现了NewBing的大多数功能，搜索，画图，天气，地图等等。

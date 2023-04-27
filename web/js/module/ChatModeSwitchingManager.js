@@ -60,19 +60,22 @@ class ChatModeSwitchingManager{
             this.chatTypeChoseCreate.classList.add('Chose');
             this.chatTypeChoseBalance.classList.remove('Chose');
             this.chatTypeChoseAccurate.classList.remove('Chose');
-            this.backgroundDIV.className = 'a';
+            this.backgroundDIV.classList.remove('b','c');
+            this.backgroundDIV.classList.add('a');
         } else if (chatType === ChatModeSwitchingManager.ChatType.balance) {//平衡
             this.thisChatType = ChatModeSwitchingManager.ChatType.balance;
             this.chatTypeChoseCreate.classList.remove('Chose');
             this.chatTypeChoseBalance.classList.add('Chose');
             this.chatTypeChoseAccurate.classList.remove('Chose');
-            this.backgroundDIV.className = 'b';
+            this.backgroundDIV.classList.remove('a','c');
+            this.backgroundDIV.classList.add('b');
         } else if (chatType === ChatModeSwitchingManager.ChatType.accurate) {//精确的
             this.thisChatType = ChatModeSwitchingManager.ChatType.accurate;
             this.chatTypeChoseCreate.classList.remove('Chose');
             this.chatTypeChoseBalance.classList.remove('Chose');
             this.chatTypeChoseAccurate.classList.add('Chose');
-            this.backgroundDIV.className = 'c';
+            this.backgroundDIV.classList.remove('a','b');
+            this.backgroundDIV.classList.add('c');
         } else {
             console.warn("错误的聊天类型", chatType);
             return;

@@ -6,36 +6,40 @@ self.addEventListener("fetch",function(event) {
 });
 
 async function handleRequest(request){
-
-    let url = urlToOder(request.url);
-    if(url==='/web/resource/CueWord.json'){
-        return goUrl(request,'https://gitee.com/jja8/NewBingGoGo/raw/master/cueWord.json');
-    }
-    if (url.startsWith('/pages/')||url.startsWith('/web/')||url==='/favicon.ico') { //web请求
-        return goUrl(request,chrome.runtime.getURL(url));
-    }
-    //用于测试
-    if (url.startsWith('/test/')) {
-        let a = url.replace('/test/','');
-        return goUrl(request, a);
-    }
-
-
-    if(url==='/sydney/ChatHubUrl'){ //请求url
-        if(await getChatHubWithMagic()){
-            try {
-                let mUrl = uRLTrue(await getMagicUrl()) ;
-                return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
-            }catch (error){
-                console.warn(error);
-                return getReturnError(error.message);
-            }
-        }else {
-            return new Response(`wss://sydney.bing.com/sydney/ChatHub`);
-        }
-    }
-
     try {
+        let url = urlToOder(request.url);
+        if(url==='/web/resource/CueWord.json'){
+            return goUrl(request,'https://gitee.com/jja8/NewBingGoGo/raw/master/cueWord.json');
+        }
+        if (
+            url.startsWith('/pages/')||
+            url.startsWith('/web/')||
+            url==='/favicon.ico'||
+            url==='/manifest.json'
+        ) { //web请求
+            return goUrl(request,chrome.runtime.getURL(url));
+        }
+        //用于测试
+        if (url.startsWith('/test/')) {
+            let a = url.replace('/test/','');
+            return goUrl(request, a);
+        }
+
+
+        if(url==='/sydney/ChatHubUrl'){ //请求url
+            if(await getChatHubWithMagic()){
+                try {
+                    let mUrl = uRLTrue(await getMagicUrl()) ;
+                    return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
+                }catch (error){
+                    console.warn(error);
+                    return getReturnError(error.message);
+                }
+            }else {
+                return new Response(`wss://sydney.bing.com/sydney/ChatHub`);
+            }
+        }
+
         if (url==='/turing/conversation/create') { //创建聊天
             let re = goUrl(request, `${uRLTrue(await getMagicUrl())}/turing/conversation/create`);
             if((await re).status===404){
@@ -65,7 +69,11 @@ async function handleRequest(request){
         }
     }catch (error){
         console.warn(error);
-        return getReturnError(error.message);
+        if(error.uRLTrueError){
+            return getReturnError(error.message);
+        }else {
+            return getReturnError("无法连接到魔法链接服务:"+error.message);
+        }
     }
 
     return getRedirect('/web/NewBingGoGo.html');
@@ -113,7 +121,9 @@ function uRLTrue(magicUrl) {
         return mu("https://"+magicUrl);
     }
     //如果都不是
-    throw Error("魔法链接不正确，请修改魔法链接！");
+    let error = Error("魔法链接不正确，请修改魔法链接！");
+    error.uRLTrueError = true;
+    throw error;
 }
 
 

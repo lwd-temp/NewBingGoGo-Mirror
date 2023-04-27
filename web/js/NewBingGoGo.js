@@ -5,6 +5,7 @@ import TitleManager from './module/TitleManager.js'
 import ChatModeSwitchingManager from './module/ChatModeSwitchingManager.js'
 import WindowScrolling from "./module/windowScrolling.js";
 import BingChat from './module/BingChat.js';
+import Switch from "./module/Switch.js";
 
 //页面加载完成之后执行
 window.addEventListener('load',()=>{
@@ -16,7 +17,7 @@ window.addEventListener('load',()=>{
         document.getElementById('chat')
     );
     const chatModeSwitchingManager = new ChatModeSwitchingManager(
-        document.getElementById('background'),
+        document.body,
         document.getElementById('chatTypeChoseCreate'),
         document.getElementById('chatTypeChoseBalance'),
         document.getElementById('chatTypeChoseAccurate'),
@@ -34,11 +35,16 @@ window.addEventListener('load',()=>{
         document.getElementById('goGoSubtitle')
     );
 
+    const inputMaxSwitch = new Switch(
+        document.getElementById("expand"),
+        document.getElementById("tail")
+    );
+
     //获取需要用到的元素
     const restart_button = document.getElementById('restart');
     const input_text = document.getElementById('input');
     const send_button = document.getElementById('send');
-    const expand  = document.getElementById("expand");
+
 
     //定义需要用到的变量
     let onMessageIsOKClose = false;//消息是否正常接收完毕
@@ -50,7 +56,7 @@ window.addEventListener('load',()=>{
     //回车键发送 ctrl+回车换行
     input_text.addEventListener('keydown', (event) => {
         //如果是展开状态就使用默认换行逻辑
-        if (expand.classList.contains('open')) {
+        if (inputMaxSwitch.open) {
             return;
         }
         if (event.key === 'Enter' && !event.altKey) {
@@ -178,7 +184,7 @@ window.addEventListener('load',()=>{
         send(text).then();
 
         //关闭大输入框
-        expand.classList.remove('open');
+        inputMaxSwitch.open = false;
     }
     send_button.onclick = onSend;
 
@@ -209,15 +215,6 @@ window.addEventListener('load',()=>{
     input_text.addEventListener("input", input_update_input_text_sstyle_show_update);
 
 
-
-    //展开和缩小输入框
-    expand.onclick = ()=>{
-        if (!expand.classList.contains('open')) {
-            expand.classList.add('open');
-            return;
-        }
-        expand.classList.remove('open');
-    }
 
 
     reSetStartChatMessage().then();

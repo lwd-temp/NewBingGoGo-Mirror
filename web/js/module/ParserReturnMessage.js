@@ -1,3 +1,6 @@
+import generateImages from "./generateImages.js";
+import nBGGFetch from "./nBGGFetch.js";
+
 /**
  * 解析消息的对象
  * */
@@ -199,7 +202,7 @@ class ParserReturnMessage{
         theUrls.append("iframeid",message.messageId);
         let src = url+theUrls.toString();
 
-        fetch(src).then(async (ret)=>{
+        nBGGFetch(src).then(async (ret)=>{
             let html = await ret.text();
             // b_poleContent pc设备  || b_ans b_imgans 移动设备
             if(html.indexOf('class="b_poleContent"')>=0 || html.indexOf('class="b_ans')>=0){
@@ -229,91 +232,30 @@ class ParserReturnMessage{
      * 解析图片生成目前是只有图片
      */
     async generateContentQueryImg(message, father){
-        let theUrls = new URLSearchParams();
-        theUrls.append('re', '1');
-        theUrls.append('showselective', '1');
-        theUrls.append('sude', '1');
-        theUrls.append('kseed', '7500');
-        theUrls.append('SFX', '2');
-        theUrls.append('q', message.text);
-        theUrls.append('iframeid', message.requestId);
-        let theUrl = `${window.location.origin}/images/create?${theUrls.toString()}`;
-        father.innerHTML = `正在生成${message.text}的图片.`;
-
-        try{
-            let response  = await fetch(theUrl,{headers:{"NewBingGoGoWeb":"true"}});
-            let html = (await response.text());
-            let cookieID = response.headers.get('cookieID');
-
-            //如果有错误就输出错误
-            let urr = new RegExp('class="gil_err_mt">([^<>]*)</div>').exec(html);
-            if(urr && urr[1]){
-                father.innerHTML = `<h3>${urr[1]}</h3>`
-                urr = new RegExp('class="gil_err_sbt">(([^<>]*<(a|div)[^<>]*>[^<>]*</(a|div)>[^<>]*)*)</div>').exec(html);
-                if(urr && urr[1]){
-                    father.innerHTML = father.innerHTML+`<p>${urr[1]}</p>`;
-                }
-                return;
-            }
-
-            //如果没错误就匹配链接获取图片
-            urr = new RegExp('"/(images/create/async/results/(\\S*))"').exec(html);
-            if(!urr || !urr[1]){
-                console.log(html);
-                this.addError("请求图片返回不正确的页面，无法加载图片。");
-                return;
-            }
-            let ur = urr[1];
-            ur = ur.replaceAll('&amp;','&');
-            let imgPageHtmlUrl = `${window.location.origin}/${ur}`;
-            let count = 0;
-            let run = async ()=>{
-                father.innerHTML = `正在生成${message.text}的图片.${count}`;
-                if(count>20){
-                    father.innerHTML = "请求图片超时！";
-                    return;
-                }
-                count++;
-                let imgPageHtml;
-                try{
-                    imgPageHtml = (await (await fetch(imgPageHtmlUrl,{headers:{"cookieID":cookieID,"NewBingGoGoWeb":"true"}})).text());
-                }catch(e){
-                    console.error(e);
-                }
-                if(!imgPageHtml){
-                    setTimeout(run,3000);
-                    return;
-                }
-
-                father.innerHTML = '';
-                let theUrls = new URLSearchParams();
-                theUrls.append('createmessage',message.text);
-                let a = document.createElement("a");
-                father.appendChild(a);
-                //用正则找全部图片
-                let allSrc = imgPageHtml.matchAll(/<img[^<>]*src="([^"]*)"[^<>]*>/g);
-                let src = undefined;
-                let ok = false;
-                while(!(src=allSrc.next()).done){
-                    ok =true;
-                    theUrls.append('imgs',src.value[1].split('?')[0]);
-                    let img = document.createElement("img");
-                    img.src = src.value[1];
-                    a.appendChild(img);
-                }
-                if(ok){
-                    a.target = '_blank';
-                    a.href = './imgs.html?'+theUrls.toString();
-                }else{
-                    father.innerHTML = "服务器未正常返回图片！";
-                }
-            }
-            setTimeout(run,3000);
-
-        }catch(e){
-            console.error(e);
-            this.addError("请求图片失败:"+e);
+        father.innerText = `正在生成’${message.text}‘的图片.`
+        let imgs
+        try {
+            imgs = await generateImages(message.text,message.requestId,(v)=>{
+                father.innerText = `正在生成’${message.text}‘的图片.${v}`
+            });
+        }catch (error){
+            console.warn(error);
+            father.innerHTML = error.message;
+            return;
         }
+        let theUrls = new URLSearchParams();
+        theUrls.append('createmessage',message.text);
+        father.innerHTML = '';
+        let a = document.createElement("a");
+        father.appendChild(a);
+        imgs.forEach((v)=>{
+            theUrls.append('imgs',v.img);
+            let img = document.createElement("img");
+            img.src = v.mImg;
+            a.appendChild(img);
+        });
+        a.target = '_blank';
+        a.href = './imgs.html?'+theUrls.toString();
     }
 
     /*

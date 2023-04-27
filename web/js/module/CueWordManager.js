@@ -1,8 +1,10 @@
+import nBGGFetch from "./nBGGFetch.js";
+
 /**
  * 提示词管理器
  * */
 class CueWordManager{
-    url = 'https://gitee.com/jja8/NewBingGoGo/raw/master/cueWord.json'
+    url = './resource/CueWord.json'
     cueWordSelectsList;//提示词列表dom
     cueWordSelected;//已选择的提示词mod
     cueWordSearchInput;//提示词搜索输入框dom
@@ -78,7 +80,7 @@ class CueWordManager{
 //加载提示词,从本地和网络
     async loadcueWorld(){
         try{
-            let re = await fetch(this.url);
+            let re = await nBGGFetch(this.url);
             let cueWords = await re.json();
             for(let i=0;i<cueWords.length;i++){
                 let cue = cueWords[i];

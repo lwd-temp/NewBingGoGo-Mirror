@@ -2,6 +2,7 @@ import SendMessageManager from "./BingChat/SendMessageManager.js";
 import ReturnMessage from "./BingChat/ReturnMessage.js";
 import ChatFirstMessages from "./BingChat/ChatFirstMessages.js";
 import ChatOptionsSets from "./BingChat/ChatOptionsSets.js";
+import nBGGFetch from "./nBGGFetch.js";
 
 /**
  * 用于发送聊天消息和接受消息的对象
@@ -31,8 +32,14 @@ class BingChating {
      */
     //(string,function:可以不传)
     async sendMessage(message, onMessage) {
+        let restsrstUrl;
+        if(window.location.protocol==='http:'||window.location.protocol==='https:'){
+            restsrstUrl = `${window.location.origin.replace('http','ws')}/sydney/ChatHub`;
+        }else {
+            let re = await nBGGFetch(`${window.location.origin}/sydney/ChatHubUrl`);
+            restsrstUrl = await re.text();
+        }
         try {
-            let restsrstUrl = `${window.location.origin.replace('http','ws')}/sydney/ChatHub`;
             let chatWebSocket = new WebSocket(restsrstUrl);
             chatWebSocket.onopen = () => {
                 this.sendMessageManager.sendShakeHandsJson(chatWebSocket);
@@ -90,10 +97,10 @@ export default class BingChat{
         }
         let res
         try {
-            res = await fetch(`${window.location.origin}/turing/conversation/create`);
+            res = await nBGGFetch(`${window.location.origin}/turing/conversation/create`);
         } catch (e) {
             console.warn(e);
-            throw new Error("无法连接到web服务器，请刷新页面重试:" + e.message);
+            throw e.isNewBingGoGoError?e:new Error("无法连接到web服务器，请刷新页面重试:" + e.message);
         }
         let cookieID = res.headers.get("cookieID");
         let rText = await res.text();
@@ -120,7 +127,7 @@ export default class BingChat{
             error.type = type;
             throw error;
         }
-        this.bingChating = new BingChating(resjson.conversationId, resjson.clientId, resjson.conversationSignature, theChatType);
+        this.bingChating = new BingChating(this,resjson.conversationId, resjson.clientId, resjson.conversationSignature, theChatType);
         return this;
     }
 

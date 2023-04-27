@@ -6,10 +6,9 @@ import ChatModeSwitchingManager from './module/ChatModeSwitchingManager.js'
 import WindowScrolling from "./module/windowScrolling.js";
 import BingChat from './module/BingChat.js';
 
-
-
 //页面加载完成之后执行
 window.addEventListener('load',()=>{
+
     //窗口更新滚动
     new WindowScrolling(document.getElementById('chat'));
     //加载需要用到的对象
@@ -221,9 +220,7 @@ window.addEventListener('load',()=>{
     }
 
 
-
-
-    reSetStartChatMessage();
+    reSetStartChatMessage().then();
     input_update_input_text_sstyle_show_update({ target: input_text });
     cueWordManager.loadcueWorld().then();
 });

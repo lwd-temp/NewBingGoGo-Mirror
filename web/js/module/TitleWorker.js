@@ -1,7 +1,7 @@
 /**
  * 管理标题的对象
  * */
-class TitleManager{
+export default class TitleWorker {
     goGoSubtitleDiv;
     constructor(goGoSubtitleDiv) {
         this.goGoSubtitleDiv = goGoSubtitleDiv;
@@ -51,4 +51,3 @@ class TitleManager{
         this.setSubtitleText('可以啦！来发送下一条消息吧！');
     }
 }
-export default TitleManager;

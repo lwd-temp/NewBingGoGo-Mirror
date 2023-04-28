@@ -1,15 +1,21 @@
 /**
  * 处理发送消息的类
  * */
-class SendMessageManager{
+export default class SendMessageManager {
     bingChat;
     invocationId;
     conversationId;
     clientId;
     conversationSignature;
     optionsSets;
-    //(会话id，客户端id，签名id，是否是开始)
-    //(string,string,string,boolena)
+
+    /**
+     * @param bingChat BingChat对象
+     * @param conversationId 会话id
+     * @param clientId 客户端id
+     * @param conversationSignature 签名id
+     * @param invocationId 对话id，也就是第几次对话
+     */
     constructor(bingChat,conversationId, clientId, conversationSignature,invocationId) {
         this.bingChat = bingChat;
         this.invocationId = invocationId===undefined?1:invocationId;
@@ -19,27 +25,43 @@ class SendMessageManager{
         this.optionsSets = 'balance';
     }
 
-    //chatTypes中的一种
+    /***
+     * 设置聊天类型
+     * @param chatType 聊天类型 accurate 或 balance 或 create
+     */
     setChatType(chatType) {
         this.optionsSets = chatType;
     }
 
-    //发送json数据
+    /**
+     * 发送json数据
+     * @param chatWebSocket
+     * @param json
+     * @return Promise<void>
+     */
     async sendJson(chatWebSocket, json) {
         let go = JSON.stringify(json) + '\u001e';
         await chatWebSocket.send(go);
         console.log('发送', go)
     }
-    //获取用于发送的握手数据
-    //(WebSocket)
+    /**
+     * 获取用于发送的握手数据
+     * @param chatWebSocket WebSocket
+     * @return {Promise<void>}
+     */
     async sendShakeHandsJson(chatWebSocket) {
         await this.sendJson(chatWebSocket, {
             "protocol": "json",
             "version": 1
         });
     }
-    //获取用于发送的聊天数据
-    //(WebSocket,sreing)
+
+    /***
+     * 获取用于发送的聊天数据
+     * @param chatWebSocket WebSocket
+     * @param chat sreing 聊天消息
+     * @return {Promise<void>}
+     */
     async sendChatMessage(chatWebSocket, chat) {
         let optionsSets = this.bingChat.chatOptionsSets.chatTypes[this.optionsSets];
         if(!optionsSets){
@@ -75,4 +97,3 @@ class SendMessageManager{
         return URL.createObjectURL(new Blob()).split('/')[3].replace(/-/g, '');
     }
 }
-export default SendMessageManager;

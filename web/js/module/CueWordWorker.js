@@ -3,7 +3,7 @@ import nBGGFetch from "./nBGGFetch.js";
 /**
  * 提示词管理器
  * */
-class CueWordManager{
+export default class CueWordWorker {
     url = './resource/CueWord.json'
     cueWordSelectsList;//提示词列表dom
     cueWordSelected;//已选择的提示词mod
@@ -107,4 +107,3 @@ class CueWordManager{
         }
     }
 }
-export default CueWordManager;

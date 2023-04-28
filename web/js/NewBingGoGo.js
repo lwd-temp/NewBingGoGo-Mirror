@@ -1,41 +1,41 @@
-import ChatSuggestionsManager from './module/ChatSuggestionsManager.js'
-import CueWordManager from './module/CueWordManager.js'
-import ParserReturnMessage from './module/ParserReturnMessage.js'
-import TitleManager from './module/TitleManager.js'
-import ChatModeSwitchingManager from './module/ChatModeSwitchingManager.js'
-import WindowScrolling from "./module/windowScrolling.js";
-import BingChat from './module/BingChat.js';
-import Switch from "./module/Switch.js";
+import ChatSuggestionsWorker from './module/ChatSuggestionsWorker.js'
+import CueWordWorker from './module/CueWordWorker.js'
+import ParserReturnWorker from './module/ParserReturnWorker.js'
+import TitleWorker from './module/TitleWorker.js'
+import ChatModeSwitchingWorker from './module/ChatModeSwitchingWorker.js'
+import WindowScrollingWorker from "./module/WindowScrollingWorker.js";
+import BingChat from './module/BingChat/BingChat.js';
+import SwitchWorker from "./module/SwitchWorker.js";
 
 //页面加载完成之后执行
 window.addEventListener('load',()=>{
-
     //窗口更新滚动
-    new WindowScrolling(document.getElementById('chat'));
+    new WindowScrollingWorker(document.getElementById('chat'));
+    const bingChat = new BingChat(); //聊天对象 BingChat 对象
     //加载需要用到的对象
-    const parserReturnMessage = new ParserReturnMessage(
+    const parserReturnMessage = new ParserReturnWorker(
         document.getElementById('chat')
     );
-    const chatModeSwitchingManager = new ChatModeSwitchingManager(
+    const chatModeSwitchingManager = new ChatModeSwitchingWorker(
         document.body,
         document.getElementById('chatTypeChoseCreate'),
         document.getElementById('chatTypeChoseBalance'),
         document.getElementById('chatTypeChoseAccurate'),
         document.getElementById('chatTypeDiv')
     );
-    const chatSuggestionsManager = new ChatSuggestionsManager(
+    const chatSuggestionsManager = new ChatSuggestionsWorker(
         document.getElementById('SearchSuggestions')//聊天建议dom
     );
-    const cueWordManager = new CueWordManager(
+    const cueWordManager = new CueWordWorker(
         document.getElementById("cueWord-selects-list"),//提示词列表dom
         document.getElementById("cueWord-selected"),//已选择的提示词mod
         document.getElementById("cueWord-search-input")//提示词搜索输入框dom
     );
-    const titleManager = new TitleManager(
+    const titleManager = new TitleWorker(
         document.getElementById('goGoSubtitle')
     );
 
-    const inputMaxSwitch = new Switch(
+    const inputMaxSwitch = new SwitchWorker(
         document.getElementById("expand"),
         document.getElementById("tail")
     );
@@ -48,7 +48,6 @@ window.addEventListener('load',()=>{
 
     //定义需要用到的变量
     let onMessageIsOKClose = false;//消息是否正常接收完毕
-    const talk = new BingChat(); //聊天对象 BingChat 对象
     let returnMessage; //聊天返回对象
     let isSpeaking = false; //是否正在接收消息
 
@@ -98,8 +97,8 @@ window.addEventListener('load',()=>{
 
     /**重置聊天框和聊天建议到初始状态 */
     async function reSetStartChatMessage(type) {
-        parserReturnMessage.restart(await talk.chatFirstMessages.nextStartProposes(type));
-        chatSuggestionsManager.set(await talk.chatFirstMessages.nextStartProposes());
+        parserReturnMessage.restart(await bingChat.chatFirstMessages.nextStartProposes(type));
+        chatSuggestionsManager.set(await bingChat.chatFirstMessages.nextStartProposes());
         titleManager.restart();
     }
     chatModeSwitchingManager.onChatTypeChange = reSetStartChatMessage;
@@ -139,10 +138,10 @@ window.addEventListener('load',()=>{
         }
         chatModeSwitchingManager.hide();
         parserReturnMessage.addMyChat(text);
-        if (!talk.isStart()) {
+        if (!bingChat.isStart()) {
             isAskingToMagic();
             try {
-                await talk.start(chatModeSwitchingManager.thisChatType);
+                await bingChat.start(chatModeSwitchingManager.thisChatType);
             }catch (error){
                 console.warn(error);
                 parserReturnMessage.addError(error.message);
@@ -152,7 +151,7 @@ window.addEventListener('load',()=>{
         }
         try {
             isSpeakingStart();
-            returnMessage = await talk.sendMessage(text, onMessage);
+            returnMessage = await bingChat.sendMessage(text, onMessage);
             isSpeakingStart(text);
         }catch (error){
             console.warn(error);
@@ -196,7 +195,7 @@ window.addEventListener('load',()=>{
             returnMessage.getCatWebSocket().close(1000, 'ok');
             returnMessage = undefined;
         }
-        talk.end();
+        bingChat.end();
         isSpeakingFinish();
         reSetStartChatMessage().then();
         chatModeSwitchingManager.show();

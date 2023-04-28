@@ -1,7 +1,7 @@
 /**
  * 处理聊天选项的类
  * */
-class ChatOptionsSets{
+export default class ChatOptionsSets{
     //聊天选项
     chatTypes = {
         //更有创造力选项
@@ -195,4 +195,3 @@ class ChatOptionsSets{
         }];
     }
 }
-export default ChatOptionsSets;

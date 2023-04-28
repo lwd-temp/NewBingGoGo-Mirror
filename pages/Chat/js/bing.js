@@ -417,14 +417,14 @@ async function saveChatRecords(name) {
 			html: chat.innerHTML,
 			searchSuggestionsHtml:searchSuggestions.innerHTML
 		};
-		return await ChatRecords.set(conversationId, messobj);
+		return await ChatRecord.set(conversationId, messobj);
 	}
 	return undefined;
 }
 
 //加载聊天记录,成功返回加载的聊天记录，聊天记录不存在返回undefined
 async function loadChatRecords(conversationId) {
-	let chatRecords = await ChatRecords.getAll();
+	let chatRecords = await ChatRecord.getAll();
 	let theRecords = chatRecords[conversationId];
 	if (!theRecords) {
 		return undefined;
@@ -475,7 +475,7 @@ async function autoSaveChatRecords() {
 
 async function reloadChatRecordsList() {
 	chatRecordsListDiv.innerHTML = '';
-	let all = await ChatRecords.getAll();
+	let all = await ChatRecord.getAll();
 	for (let i in all) {
 		let theChat = all[i];
 		let div = document.createElement('div');
@@ -512,7 +512,7 @@ chatRecordsNameNo.onclick = () => {
 	//如果有聊天对象就删除当前聊天对象保存的聊记录
 	if (talk) {
 		let conversationId = talk.sendMessageManager.conversationId;
-		ChatRecords.set(conversationId).then(() => {
+		ChatRecord.set(conversationId).then(() => {
 			reloadChatRecordsList();
 		});
 	}

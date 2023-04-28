@@ -7,7 +7,7 @@ const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
  * @param count 回调函数，获取当前是第几次请求。
  * @return [...{img:url,mImg:url}...] img:图片url mIng:缩略图url
  * */
-async function generateImages(text,requestId,countF){
+export default async function generateImages(text,requestId,countF){
     let theUrls = new URLSearchParams();
     theUrls.append('re', '1');
     theUrls.append('showselective', '1');
@@ -75,5 +75,3 @@ async function generateImages(text,requestId,countF){
         }
     }
 }
-
-export default generateImages;

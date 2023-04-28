@@ -1,8 +1,12 @@
 /**
  * 处理返回消息的类
  * */
-class ReturnMessage {
+export default class ReturnMessage {
     //(WebSocket,function:可以不传)
+    /**
+     * @param catWebSocket 聊天的ebSocket
+     * @param lisin 回调函数
+     */
     constructor(catWebSocket, lisin) {
         this.catWebSocket = catWebSocket;
         this.onMessage = [(v) => {
@@ -59,18 +63,18 @@ class ReturnMessage {
             }
         }
     }
-    /*
-    获取消息WebSocket
-    */
+    /**
+     * 获取当前WebSocket
+     * @return WebSocket
+     */
     getCatWebSocket() {
         return this.catWebSocket;
     }
     /**
-     * 注册收到消息监听器
+     * 注册接收消息的监听器
+     * @param theFun 回调函数
      */
-    //(function(json,ReturnMessage))
     regOnMessage(theFun) {
         this.onMessage[this.onMessage.length] = theFun;
     }
 }
-export default ReturnMessage;

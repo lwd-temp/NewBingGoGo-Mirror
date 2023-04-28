@@ -1,7 +1,7 @@
 /**
  * 元素变化窗口滚动的处理类
  * */
-class WindowScrolling{
+export default class WindowScrollingWorker {
     /**
      * @param element 监听变化的父元素
      * */
@@ -31,5 +31,4 @@ class WindowScrolling{
         });
     }
 }
-export default WindowScrolling;
 

@@ -1,58 +1,7 @@
-import SendMessageManager from "./BingChat/SendMessageManager.js";
-import ReturnMessage from "./BingChat/ReturnMessage.js";
-import ChatFirstMessages from "./BingChat/ChatFirstMessages.js";
-import ChatOptionsSets from "./BingChat/ChatOptionsSets.js";
-import nBGGFetch from "./nBGGFetch.js";
-
-/**
- * 用于发送聊天消息和接受消息的对象
- * 使用 BingChat 创建
- */
-class BingChating {
-    /**
-     * 对象
-     */
-    bingChat;
-    sendMessageManager;
-
-    //theChatType chatTypes变量中的其中一个
-    //invocationId 可以不传
-    //(string,ture|false|'repeat',string,string,string,theChatType,int|undefined)
-    constructor(bingChat,charID, clientId, conversationSignature, theChatType,invocationId) {
-        this.bingChat = bingChat;
-        this.sendMessageManager = new SendMessageManager(bingChat,charID, clientId, conversationSignature,invocationId);
-        if (theChatType) {
-            this.sendMessageManager.setChatType(theChatType);
-        }
-    }
-    /**
-     * 返回 ReturnMessage 抛出异常信息错误
-     * 参数 消息string,当收到消息的函数,当关闭时函数
-     *
-     */
-    //(string,function:可以不传)
-    async sendMessage(message, onMessage) {
-        let restsrstUrl;
-        if(window.location.protocol==='http:'||window.location.protocol==='https:'){
-            restsrstUrl = `${window.location.origin.replace('http','ws')}/sydney/ChatHub`;
-        }else {
-            let re = await nBGGFetch(`${window.location.origin}/sydney/ChatHubUrl`);
-            restsrstUrl = await re.text();
-        }
-        try {
-            let chatWebSocket = new WebSocket(restsrstUrl);
-            chatWebSocket.onopen = () => {
-                this.sendMessageManager.sendShakeHandsJson(chatWebSocket);
-                this.sendMessageManager.sendChatMessage(chatWebSocket, message);
-            }
-            return new ReturnMessage(chatWebSocket, onMessage);
-        } catch (e) {
-            console.warn(e);
-            throw new Error("无法连接到web服务器，请刷新页面重试:" + e.message);
-        }
-    }
-}
-
+import ChatFirstMessages from "./ChatFirstMessages.js";
+import ChatOptionsSets from "./ChatOptionsSets.js";
+import nBGGFetch from "../nBGGFetch.js";
+import BingChating from "./BingChating.js";
 
 export default class BingChat{
     bingChating;
@@ -69,6 +18,7 @@ export default class BingChat{
 
     /**
      * 是否已经开始聊天
+     * @return boolean
      * */
     isStart(){
         return !!this.bingChating;
@@ -78,7 +28,7 @@ export default class BingChat{
      * 发送消息
      * @param text 消息文本
      * @param onMessage 当bing回复时的回调函数
-     * @return  返回消息处接收处理对象 ReturnMessage
+     * @return ReturnMessage
      * */
     sendMessage(text, onMessage){
         if (!this.isStart()){
@@ -90,6 +40,8 @@ export default class BingChat{
     /**
      开始聊天
      @param theChatType 聊天选项 默认平衡
+     @return BingChat
+     @throws Error
      */
     async start(theChatType) {
         if (this.isStart()){

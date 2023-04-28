@@ -11,16 +11,15 @@ let createMessage = document.getElementById('createMessage');
 }
  */
 function getAllQueryStrings() {
-    var result = {};
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
+    const result = {};
+    const query = window.location.search.substring(1);
+    const vars = query.split("&");
     for (var i=0; i<vars.length; i++) {
-        var pair = vars[i].split("=");
+        const pair = vars[i].split("=");
         if (typeof result[pair[0]] === "undefined") {
             result[pair[0]] = decodeURIComponent(pair[1]);
         } else if (typeof result[pair[0]] === "string") {
-            var arr = [result[pair[0]], decodeURIComponent(pair[1])];
-            result[pair[0]] = arr;
+            result[pair[0]] = [result[pair[0]], decodeURIComponent(pair[1])];
         } else {
             result[pair[0]].push(decodeURIComponent(pair[1]));
         }

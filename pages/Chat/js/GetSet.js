@@ -19,7 +19,7 @@ async function getChatHubWithMagic() {
 	return (await chrome.storage.local.get('ChatHubWithMagic')).ChatHubWithMagic ? true : false;
 }
 
-ChatRecords=new Object();
+ChatRecordManager=new Object();
 //获取全部聊天记录对象
 ChatRecords.getAll = async function() {
 	let chatRecords = (await chrome.storage.local.get('ChatRecordss')).ChatRecordss

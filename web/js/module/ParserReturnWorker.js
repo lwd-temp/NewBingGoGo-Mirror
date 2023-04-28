@@ -4,7 +4,7 @@ import nBGGFetch from "./nBGGFetch.js";
 /**
  * 解析消息的对象
  * */
-class ParserReturnMessage{
+export default class ParserReturnWorker {
     chatDiv;//放置消息的div
     /**
      * @param chatDiv 放置聊天消息的div
@@ -399,4 +399,3 @@ class ParserReturnMessage{
         }
     }
 }
-export default ParserReturnMessage;

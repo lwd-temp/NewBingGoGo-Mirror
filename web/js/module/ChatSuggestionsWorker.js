@@ -1,7 +1,7 @@
 /**
  * 聊天建议管理器
  * */
-class ChatSuggestionsManager{
+export default class ChatSuggestionsWorker {
     searchSuggestions;//聊天建议dom
     constructor(searchSuggestions) {
         this.searchSuggestions = searchSuggestions;
@@ -58,4 +58,3 @@ class ChatSuggestionsManager{
         console.warn(`onSend方法没有被重写！,用户发送'${text}'`);
     }
 }
-export default ChatSuggestionsManager;

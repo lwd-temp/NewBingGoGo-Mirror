@@ -1,7 +1,7 @@
 /**
  * 获取bing第一条消息的类
  * */
-class ChatFirstMessages{
+export default class ChatFirstMessages{
     bingProposes = [
         '教我一个新单词',
         '我需要有关家庭作业的帮助',
@@ -46,6 +46,7 @@ class ChatFirstMessages{
     Proposes = [this.bingProposes[0],this.bingProposes[1],this.bingProposes[2]];
     /**
      获取建议消息
+     @return String[]
      */
     async nextStartProposes(){
         this.Proposes[0] = this.bingProposes[Math.floor(Math.random() * this.bingProposes.length)];
@@ -53,19 +54,25 @@ class ChatFirstMessages{
         this.Proposes[2] = this.bingProposes[Math.floor(Math.random() * this.bingProposes.length)];
         return this.Proposes;
     }
-    /*
+    /**
     获取bing的第一条消息
+     @return string
     */
     async nextStartMessage(){
         return this.StartMessage = this.bingmMessages[Math.floor(Math.random() * this.bingmMessages.length)];
     }
 
+    /**
+     * @return string
+     * */
     getStartMessage(){
         return this.StartMessage;
     }
 
+    /**
+     * @return string[]
+     */
     getStartProposes(){
         return this.Proposes;
     }
 }
-export default ChatFirstMessages;

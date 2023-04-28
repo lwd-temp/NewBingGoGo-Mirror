@@ -1,7 +1,7 @@
 /**
  * 一个开关类
  * */
-class Switch{
+export default class SwitchWorker {
     button;//控制开关的按钮元素
     change;//改变css的元素
     fun;
@@ -43,7 +43,5 @@ class Switch{
         }
     }
 }
-
-export default Switch;
 
 

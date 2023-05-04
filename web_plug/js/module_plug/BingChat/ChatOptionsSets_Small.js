@@ -1,7 +1,9 @@
 /**
  * 处理聊天选项的类
  * */
-export default class ChatOptionsSets{
+import pageText from "../pageText.js";
+
+export default class ChatOptionsSets_Small{
     //聊天选项
     chatTypes = {
         //更有创造力选项
@@ -12,13 +14,14 @@ export default class ChatOptionsSets{
             "responsible_ai_policy_235",
             "enablemm",
             "h3imaginative",
-            "responseos",
             "cachewriteext",
             "e2ecachewrite",
             "nodlcpcwrite",
+            "responseos",
             "travelansgnd",
+            "dl_edge_prompt",
+            "glprompt",
             "dv3sugg",
-            "clgalileo",
             "gencontentv3"
         ],
         //balance 平衡模式选项
@@ -29,33 +32,31 @@ export default class ChatOptionsSets{
             "responsible_ai_policy_235",
             "enablemm",
             "galileo",
-            "responseos",
             "cachewriteext",
             "e2ecachewrite",
             "nodlcpcwrite",
+            "responseos",
             "travelansgnd",
+            "dl_edge_prompt",
+            "glprompt",
             "dv3sugg"
         ],
         //精准选项
         accurate: [
-            "chk1cf",
-            "nopreloadsscf",
-            "winlongmsg2tf",
-            "perfimpcomb",
-            "sugdivdis",
-            "sydnoinputt",
-            "wpcssopt",
-            "wintone2tf",
-            "0404sydicnbs0",
-            "405suggbs0",
-            "scctl",
-            "330uaugs0",
-            "0329resp",
-            "udscahrfon",
-            "udstrblm5",
-            "404e2ewrt",
-            "408nodedups0",
-            "403tvlansgnd"
+            "nlu_direct_response_filter",
+            "deepleo",
+            "disable_emoji_spoken_text",
+            "responsible_ai_policy_235",
+            "enablemm",
+            "h3precise",
+            "cachewriteext",
+            "e2ecachewrite",
+            "nodlcpcwrite",
+            "responseos",
+            "travelansgnd",
+            "dl_edge_prompt",
+            "glprompt",
+            "dv3sugg"
         ]
     }
 
@@ -78,24 +79,24 @@ export default class ChatOptionsSets{
 
 //切片id，也不知道是啥意思，反正官网的更新了
     sliceIds = [
+        "0404sydicnbs0",
+        "185cf",
+        "330uaugs0",
+        "403tvlansgnd",
+        "404e2ewrt",
+        "405suggbs0",
+        "408nodedups0",
+        "afftoalton",
         "chk1cf",
         "nopreloadsscf",
-        "winlongmsg2tf",
         "perfimpcomb",
         "sugdivdis",
         "sydnoinputt",
-        "wpcssopt",
-        "wintone2tf",
-        "0404sydicnbs0",
-        "405suggbs0",
-        "scctl",
-        "330uaugs0",
-        "0329resp",
         "udscahrfon",
         "udstrblm5",
-        "404e2ewrt",
-        "408nodedups0",
-        "403tvlansgnd"
+        "wpcssopt",
+        "0329resp",
+        "scctl"
     ]
 
 
@@ -157,35 +158,20 @@ export default class ChatOptionsSets{
     }
 
     async getPreviousMessages(bingChat){
-        function getUuid() {
-            return URL.createObjectURL(new Blob()).split('/')[3];
-        }
-        let pos = bingChat.chatFirstMessages.getStartProposes();
-        return [{
-            "text": bingChat.chatFirstMessages.getStartMessage(),
-            "author": "bot",
-            "adaptiveCards": [],
-            "suggestedResponses": [{
-                "text": pos[0],
-                "contentOrigin": "DeepLeo",
-                "messageType": "Suggestion",
-                "messageId": getUuid(),
-                "offense": "Unknown"
-            }, {
-                "text": pos[1],
-                "contentOrigin": "DeepLeo",
-                "messageType": "Suggestion",
-                "messageId": getUuid(),
-                "offense": "Unknown"
-            }, {
-                "text": pos[2],
-                "contentOrigin": "DeepLeo",
-                "messageType": "Suggestion",
-                "messageId": getUuid(),
-                "offense": "Unknown"
-            }],
-            "messageId": getUuid(),
-            "messageType": "Chat"
-        }];
+        const get = () => new Promise((resolve) => pageText.update(resolve))
+        //等待获取到页面内容
+        await get();
+        let pagein = pageText.get();
+        return [
+            {
+                "author": "user",
+                "description": pagein.description,
+                "contextType": "WebPage",
+                "messageType": "Context",
+                "messageId": "discover-web--page-ping-mriduna-----",
+                "sourceName": pagein.sourceName,
+                "sourceUrl": pagein.sourceUrl
+            }
+        ];
     }
 }

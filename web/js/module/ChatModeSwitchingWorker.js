@@ -13,7 +13,7 @@ export default class ChatModeSwitchingWorker {
     chatTypeChoseAccurate; //聊天选项精确按钮
     chatTypeDiv; //全部按钮的父元素
     //默认平衡
-    thisChatType = ChatModeSwitchingWorker.ChatType.balance;
+    _chatType = ChatModeSwitchingWorker.ChatType.balance;
     constructor(backgroundDIV,chatTypeChoseCreate,chatTypeChoseBalance,chatTypeChoseAccurate,chatTypeDiv) {
         this.backgroundDIV = backgroundDIV;
         this.chatTypeChoseCreate = chatTypeChoseCreate;
@@ -21,12 +21,25 @@ export default class ChatModeSwitchingWorker {
         this.chatTypeChoseAccurate = chatTypeChoseAccurate;
         this.chatTypeDiv = chatTypeDiv;
 
+        let update = (chatType)=>{
+            if(this._chatType === chatType){
+                return;
+            }
+            let type = ChatModeSwitchingWorker.ChatType[chatType];
+            if(!type){
+                throw new Error("错误的聊天类型:"+chatType);
+            }
+            this._chatType = type;
+            this.updateShow();
+            this.onChatTypeChange(this._chatType,true);
+        }
+
         //创造力模式
         chatTypeChoseCreate.onclick = () => {
             if (chatTypeDiv.style.opacity === '0') {
                 return;
             }
-            this.setChatModType(ChatModeSwitchingWorker.ChatType.create);
+            update(ChatModeSwitchingWorker.ChatType.create);
             //reSetStartChatMessage(ChatModeSwitchingWorker.ChatType.create);
         }
         //平衡模式
@@ -34,7 +47,7 @@ export default class ChatModeSwitchingWorker {
             if (chatTypeDiv.style.opacity === '0') {
                 return;
             }
-            this.setChatModType(ChatModeSwitchingWorker.ChatType.balance);
+            update(ChatModeSwitchingWorker.ChatType.balance);
             // reSetStartChatMessage(ChatModeSwitchingWorker.ChatType.balance);
         }
         //准确模式
@@ -42,54 +55,68 @@ export default class ChatModeSwitchingWorker {
             if (chatTypeDiv.style.opacity === '0') {
                 return;
             }
-            this.setChatModType(ChatModeSwitchingWorker.ChatType.accurate);
+            update(ChatModeSwitchingWorker.ChatType.accurate);
             // reSetStartChatMessage(ChatModeSwitchingWorker.ChatType.accurate);
         }
     }
 
-    //设置聊天模式
+
+    get chatType() {
+        return this._chatType;
+    }
+
     /**
      * @param chatType 聊天选项，ChatModeSwitchingWorker.ChatType中的一种
      * */
-    setChatModType(chatType){
-        if(this.thisChatType === chatType){
+    set chatType(chatType) {
+        if(this._chatType === chatType){
             return;
         }
-        if (chatType === ChatModeSwitchingWorker.ChatType.create) {//有创造力的
-            this.thisChatType = ChatModeSwitchingWorker.ChatType.create;
+        let type = ChatModeSwitchingWorker.ChatType[chatType];
+        if(!type){
+            throw new Error("错误的聊天类型:"+chatType);
+        }
+        this._chatType = type;
+        this.updateShow();
+        this.onChatTypeChange(this._chatType,false);
+    }
+
+    /**
+     * 更新显示
+     * */
+    updateShow(){
+        if (this.chatType === ChatModeSwitchingWorker.ChatType.create) {//有创造力的
             this.chatTypeChoseCreate.classList.add('Chose');
             this.chatTypeChoseBalance.classList.remove('Chose');
             this.chatTypeChoseAccurate.classList.remove('Chose');
             this.backgroundDIV.classList.remove('b','c');
             this.backgroundDIV.classList.add('a');
-        } else if (chatType === ChatModeSwitchingWorker.ChatType.balance) {//平衡
-            this.thisChatType = ChatModeSwitchingWorker.ChatType.balance;
+        } else if (this.chatType === ChatModeSwitchingWorker.ChatType.balance) {//平衡
             this.chatTypeChoseCreate.classList.remove('Chose');
             this.chatTypeChoseBalance.classList.add('Chose');
             this.chatTypeChoseAccurate.classList.remove('Chose');
             this.backgroundDIV.classList.remove('a','c');
             this.backgroundDIV.classList.add('b');
-        } else if (chatType === ChatModeSwitchingWorker.ChatType.accurate) {//精确的
-            this.thisChatType = ChatModeSwitchingWorker.ChatType.accurate;
+        } else if (this.chatType === ChatModeSwitchingWorker.ChatType.accurate) {//精确的
             this.chatTypeChoseCreate.classList.remove('Chose');
             this.chatTypeChoseBalance.classList.remove('Chose');
             this.chatTypeChoseAccurate.classList.add('Chose');
             this.backgroundDIV.classList.remove('a','b');
             this.backgroundDIV.classList.add('c');
         } else {
-            console.warn("错误的聊天类型", chatType);
-            return;
+            console.warn("错误的聊天类型", this.chatType);
         }
-        this.onChatTypeChange(chatType);
     }
+
 
     /**
      * 需要重写
      * 当聊天类型改变时调用
      * @param chatType 新的聊天类型
+     * @param isUser true:是用户通过点击按钮触发   false:chatType=xxx赋值触发
      * */
-    onChatTypeChange(chatType){
-        console.log(`onChatTypeChange方法没有被重写！,聊天类型切换到'${chatType}'`);
+    onChatTypeChange(chatType,isUser){
+        console.debug(`onChatTypeChange方法没有被重写！,聊天类型切换到'${chatType}'`);
     }
 
     /**

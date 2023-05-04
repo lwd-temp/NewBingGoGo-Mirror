@@ -1,13 +1,16 @@
-import ChatFirstMessages from "./ChatFirstMessages.js";
-import ChatOptionsSets from "./ChatOptionsSets.js";
-import nBGGFetch from "../nBGGFetch.js";
+import nBGGFetch from "../aToos/nBGGFetch.js";
 import BingChating from "./BingChating.js";
 
 export default class BingChat{
     bingChating;
-    chatFirstMessages = new ChatFirstMessages();
-    chatOptionsSets = new ChatOptionsSets(this);
+    chatFirstMessages;//ChatFirstMessages 对象
+    chatOptionsSets;//chatOptionsSets对象
 
+
+    constructor(chatFirstMessages, chatOptionsSets) {
+        this.chatFirstMessages = chatFirstMessages;
+        this.chatOptionsSets = chatOptionsSets;
+    }
 
     /**
      * 结束当前会话
@@ -79,7 +82,7 @@ export default class BingChat{
             error.type = type;
             throw error;
         }
-        this.bingChating = new BingChating(this,resjson.conversationId, resjson.clientId, resjson.conversationSignature, theChatType);
+        this.bingChating = BingChating.create(this,resjson.conversationId, resjson.clientId, resjson.conversationSignature, theChatType);
         return this;
     }
 

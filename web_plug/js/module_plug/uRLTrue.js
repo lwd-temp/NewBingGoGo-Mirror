@@ -1,7 +1,7 @@
 /**
  * 检查魔法链接是否正确
  * */
-function uRLTrue(magicUrl) {
+export default function uRLTrue(magicUrl) {
     if(!magicUrl){
         throw Error("魔法链接为空，请设置魔法链接！");
     }
@@ -25,4 +25,3 @@ function uRLTrue(magicUrl) {
     error.uRLTrueError = true;
     throw error;
 }
-export default uRLTrue;

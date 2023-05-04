@@ -14,6 +14,7 @@ async function handleRequest(request){
         if (
             url.startsWith('/pages/')||
             url.startsWith('/web/')||
+            url.startsWith('/web_plug/')||
             url==='/favicon.ico'||
             url==='/manifest.json'
         ) { //web请求

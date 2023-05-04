@@ -1,4 +1,8 @@
 /* 头部分 */
+body {
+    font-family: "Segoe UI", Arial, "Microsoft Yahei", sans-serif;
+    font-size: 75%;
+}
 
 #head {
     position: fixed;
@@ -55,52 +59,28 @@ div.markdown-body {
     font-size: 1rem;
 }
 
-#ChatRecordsNameInputDiv {
+
+
+
+
+#ChatRecordsNameli {
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    background-color: white;
-    border-radius: 1rem;
-    /* border: 0.1rem solid #000000ab; */
-    padding: 0 0.2rem;
-    width: 10rem;
-    transition: padding 0.5s, width 0.5s;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    justify-content: flex-end;
 }
 
-#ChatRecordsServer.noshow,
-#ChatRecordsNameInputDiv.noshow {
-    padding: 0;
-    width: 0;
-    margin: 0;
-    overflow: hidden;
-}
 
-.ChatRecordsNameli {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-}
-
-#ChatRecordsNameInput {
-    background-color: #ffffff00;
-    border: 0;
-    outline: none;
-    flex: 1;
-    width: 100%;
-}
-
-#ChatRecordsNameNo {
-    color: red;
-    cursor: pointer;
-}
 
 #ChatRecordsServer {
     white-space: nowrap;
-    width: 2rem;
     transition: padding 0.5s, width 0.5s;
     cursor: pointer;
+    font-size: 1rem;
+    margin-right: 0.5rem;
 }
 
 #showChatRecords {
@@ -171,7 +151,8 @@ body.c .ThemeColors {
     justify-content: center;
     align-items: center;
     width: 100%;
-    transition: opacity 0.2s
+    transition: opacity 0.2s;
+    overflow-x: auto;
 }
 
 #SearchSuggestions>a {
@@ -185,6 +166,9 @@ body.c .ThemeColors {
     text-overflow: ellipsis;
     overflow: hidden;
     transition: flex 0.5s;
+}
+#SearchSuggestions::-webkit-scrollbar{
+    display: none;
 }
 
 #SearchSuggestions>a:hover {
@@ -456,23 +440,25 @@ body {
     position: fixed;
     right: 0;
     top: 0;
-    width: 20rem;
+    width: 0;
     height: 100%;
     display: flex;
     flex-direction: row-reverse;
     align-items: stretch;
     overflow: hidden;
     transition: all 0.5s;
+    justify-content: flex-end;
 }
 
-#ChatRecordsListDivOut.notShow {
-    width: 0;
+#ChatRecordsListDivOut.open {
+    width: 20rem;
 }
 
-#ChatRecordsListDiv {
+#ChatRecordsListIn {
     margin-top: 4rem;
     margin-bottom: 7rem;
-    width: 100%;
+    width: 20rem;
+    min-width: 20rem;
     background-color: #ffffff33;
     overflow-y: auto;
 }
@@ -483,16 +469,43 @@ body {
     background-color: #ffffff70;
     cursor: pointer;
     backdrop-filter: blur(10px);
+    position: relative;
+}
+#ChatRecordsListDiv>div.edit{
+    background-color: #fffffff5;
+    cursor: auto;
 }
 
 #ChatRecordsListDiv>div:hover {
     background-color: #fffffff5;
 }
 
-#ChatRecordsListDiv>div>h3,
-#ChatRecordsListDiv>div>p {
-    margin: 0;
+#ChatRecordsListDiv{
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
 }
+#ChatRecordsListDiv>div>.id{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+#ChatRecordsListDiv>div>.delete{
+    position: absolute;
+    right: 0.3rem;
+    top: 0.1rem;
+    font-size: 1rem;
+    color: red;
+    cursor: pointer;
+}
+#ChatRecordsListDiv>div>input{
+    font-size: 1rem;
+    width: 100%;
+    max-width: 17rem;
+}
+
 
 
 /* 聊天选项部分 */
@@ -755,7 +768,7 @@ body {
 /* pc */
 
 :root {
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 div.markdown-body {
@@ -765,7 +778,7 @@ div.markdown-body {
 
 
 /* 窄窗口 */
-@media screen and (max-width:600px) {
+@media screen and (max-width:500px) {
     :root {
         font-size: 3.5vmin;
     }
@@ -822,6 +835,10 @@ div.markdown-body {
 @media screen and (orientation:portrait) and (max-device-width:800px) and (max-device-height:1000px) {
     :root {
         font-size: 3.5vmin;
+    }
+
+    #SearchSuggestions>a {
+        overflow: visible;
     }
 
     .InternalSearchQuery,

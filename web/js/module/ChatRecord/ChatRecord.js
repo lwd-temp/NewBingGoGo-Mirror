@@ -1,7 +1,7 @@
 /**
  * 一个聊天记录类
  * */
-import DateFormat from "../DateFormat.js";
+import DateFormat from "../aToos/DateFormat.js";
 
 export default class ChatRecord{
     id;
@@ -48,5 +48,6 @@ export default class ChatRecord{
             creationTime:this.creationTime,
             content:this.content
         }
+
     }
 }

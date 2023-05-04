@@ -1,5 +1,5 @@
 import SendMessageManager from "./SendMessageManager.js";
-import nBGGFetch from "../nBGGFetch.js";
+import nBGGFetch from "../aToos/nBGGFetch.js";
 import ReturnMessage from "./ReturnMessage.js";
 
 /**
@@ -13,9 +13,6 @@ export default class BingChating {
     bingChat;
     sendMessageManager;
 
-    //theChatType chatTypes变量中的其中一个
-    //invocationId 可以不传
-    //(string,ture|false|'repeat',string,string,string,theChatType,int|undefined)
     /**
      * @param bingChat BingChat对象
      * @param charID 会话id
@@ -24,13 +21,23 @@ export default class BingChating {
      * @param theChatType 聊天类型 accurate 或 balance 或 create
      * @param invocationId 对话id，就是这是第几次对话 可以不传
      * */
-    constructor(bingChat,charID, clientId, conversationSignature, theChatType,invocationId) {
-        this.bingChat = bingChat;
-        this.sendMessageManager = new SendMessageManager(bingChat,charID, clientId, conversationSignature,invocationId);
-        if (theChatType) {
-            this.sendMessageManager.setChatType(theChatType);
-        }
+    static create(bingChat, charID, clientId, conversationSignature, theChatType, invocationId){
+        let bingChating = new BingChating();
+        bingChating.bingChat = bingChat;
+        bingChating.sendMessageManager = new SendMessageManager(bingChat,charID, clientId, conversationSignature,theChatType,invocationId);
+        return bingChating;
     }
+    /**
+     * @param bingChat BingChat对象
+     * @param sendMessageManager SendMessageManager 对象
+     * */
+    static createIn(bingChat, sendMessageManager){
+        let bingChating = new BingChating();
+        bingChating.bingChat = bingChat;
+        bingChating.sendMessageManager = sendMessageManager;
+        return bingChating;
+    }
+
     /**
      * @param message String 发送的消息
      * @param onMessage function 当收到消息时的回调函数

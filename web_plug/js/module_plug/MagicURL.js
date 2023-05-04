@@ -1,7 +1,7 @@
 /**
  * 管理 MagicURL 的类
  * */
-class MagicURL{
+export default class MagicURL{
     static async setMagicUrl(url) {
         return await chrome.storage.local.set({
             GoGoUrl: url
@@ -23,4 +23,3 @@ class MagicURL{
         return !!(await chrome.storage.local.get('ChatHubWithMagic')).ChatHubWithMagic;
     }
 }
-export default MagicURL;

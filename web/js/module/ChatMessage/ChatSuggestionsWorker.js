@@ -3,6 +3,8 @@
  * */
 export default class ChatSuggestionsWorker {
     searchSuggestions;//聊天建议dom
+
+    suggestions = [];//当前聊天建议列表
     constructor(searchSuggestions) {
         this.searchSuggestions = searchSuggestions;
 
@@ -37,6 +39,7 @@ export default class ChatSuggestionsWorker {
      * */
     set(suggestions) {
         this.clear();
+        this.suggestions = suggestions;
         suggestions.forEach((s) => {
             let a = document.createElement('a');
             a.innerHTML = s;
@@ -44,8 +47,17 @@ export default class ChatSuggestionsWorker {
         });
     }
 
+    /**
+     * 获取聊天建议列表
+     * @return {string[]}
+     */
+    get(){
+        return this.suggestions;
+    }
+
     //清空聊天建议
     clear(){
+        this.suggestions = [];
         this.searchSuggestions.innerHTML = '';
     }
 
@@ -55,6 +67,6 @@ export default class ChatSuggestionsWorker {
      * @param text 用户选择的文本
      * */
     onSend(text) {
-        console.warn(`onSend方法没有被重写！,用户发送'${text}'`);
+        console.debug(`onSend方法没有被重写！,用户发送'${text}'`);
     }
 }

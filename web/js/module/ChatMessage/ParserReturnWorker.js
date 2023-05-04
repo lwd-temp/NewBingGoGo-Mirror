@@ -1,15 +1,18 @@
-import generateImages from "./generateImages.js";
-import nBGGFetch from "./nBGGFetch.js";
+import generateImages from "../aToos/generateImages.js";
+import nBGGFetch from "../aToos/nBGGFetch.js";
 
 /**
  * 解析消息的对象
  * */
 export default class ParserReturnWorker {
     chatDiv;//放置消息的div
+    chatSuggestionsWorker;//聊天建议工作对象
     /**
+     * @param chatSuggestionsWorker 聊天建议工作对象
      * @param chatDiv 放置聊天消息的div
      * */
-    constructor(chatDiv) {
+    constructor(chatSuggestionsWorker,chatDiv) {
+        this.chatSuggestionsWorker = chatSuggestionsWorker;
         this.chatDiv = chatDiv;
     }
     /**
@@ -390,12 +393,10 @@ export default class ParserReturnWorker {
      解析suggestedResponses 建议发送的消息，聊天建议
      */
     porserSuggestedResponses(suggestedResponses) {
-        var searchSuggestions = document.getElementById('SearchSuggestions');
-        searchSuggestions.innerHTML = '';
+        let sss = [];
         for (let i = 0; i < suggestedResponses.length; i++) {
-            let a = document.createElement('a');
-            a.innerHTML = suggestedResponses[i].text;
-            searchSuggestions.appendChild(a);
+            sss[sss.length] = suggestedResponses[i].text;
         }
+        this.chatSuggestionsWorker.set(sss);
     }
 }

@@ -1,4 +1,4 @@
-import nBGGFetch from "./nBGGFetch.js";
+import nBGGFetch from "./aToos/nBGGFetch.js";
 
 /**
  * 提示词管理器

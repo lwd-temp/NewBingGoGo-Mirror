@@ -1,14 +1,14 @@
-import ChatSuggestionsWorker from './module/ChatMessage/ChatSuggestionsWorker.js'
-import CueWordWorker from './module/CueWordWorker.js'
-import ParserReturnWorker from './module/ChatMessage/ParserReturnWorker.js'
-import TitleWorker from './module/TitleWorker.js'
-import ChatModeSwitchingWorker from './module/ChatModeSwitchingWorker.js'
-import WindowScrollingWorker from "./module/WindowScrollingWorker.js";
-import BingChat from './module/BingChat/BingChat.js';
-import SwitchWorker from "./module/SwitchWorker.js";
-import ChatRecordWorker from "./module/ChatRecord/ChatRecordWorker.js";
-import ChatFirstMessages from "./module/BingChat/ChatFirstMessages.js";
-import ChatOptionsSets from "./module/BingChat/ChatOptionsSets.js";
+import ChatSuggestionsWorker from '../../web/js/module/ChatMessage/ChatSuggestionsWorker.js'
+import CueWordWorker from '../../web/js/module/CueWordWorker.js'
+import ParserReturnWorker from '../../web/js/module/ChatMessage/ParserReturnWorker.js'
+import TitleWorker from '../../web/js/module/TitleWorker.js'
+import ChatModeSwitchingWorker from '../../web/js/module/ChatModeSwitchingWorker.js'
+import WindowScrollingWorker from "../../web/js/module/WindowScrollingWorker.js";
+import BingChat from '../../web/js/module/BingChat/BingChat.js';
+import SwitchWorker from "../../web/js/module/SwitchWorker.js";
+import ChatRecordWorker from "../../web/js/module/ChatRecord/ChatRecordWorker.js";
+import ChatFirstMessages_Small from "./module_plug/BingChat/ChatFirstMessages_Small.js";
+import ChatOptionsSets_Small from "./module_plug/BingChat/ChatOptionsSets_Small.js";
 
 let chatRecordWorker;
 
@@ -16,7 +16,7 @@ let chatRecordWorker;
 window.addEventListener('load',()=>{
     //窗口更新滚动
     new WindowScrollingWorker(document.getElementById('chat'));
-    const bingChat = new BingChat(new ChatFirstMessages(),new ChatOptionsSets()); //聊天对象 BingChat 对象
+    const bingChat = new BingChat(new ChatFirstMessages_Small(),new ChatOptionsSets_Small()); //聊天对象 BingChat 对象
     //加载需要用到的对象
     const chatSuggestionsManager = new ChatSuggestionsWorker(
         document.getElementById('SearchSuggestions')//聊天建议dom
@@ -38,6 +38,8 @@ window.addEventListener('load',()=>{
         document.getElementById("cueWord-selected"),//已选择的提示词mod
         document.getElementById("cueWord-search-input")//提示词搜索输入框dom
     );
+    cueWordManager.url = '../web/resource/CueWord.json';
+
     const titleManager = new TitleWorker(
         document.getElementById('goGoSubtitle')
     );

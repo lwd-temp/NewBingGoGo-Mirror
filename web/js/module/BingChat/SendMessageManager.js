@@ -9,28 +9,51 @@ export default class SendMessageManager {
     conversationSignature;
     optionsSets;
 
+
+    /**
+     * 从对象创建
+     * @param bingChat 对象
+     * @param obj 对象
+     * */
+    static crateFromObj(bingChat,obj){
+        return new SendMessageManager(
+            bingChat,
+            obj.conversationId,
+            obj.clientId,
+            obj.conversationSignature,
+            obj.optionsSets,
+            obj.invocationId
+        );
+    }
+
+    /**
+     * 将自己保存到obj
+     * */
+    saveToObj(){
+        return{
+            conversationId:this.conversationId,
+            clientId:this.clientId,
+            conversationSignature:this.conversationSignature,
+            optionsSets:this.optionsSets,
+            invocationId:this.invocationId
+        }
+    }
+
     /**
      * @param bingChat BingChat对象
      * @param conversationId 会话id
      * @param clientId 客户端id
      * @param conversationSignature 签名id
+     * @param theChatType 聊天类型，默认平衡 accurate 或 balance 或 create
      * @param invocationId 对话id，也就是第几次对话
      */
-    constructor(bingChat,conversationId, clientId, conversationSignature,invocationId) {
+    constructor(bingChat,conversationId, clientId, conversationSignature,theChatType,invocationId) {
         this.bingChat = bingChat;
-        this.invocationId = invocationId===undefined?1:invocationId;
+        this.invocationId = !!invocationId?invocationId:1;
         this.conversationId = conversationId;
         this.clientId = clientId;
         this.conversationSignature = conversationSignature;
-        this.optionsSets = 'balance';
-    }
-
-    /***
-     * 设置聊天类型
-     * @param chatType 聊天类型 accurate 或 balance 或 create
-     */
-    setChatType(chatType) {
-        this.optionsSets = chatType;
+        this.optionsSets = !!theChatType?theChatType:'balance';
     }
 
     /**
@@ -84,7 +107,7 @@ export default class SendMessageManager {
                     "id": this.clientId
                 },
                 "conversationId": this.conversationId,
-                "previousMessages": (this.invocationId <= 1) ? await this.bingChat.chatOptionsSets.getPreviousMessages() : undefined
+                "previousMessages": (this.invocationId <= 1) ? await this.bingChat.chatOptionsSets.getPreviousMessages(this.bingChat) : undefined
             }],
             "invocationId": this.invocationId.toString(),
             "target": "chat",

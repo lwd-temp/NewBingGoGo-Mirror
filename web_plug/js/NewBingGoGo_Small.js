@@ -10,8 +10,6 @@ import ChatRecordWorker from "../../web/js/module/ChatRecord/ChatRecordWorker.js
 import ChatFirstMessages_Small from "./module_plug/BingChat/ChatFirstMessages_Small.js";
 import ChatOptionsSets_Small from "./module_plug/BingChat/ChatOptionsSets_Small.js";
 
-let chatRecordWorker;
-
 //页面加载完成之后执行
 window.addEventListener('load',()=>{
     //窗口更新滚动
@@ -22,8 +20,8 @@ window.addEventListener('load',()=>{
         document.getElementById('SearchSuggestions')//聊天建议dom
     );
     const parserReturnMessage = new ParserReturnWorker(
-        chatSuggestionsManager,
-        document.getElementById('chat')
+        document.getElementById('chat'),
+        chatSuggestionsManager
     );
     const chatModeSwitchingManager = new ChatModeSwitchingWorker(
         document.body,
@@ -50,7 +48,7 @@ window.addEventListener('load',()=>{
     );
 
     //聊天记录
-    chatRecordWorker = new ChatRecordWorker(
+    const chatRecordWorker = new ChatRecordWorker(
         bingChat,
         chatModeSwitchingManager,
         chatSuggestionsManager,
@@ -200,6 +198,13 @@ window.addEventListener('load',()=>{
                 console.warn(error);
                 parserReturnMessage.addError(error.message);
                 isSpeakingFinish();
+                if(error.cookieID==='self'){
+                    if(error.type==='NoLogin'){
+                        parserReturnMessage.addNoLogin();
+                    }else if (error.type==='NoPower'){
+                        parserReturnMessage.addNoPower();
+                    }
+                }
                 return;
             }
         }

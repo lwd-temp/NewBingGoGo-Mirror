@@ -11,7 +11,7 @@ export default class ParserReturnWorker {
      * @param chatSuggestionsWorker 聊天建议工作对象
      * @param chatDiv 放置聊天消息的div
      * */
-    constructor(chatSuggestionsWorker,chatDiv) {
+    constructor(chatDiv,chatSuggestionsWorker) {
         this.chatSuggestionsWorker = chatSuggestionsWorker;
         this.chatDiv = chatDiv;
     }
@@ -85,6 +85,36 @@ export default class ParserReturnWorker {
         go.classList.add('error');
         go.innerHTML = message;
         this.chatDiv.appendChild(go);
+    }
+
+    addNoPower() {
+        let go = document.createElement('div');
+        go.classList.add('NoPower');
+        go.innerText = '>>> 点击尝试申请加入候补名单获取NewBing聊天权限 <<<';
+        this.chatDiv.appendChild(go);
+        go.onclick = async () => {
+            if (go.geting) {
+                return;
+            }
+            go.geting = true;
+            go.innerHTML = '正在请求申请加入候补名单..';
+            try {
+                await nBGGFetch(`${window.location.origin}/msrewards/api/v1/enroll?publ=BINGIP&crea=MY00IA&pn=bingcopilotwaitlist&partnerId=BingRewards&pred=true&wtc=MktPage_MY0291`);
+                go.innerHTML = '请求成功！请刷新页面重试，如果无权限使用请等待几天后重试。'
+            }catch (error){
+                go.innerHTML = '发生错误：' + error.message;
+            }
+        }
+    }
+
+    addNoLogin(){
+        let go = document.createElement('a');
+        go.classList.add('NoPower');
+        go.innerText = '>>> 点击跳转到登录页面 <<<';
+        go.style.display = 'block';
+        this.chatDiv.appendChild(go);
+        go.href = 'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&id=264960&wreply=https%3A%2F%2Fcn.bing.com%2Fsecure%2FPassport.aspx%3Fedge_suppress_profile_switch%3D1%26requrl%3Dhttps%253a%252f%252fcn.bing.com%252f%253fwlexpsignin%253d1&wp=MBI_SSL&lc=2052&aadredir=1';
+        go.target = '_blank';
     }
 
     test(test) {
@@ -397,6 +427,11 @@ export default class ParserReturnWorker {
         for (let i = 0; i < suggestedResponses.length; i++) {
             sss[sss.length] = suggestedResponses[i].text;
         }
-        this.chatSuggestionsWorker.set(sss);
+        if(this.chatSuggestionsWorker){
+            this.chatSuggestionsWorker.set(sss);
+        }else {
+            console.debug('chatSuggestionsWorker为null');
+        }
+
     }
 }

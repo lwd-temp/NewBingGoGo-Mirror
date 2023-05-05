@@ -44,8 +44,9 @@
     }],
     "web_accessible_resources": [{
         "resources": [
+            "/web_plug/Write_Small.html",
             "/web_plug/NewBingGoGo_Small.html",
-            "web_plug/css/insert/insert.css"
+            "/web_plug/css/insert/insert.css"
         ],
         "matches": [
             "<all_urls>"

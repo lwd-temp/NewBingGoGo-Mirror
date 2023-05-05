@@ -12,7 +12,6 @@ async function handleRequest(request){
             return goUrl(request,'https://gitee.com/jja8/NewBingGoGo/raw/master/cueWord.json');
         }
         if (
-            url.startsWith('/pages/')||
             url.startsWith('/web/')||
             url.startsWith('/web_plug/')||
             url==='/favicon.ico'||
@@ -29,40 +28,37 @@ async function handleRequest(request){
 
         if(url==='/sydney/ChatHubUrl'){ //请求url
             if(await getChatHubWithMagic()){
-                try {
-                    let mUrl = uRLTrue(await getMagicUrl()) ;
-                    return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
-                }catch (error){
-                    console.warn(error);
-                    return getReturnError(error.message);
-                }
+                let mUrl = uRLTrue(await getMagicUrl()) ;
+                await copyCookies(mUrl)
+                return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
             }else {
                 return new Response(`wss://sydney.bing.com/sydney/ChatHub`);
             }
         }
 
         if (url==='/turing/conversation/create') { //创建聊天
-            let re = goUrl(request, `${uRLTrue(await getMagicUrl())}/turing/conversation/create`);
-            if((await re).status===404){
-                return getReturnError("魔法链接服务器在NewBing不支持的地区，换一个魔法链接吧！");
-            }
-            return re;
+            let mUrl = uRLTrue(await getMagicUrl()) ;
+            await copyCookies(mUrl)
+            return goUrl(request, `${mUrl}/turing/conversation/create`);
         }
 
         if (url.startsWith('/msrewards/api/v1/enroll?')) { //加入候补
+            let mUrl = uRLTrue(await getMagicUrl()) ;
+            await copyCookies(mUrl)
             let a = request.url.split("?");
-            return goUrl(request, `${uRLTrue(await getMagicUrl())}/msrewards/api/v1/enroll?${a[1]}`);
+            return goUrl(request, `${mUrl}/msrewards/api/v1/enroll?${a[1]}`);
         }
 
         if (url.startsWith('/images/create?')) { //AI画图
+            let mUrl = uRLTrue(await getMagicUrl()) ;
+            await copyCookies(mUrl)
             let a = request.url.split("?");
-            return goUrl(request, `${uRLTrue(await getMagicUrl())}/images/create?${a[1]}`, {
-                "sec-fetch-site": "same-origin",
-                "referer": "https://www.bing.com/search?q=bingAI"
-            });
+            return goUrl(request, `${mUrl}/images/create?${a[1]}`);
         }
         if (url.startsWith('/images/create/async/results')) { //请求AI画图图片
-            let a = url.replace('/images/create/async/results', `${uRLTrue(await getMagicUrl())}/images/create/async/results`);
+            let mUrl = uRLTrue(await getMagicUrl()) ;
+            await copyCookies(mUrl)
+            let a = url.replace('/images/create/async/results', `${mUrl}/images/create/async/results`);
             return goUrl(request, a, {
                 "sec-fetch-site": "same-origin",
                 "referer": "https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000"
@@ -104,7 +100,9 @@ function urlToOder(url){
  * */
 function uRLTrue(magicUrl) {
     if(!magicUrl){
-        throw Error("魔法链接为空，请设置魔法链接！");
+        let error = Error("魔法链接为空，请设置魔法链接！");
+        error.uRLTrueError = true;
+        throw error;
     }
     //如果结尾带 / 则去掉
     function mu(url){
@@ -152,22 +150,34 @@ async function goUrl(request, url, addHeaders) {
             fp.headers[h] = addHeaders[h];
         }
     }
-    //添加自己的cookies
-
-    let cookieID =0;
-    fp.headers["cookie"] = reqHeaders.get('cookie');
 
     //添加X-forwarded-for
     // fp.headers['X-forwarded-for'] = `${getRndInteger(3,5)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}`;
 
     let res = await fetch(url, fp);
     let headers = new Headers(res.headers);
-    headers.set("cookieID",cookieID);
+    headers.set("cookieID",'self');
     return new Response(res.body,{
         status:res.status,
         statusText:res.statusText,
         headers:headers
     });
+}
+
+async function copyCookies(magicUrl) {
+    let cookies = await chrome.cookies.getAll({
+        domain: "bing.com"
+    });
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i];
+        await chrome.cookies.set({
+            url: magicUrl,
+            name:cookie.name,
+            value:cookie.value,
+            path:cookie.path,
+            expirationDate:(new Date().getTime()/1000)+10 //10秒后过期
+        })
+    }
 }
 
 
@@ -185,7 +195,6 @@ function getRedirect(url) {
 
 //获取用于返回的错误信息
 function getReturnError(error) {
-
     return new Response(JSON.stringify({
         value: 'error',
         message: error

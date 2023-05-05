@@ -1,8 +1,8 @@
+import DateFormat from "../aToos/DateFormat.js";
+
 /**
  * 一个聊天记录类
  * */
-import DateFormat from "../aToos/DateFormat.js";
-
 export default class ChatRecord{
     id;
     name; //聊天记录名称

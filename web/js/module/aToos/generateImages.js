@@ -4,7 +4,7 @@ const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 /**
  * @param text 生成图像的描述
  * @param requestId 请求id，如果不是对话生成图片可以为undefined
- * @param count 回调函数，获取当前是第几次请求。
+ * @param countF 回调函数，获取当前是第几次请求。
  * @return [...{img:url,mImg:url}...] img:图片url mIng:缩略图url
  * */
 export default async function generateImages(text,requestId,countF){
@@ -17,7 +17,7 @@ export default async function generateImages(text,requestId,countF){
     theUrls.append('q', text);
     theUrls.append('iframeid', requestId);
     let theUrl = `${window.location.origin}/images/create?${theUrls.toString()}`;
-    let response  = await nBGGFetch(theUrl,{headers:{"NewBingGoGoWeb":"true"}});
+    let response  = await nBGGFetch(theUrl);
     let html = (await response.text());
     let cookieID = response.headers.get('cookieID');
 
@@ -49,7 +49,7 @@ export default async function generateImages(text,requestId,countF){
         await sleep(3000);
         let imgPageHtml;
         try{
-            imgPageHtml = (await (await nBGGFetch(imgPageHtmlUrl,{headers:{"cookieID":cookieID,"NewBingGoGoWeb":"true"}})).text());
+            imgPageHtml = (await (await nBGGFetch(imgPageHtmlUrl,{headers:{"cookieID":cookieID}})).text());
         }catch(e){
             console.error(e);
             if (e.isNewBingGoGoError) {

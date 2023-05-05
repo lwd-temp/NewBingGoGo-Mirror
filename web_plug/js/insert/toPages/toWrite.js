@@ -10,7 +10,7 @@ async function insertWriteToThisTab(){
     tab = tab[0];
     chrome.tabs.sendMessage(tab.id,{
         type:'openWindow',
-        pagePath:'pages/Write/Write.html',
+        pagePath:'/web_plug/Write_Small.html',
         name:'NewBingGoGo 创作'
     });
 }

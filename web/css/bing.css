@@ -59,6 +59,19 @@ div.markdown-body {
     font-size: 1rem;
 }
 
+#head-li-div>a {
+    display: inline-block;
+    list-style: none;
+    margin-right: 1rem;
+    font-size: 1rem;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+#head-li-div>a:hover{
+    color: #ff8300;
+}
+
 
 
 

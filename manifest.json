@@ -1,7 +1,7 @@
 {
     "name": "NewBingGoGo",
     "description": "一个基于微软NewBing接口的浏览器AI对话插件",
-    "version": "2023.4.23.1",
+    "version": "2023.5.5.2",
     "manifest_version": 3,
     "permissions": [
         "storage",
@@ -19,10 +19,13 @@
         "*://*/*"
     ],
     "icons": {
-        "128": "/img/nasapod128x128.png"
+        "128": "/web/img/nasapod128x128.png"
     },
     "action": {
-        "default_popup": "/pages/popup/popup.html"
+        "default_popup": "/web_plug/popup.plug.html"
+    },
+    "background": {
+        "service_worker": "/server/server.js"
     },
     "declarative_net_request": {
         "rule_resources": [{
@@ -36,14 +39,14 @@
             "<all_urls>"
         ],
         "js": [
-            "pages/insert/insertRun.js"
+            "web_plug/js/insert/insertRun.js"
         ]
     }],
     "web_accessible_resources": [{
         "resources": [
-            "/pages/RightChat/RightChat.html",
-            "/pages/insert/insert.css",
-            "/pages/Write/Write.html"
+            "/web_plug/Write_Small.html",
+            "/web_plug/NewBingGoGo_Small.html",
+            "/web_plug/css/insert/insert.css"
         ],
         "matches": [
             "<all_urls>"

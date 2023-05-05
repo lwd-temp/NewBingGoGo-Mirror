@@ -27,6 +27,7 @@ window.addEventListener('load',()=>{
                 imgsDiv.innerText = `正在生成'${text}'图片，请稍等..${v}`;
             });
         }catch (error){
+            console.warn(error);
             imgsDiv.innerHTML = error.message;
             isDrawing = false;
             startDraw.innerText = '开始作图';

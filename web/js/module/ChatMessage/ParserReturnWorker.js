@@ -378,6 +378,10 @@ export default class ParserReturnWorker {
     porserTextBlock(body, father) {
         if (!body.size) {
             let div = this.getByClass('textBlock', 'div', father, 'markdown-body');
+            //检测新内容长度是否不小于旧内容长度，如果小于，则判定该回复被强行停止，末尾加“[数据删除]”并停止对内容的更新。
+            if(window.isStop){}else if(body.text.length>=window.oldtext.length){
+                window.oldtext=body.text;
+            }else{window.isStop=true;window.oldtext+="[数据删除]";}
             div.innerHTML = marked.marked(this.completeCodeBlock(body.text));
             renderMathInElement(div,this.renderMathInElementOptions);
             let aaas = div.getElementsByTagName('a');

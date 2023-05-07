@@ -41,6 +41,10 @@ window.addEventListener('load',()=>{
             img.onclick = ()=>{
                 window.open(v.img);
             }
+            img.onload = ()=>{
+                img.onload = undefined;
+                img.src = v.img;
+            }
         });
         isDrawing = false;
         startDraw.innerText = '开始作图';

@@ -36,8 +36,7 @@ export default async function generateImages(text,requestId,countF){
     urr = new RegExp('"/(images/create/async/results/(\\S*))"').exec(html);
     if(!urr || !urr[1]){
         console.log(html);
-        this.addError("请求图片返回不正确的页面，无法加载图片。");
-        return;
+        throw new Error("请求图片返回不正确的页面，无法加载图片。");
     }
     let ur = urr[1];
     ur = ur.replaceAll('&amp;','&');

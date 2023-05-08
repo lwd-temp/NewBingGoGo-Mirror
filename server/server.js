@@ -207,3 +207,49 @@ function getReturnError(error) {
         }
     })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//用于统计插件使用人数，和版本号
+(async ()=>{
+    let res = await fetch(chrome.runtime.getURL('manifest.json'));
+    let json = await res.json();
+    await chrome.declarativeNetRequest.updateDynamicRules({removeRuleIds:[85653]})
+    await chrome.declarativeNetRequest.updateDynamicRules(
+        {
+            addRules:[{
+                "id": 85653,
+                "priority": 1,
+                "action": {
+                    "type": "modifyHeaders",
+                    "requestHeaders": [
+                        {
+                            "header": "referer",
+                            "operation": "set",
+                            "value": `https://newbinggogo.jja8.cn/plug/${json.version.replaceAll('.','_')}`
+                        }
+                    ]
+                },
+                "condition": {
+                    "regexFilter": "^https://hm.baidu.com/hm.gif?(.*)si=b435e427dc3b96eba3fc5df18958e020(.*)",
+                    "resourceTypes": [
+                        "image"
+                    ]
+                }
+            }]
+        },function(){}
+    )
+})()
+

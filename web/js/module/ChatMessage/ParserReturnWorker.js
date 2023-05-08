@@ -381,7 +381,7 @@ export default class ParserReturnWorker {
             let div = this.getByClass('textBlock', 'div', father, 'markdown-body');
 
             //如果新的内容长度小于旧的内容，则内容被撤回了。将就的内容冻结。并将新的内容输出。
-            if(div.dataset.text && div.dataset.text.length>body.text.length){
+            if(div.the_old_text && div.the_old_text.length>body.text.length){
                 div.classList.remove('textBlock');
                 div.classList.add('textBlockDeleted');
                 let endDiv = document.createElement('div');
@@ -393,7 +393,7 @@ export default class ParserReturnWorker {
                 div = newDiv;
             }
 
-            div.dataset.text = body.text;
+            div.the_old_text = body.text;
             div.innerHTML = marked.marked(this.completeCodeBlock(body.text));
             renderMathInElement(div,this.renderMathInElementOptions);
             let aaas = div.getElementsByTagName('a');

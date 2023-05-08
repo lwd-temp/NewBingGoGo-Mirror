@@ -1,6 +1,5 @@
 import generateImages from "../aToos/generateImages.js";
 import nBGGFetch from "../aToos/nBGGFetch.js";
-import SwitchWorker from "../SwitchWorker.js";
 
 /**
  * 解析消息的对象
@@ -67,18 +66,35 @@ export default class ParserReturnWorker {
 		</div>
 		`;
     }
-    //(string)
-    addMyChat(message) {
-        let bobo = document.createElement('div');
-        bobo.style.whiteSpace = 'pre-wrap';
-        bobo.innerText = message;
-        bobo.classList.add('bobo');
-        bobo.classList.add('markdown-body');
-        let go = document.createElement('div');
+
+    /**
+     * 添加一条自己的消息
+     * @param message {string} 更新的消息，如果不传就是删除这条消息
+     * @param id {string} 更新消息的id，如果不传则是添加一条，如果传就更新这条消息
+     * @param preview {boolean} 是否是预览
+     * @return {string} uid
+     */
+    setMyChat(message, id,preview) {
+        if(!id){
+            id = `my_${new Date().getTime()}`;
+        }
+        let go = this.getByID(id,'div',this.chatDiv);
         go.classList.add('my');
-        go.appendChild(bobo);
-        this.chatDiv.appendChild(go);
+        if(!message){
+            go.remove();
+            return id;
+        }
+        if(preview){
+            go.classList.add('preview');
+        }else {
+            go.classList.remove('preview');
+        }
+        let bobo = this.getByClass('bobo','div',go);
+        bobo.innerText = message;
+        bobo.classList.add('markdown-body');
+        return id;
     }
+
 
     //(string)
     addError(message) {

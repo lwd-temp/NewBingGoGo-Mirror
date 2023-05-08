@@ -6,19 +6,29 @@ self.addEventListener("fetch",function(event) {
 });
 
 async function handleRequest(request){
+    let url = urlToOder(request.url);
+    if(url==='/web/resource/CueWord.json'){
+        let re;
+        try {
+            re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/master/web/resource/cueWord.json');
+        }catch (error){
+            console.warn(re);
+        }
+        if(!re || !re.ok){
+            re = await fetch(chrome.runtime.getURL('/web/resource/cueWord.json'));
+        }
+        return re
+    }
+    if (
+        url.startsWith('/web/')||
+        url.startsWith('/web_plug/')||
+        url==='/favicon.ico'||
+        url==='/manifest.json'
+    ) { //web请求
+        return await fetch(chrome.runtime.getURL(url));
+    }
+
     try {
-        let url = urlToOder(request.url);
-        if(url==='/web/resource/CueWord.json'){
-            return goUrl(request,'https://gitee.com/jja8/NewBingGoGo/raw/master/cueWord.json');
-        }
-        if (
-            url.startsWith('/web/')||
-            url.startsWith('/web_plug/')||
-            url==='/favicon.ico'||
-            url==='/manifest.json'
-        ) { //web请求
-            return goUrl(request,chrome.runtime.getURL(url));
-        }
         //用于测试
         if (url.startsWith('/test/')) {
             let a = url.replace('/test/','');

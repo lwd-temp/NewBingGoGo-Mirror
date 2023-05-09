@@ -7,7 +7,7 @@ self.addEventListener("fetch",function(event) {
 
 async function handleRequest(request){
     let url = urlToOder(request.url);
-    if(url==='/web/resource/CueWord.json'){
+    if(url==='/web/resource/cueWord.json'){
         let re;
         try {
             re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/master/web/resource/cueWord.json');

@@ -14,6 +14,7 @@ export default class ParserReturnWorker {
     constructor(chatDiv,chatSuggestionsWorker) {
         this.chatSuggestionsWorker = chatSuggestionsWorker;
         this.chatDiv = chatDiv;
+        this.chatDiv.parserReturnWorker = this;//用于调试
     }
     /**
      (id,元素的tag,父元素,创建时顺便添加的class:可以多个)
@@ -153,6 +154,14 @@ export default class ParserReturnWorker {
             }else if (result.value === 'Throttled') {
                 this.addError(result.message);
                 this.addError('24消息请求数达到了限制！');
+            }else if(result.value === 'CaptchaChallenge'){
+                this.addError(result.message);
+                if(window.location.protocol==="chrome-extension:"){
+                    this.addError('当前账号请求过多，需要通过机器人检查！需要科学上网！无法通过请等待24小时后再试。');
+                    this.addCAPTCHA();
+                }else {
+                    this.addError('当前账号请求过多，需要通过机器人检查！');
+                }
             }else{
                 this.addError(result.message);
                 this.addError('发生未知错误！');
@@ -466,6 +475,22 @@ export default class ParserReturnWorker {
             console.debug('chatSuggestionsWorker为null');
         }
 
+    }
+
+    /**
+     * 添加机器人检查验证
+     * */
+    addCAPTCHA() {
+       let div = this.getByID(new Date().getTime()+'CAPTCHA','div',this.chatDiv);
+
+       // let div = document.createElement('div');
+       // document.getElementById('chat').appendChild(div);
+
+       div.classList.add('CAPTCHAIframeDIV');
+       let iframe = document.createElement('iframe');
+       iframe.classList.add('CAPTCHAIframe');
+       iframe.src = 'https://www.bing.com/turing/captcha/challenge';
+       div.appendChild(iframe);
     }
 }
 

@@ -95,6 +95,7 @@ export default class BingChat{
             throw error;
         }
         this.bingChating = BingChating.create(this,resjson.conversationId, resjson.clientId, resjson.conversationSignature, theChatType);
+        this.bingChating.cookieID = cookieID;
         return this;
     }
 

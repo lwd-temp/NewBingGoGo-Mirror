@@ -12,6 +12,7 @@ export default class BingChating {
      */
     bingChat;
     sendMessageManager;
+    cookieID; //默认没有
 
     /**
      * @param bingChat {BingChat}对象
@@ -58,7 +59,9 @@ export default class BingChating {
                 this.sendMessageManager.sendShakeHandsJson(chatWebSocket);
                 this.sendMessageManager.sendChatMessage(chatWebSocket, message);
             }
-            return new ReturnMessage(chatWebSocket, onMessage);
+            let re = new ReturnMessage(chatWebSocket, onMessage);
+            re.bingChating = this;
+            return re;
         } catch (e) {
             console.warn(e);
             throw new Error("无法连接到web服务器，请刷新页面重试:" + e.message);

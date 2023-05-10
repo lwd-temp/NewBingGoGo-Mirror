@@ -45,7 +45,7 @@ window.addEventListener('message', (event) => {
 function add(pagePath,name) {
     function insert(rootDiv,iframeName) {
         let shadow = rootDiv.attachShadow({ mode: 'open' });
-        inTo = document.createElement("div");
+        let inTo = document.createElement("div");
         inTo.id = "newBingGoGoRightChat";
         inTo.style.zIndex = topZIndex++;
         inTo.innerHTML = `

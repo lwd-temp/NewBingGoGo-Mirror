@@ -144,8 +144,12 @@ export default class ParserReturnWorker {
         "numUserMessagesInConversation": 0
     };
 
-//解析type2的item
-    porserType2Item(item){
+    /**
+     * 解析type2的item
+     * @param item {Object}
+     * @param returnMessage {ReturnMessage|undefined}
+     * */
+    porserType2Item(item,returnMessage){
         let chatDiv = document.getElementById('chat');
         if(item.result){
             let result = item.result;
@@ -160,7 +164,11 @@ export default class ParserReturnWorker {
                     this.addError('当前账号请求过多，需要通过机器人检查！需要科学上网！无法通过请等待24小时后再试。');
                     this.addCAPTCHA();
                 }else {
-                    this.addError('当前账号请求过多，需要通过机器人检查！');
+                    if(returnMessage && returnMessage.bingChating && returnMessage.bingChating.cookieID){
+                        this.addError(`当前账号请求过多，需要通过机器人检查！第${returnMessage.bingChating.cookieID}个账号`);
+                    }else {
+                        this.addError(`当前账号请求过多，需要通过机器人检查！`);
+                    }
                 }
             }else{
                 this.addError(result.message);
@@ -179,10 +187,12 @@ export default class ParserReturnWorker {
     /**
      * 解析arguments
      * 解析聊天消息，将消息添加到页面
+     * @param argumentss {Object}
+     * @param returnMessage {ReturnMessage|undefined}
      * **/
-    porserArguments(argumentss) {
+    porserArguments(argumentss,returnMessage) {
         for (let i = 0; i < argumentss.length; i++) {
-            this.porserType2Item(argumentss[i]);
+            this.porserType2Item(argumentss[i],returnMessage);
         }
     }
 
@@ -492,8 +502,50 @@ export default class ParserReturnWorker {
        iframe.src = 'https://www.bing.com/turing/captcha/challenge';
        div.appendChild(iframe);
     }
+
+    /**
+     * 获取处理消息的函数
+     * @param fun {function(OnMessageFunEvent)} 当发生事件时的回调函数
+     * @return {function(Object,ReturnMessage)}
+     * */
+    getOnMessageFun(fun) {
+        return (json, returnMessage) => {
+            if (json.type === "close") {
+                console.log(json.mess)
+                if (!json.ok) {
+                    this.addError("聊天异常中断了！可能是网络问题。");
+                    fun(new OnMessageFunEvent('close-accident', '意外关闭'));
+                }else {
+                    fun(new OnMessageFunEvent('close', '回复结束'));
+                }
+                return;
+            }
+            if (json.type === 'error') {
+                this.addError("连接发生错误：" + json.mess);
+                fun(new OnMessageFunEvent('error', '回复结束'));
+                return;
+            }
+            if (json.type === 3) {
+                returnMessage.close();
+            } else if (json.type === 1) {
+                this.porserArguments(json.arguments,returnMessage);
+            } else if (json.type === 2) {
+                this.porserType2Item(json.item,returnMessage);
+            } else {
+                console.log(JSON.stringify(json));
+            }
+        };
+    }
 }
 
+class OnMessageFunEvent{
+    type;
+    message;
+    constructor(type, message) {
+        this.type = type;
+        this.message = message;
+    }
+}
 
 /**
  * 在指定元素后面插入新元素

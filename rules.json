@@ -18,7 +18,7 @@
             ]
         },
         "condition": {
-            "regexFilter": "$wss?://sydney.bing.com/sydney/ChatHub",
+            "regexFilter": "^wss?://sydney.bing.com/sydney/ChatHub",
             "resourceTypes": [
                 "websocket"
             ]

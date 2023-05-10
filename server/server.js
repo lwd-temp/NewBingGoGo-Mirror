@@ -1,13 +1,16 @@
 self.addEventListener("fetch",function(event) {
     if (event.request.url.startsWith(chrome.runtime.getURL(''))){
         event.respondWith(handleRequest(event.request))
+        return;
     }
    // console.log(event);
 });
 
 async function handleRequest(request){
-    let url = urlToOder(request.url);
-    if(url==='/web/resource/CueWord.json'){
+    let url = new URL(request.url);
+
+    //提示词请求
+    if(url.pathname==='/web/resource/cueWord.json'){
         let re;
         try {
             re = await fetch('https://gitee.com/jja8/NewBingGoGo/raw/master/web/resource/cueWord.json');
@@ -19,24 +22,34 @@ async function handleRequest(request){
         }
         return re
     }
+
+    //web请求
     if (
-        url.startsWith('/web/')||
-        url.startsWith('/web_plug/')||
-        url==='/favicon.ico'||
-        url==='/manifest.json'
+        url.pathname.startsWith('/web/')||
+        url.pathname.startsWith('/web_plug/')||
+        url.pathname==='/favicon.ico'||
+        url.pathname==='/manifest.json'
     ) { //web请求
-        return await fetch(chrome.runtime.getURL(url));
+        return await fetch(chrome.runtime.getURL(url.pathname));
+    }
+
+    if (url.pathname.startsWith('/rp')) { //显示AI画图错误提示图片
+        url.hostname = "www.bing.com";
+        return goUrl(request, url.toString(), {
+            "sec-fetch-site": "same-origin",
+            "referer": "https://www.bing.com/search?q=bingAI"
+        });
     }
 
     try {
         //用于测试
-        if (url.startsWith('/test/')) {
-            let a = url.replace('/test/','');
+        if (url.href.startsWith('/test/')) {
+            let a = url.href.replace('/test/','');
             return goUrl(request, a);
         }
 
 
-        if(url==='/sydney/ChatHubUrl'){ //请求url
+        if(url.pathname==='/sydney/ChatHubUrl'){ //请求url
             if(await getChatHubWithMagic()){
                 let mUrl = uRLTrue(await getMagicUrl()) ;
                 await copyCookies(mUrl)
@@ -46,29 +59,28 @@ async function handleRequest(request){
             }
         }
 
-        if (url==='/turing/conversation/create') { //创建聊天
+        if (url.pathname==='/turing/conversation/create') { //创建聊天
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
             return goUrl(request, `${mUrl}/turing/conversation/create`);
         }
 
-        if (url.startsWith('/msrewards/api/v1/enroll?')) { //加入候补
+        if (url.pathname==='/msrewards/api/v1/enroll') { //加入候补
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            let a = request.url.split("?");
-            return goUrl(request, `${mUrl}/msrewards/api/v1/enroll?${a[1]}`);
+            return goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search);
         }
 
-        if (url.startsWith('/images/create?')) { //AI画图
+        if (url.pathname==='/images/create') { //AI画图
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            let a = request.url.split("?");
-            return goUrl(request, `${mUrl}/images/create?${a[1]}`);
+            return goUrl(request, `${mUrl}/images/create`+url.search);
         }
-        if (url.startsWith('/images/create/async/results')) { //请求AI画图图片
+
+        if (url.pathname.startsWith('/images/create/async/results')) { //请求AI画图图片
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            let a = url.replace('/images/create/async/results', `${mUrl}/images/create/async/results`);
+            let a = url.pathname.replace('/images/create/async/results', `${mUrl}/images/create/async/results`)+url.search;
             return goUrl(request, a, {
                 "sec-fetch-site": "same-origin",
                 "referer": "https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000"
@@ -92,18 +104,7 @@ async function getMagicUrl() {
 async function getChatHubWithMagic() {
     return !!(await chrome.storage.local.get('ChatHubWithMagic')).ChatHubWithMagic;
 }
-/**
- * 去掉协议和主机头
- * */
-function urlToOder(url){
-    let w = url.split('/',3);
-    let left = '';
-    w.forEach((e)=>{
-        left = left+'/'+e;
-    });
-    left = left.substring(1);
-    return url.replace(left,'');
-}
+
 
 /**
  * 检查魔法链接是否正确
@@ -248,7 +249,7 @@ function getReturnError(error) {
                         {
                             "header": "referer",
                             "operation": "set",
-                            "value": `https://newbinggogo.jja8.cn/plug/${json.version.replaceAll('.','_')}`
+                            "value": `https://newbinggogo.jja8.cn/plug/${json.name}/${json.version}`
                         }
                     ]
                 },

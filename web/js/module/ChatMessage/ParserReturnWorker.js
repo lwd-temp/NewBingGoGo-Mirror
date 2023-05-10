@@ -261,7 +261,7 @@ export default class ParserReturnWorker {
         theUrls.append("iframeid",message.messageId);
         let src = url+theUrls.toString();
 
-        nBGGFetch(src).then(async (ret)=>{
+        nBGGFetch(src,undefined,true).then(async (ret)=>{
             let html = await ret.text();
             // b_poleContent pc设备  || b_ans b_imgans 移动设备
             if(html.indexOf('class="b_poleContent"')>=0 || html.indexOf('class="b_ans')>=0){

@@ -1,5 +1,7 @@
 ### 通知
-所有公共服务器均招到严重的ddos攻击，暂时无法正常使用。如果有能力大家可以自己搭建。具体方法可以参考这篇教程  >>> [使用免费的的云服务提供商创建魔法链接.md](https://gitee.com/jja8/NewBingGoGo.wikis/blob/master/%E5%88%9B%E5%BB%BA%E9%AD%94%E6%B3%95%E9%93%BE%E6%8E%A5/%E4%BD%BF%E7%94%A8%E5%85%8D%E8%B4%B9%E7%9A%84%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E5%95%86%E5%88%9B%E5%BB%BA%E9%AD%94%E6%B3%95%E9%93%BE%E6%8E%A5.md) <<<
+所有公共服务器均招到严重的ddos攻击，暂时无法正常使用。如果有能力大家可以自己搭建。具体方法可以参考这篇教程
+
+>>> [使用免费的的云服务提供商创建魔法链接.md](https://gitee.com/jja8/NewBingGoGo.wikis/blob/master/%E5%88%9B%E5%BB%BA%E9%AD%94%E6%B3%95%E9%93%BE%E6%8E%A5/%E4%BD%BF%E7%94%A8%E5%85%8D%E8%B4%B9%E7%9A%84%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E5%95%86%E5%88%9B%E5%BB%BA%E9%AD%94%E6%B3%95%E9%93%BE%E6%8E%A5.md) <<<
 
 # NewBingGoGo : 简单开始和NewBing聊天
 一个基于微软OpenAI ChatGPT GPT4的New Bing接口的浏览器AI对话插件。提供了好看的对话页面。实现了NewBing的大多数功能，还添加了一些自己的特色功能。开源免费，国内可用！

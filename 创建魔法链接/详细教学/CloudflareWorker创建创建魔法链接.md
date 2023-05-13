@@ -7,7 +7,7 @@ https://workers.cloudflare.com/
 ![](/images/9.png)
 ![](/images/10.png)
 ![](/images/11.png)
-把代码粘贴进去，代码在这 [worker.js](../代码/cloudflareWorker.js)
+把代码粘贴进去，代码在这 [worker.js](https://github.com/jianjianai/NewBingGoGo-Web/blob/master/cloudflareWorker.js)
 ![](/images/12.png)
 下面这张照片显示的就是你的魔法链接
 ![](/images/13.png)

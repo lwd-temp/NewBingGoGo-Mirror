@@ -41,14 +41,7 @@ async function handleRequest(request){
         });
     }
 
-    try {
-        //用于测试
-        if (url.href.startsWith('/test/')) {
-            let a = url.href.replace('/test/','');
-            return goUrl(request, a);
-        }
-
-
+    try {//这里面都是需要魔法链接的
         if(url.pathname==='/sydney/ChatHubUrl'){ //请求url
             if(await getChatHubWithMagic()){
                 let mUrl = uRLTrue(await getMagicUrl()) ;
@@ -62,37 +55,33 @@ async function handleRequest(request){
         if (url.pathname==='/turing/conversation/create') { //创建聊天
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            return goUrl(request, `${mUrl}/turing/conversation/create`);
+            return await goUrl(request, `${mUrl}/turing/conversation/create`);
         }
 
         if (url.pathname==='/msrewards/api/v1/enroll') { //加入候补
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            return goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search);
+            return await goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search);
         }
 
         if (url.pathname==='/images/create') { //AI画图
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            return goUrl(request, `${mUrl}/images/create`+url.search);
+            return await goUrl(request, `${mUrl}/images/create`+url.search);
         }
 
         if (url.pathname.startsWith('/images/create/async/results')) { //请求AI画图图片
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
             let a = url.pathname.replace('/images/create/async/results', `${mUrl}/images/create/async/results`)+url.search;
-            return goUrl(request, a, {
+            return await goUrl(request, a, {
                 "sec-fetch-site": "same-origin",
                 "referer": "https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000"
             });
         }
     }catch (error){
         console.warn(error);
-        if(error.uRLTrueError){
-            return getReturnError(error.message);
-        }else {
-            return getReturnError("无法连接到魔法链接服务:"+error.message);
-        }
+        return getReturnError("发生错误，请尝试更换魔法链接。"+error.message);
     }
 
     return getRedirect('/web/NewBingGoGo.html');
@@ -111,9 +100,7 @@ async function getChatHubWithMagic() {
  * */
 function uRLTrue(magicUrl) {
     if(!magicUrl){
-        let error = Error("魔法链接为空，请设置魔法链接！");
-        error.uRLTrueError = true;
-        throw error;
+        throw Error("魔法链接为空，请设置魔法链接！");
     }
     //如果结尾带 / 则去掉
     function mu(url){
@@ -131,13 +118,16 @@ function uRLTrue(magicUrl) {
         return mu("https://"+magicUrl);
     }
     //如果都不是
-    let error = Error("魔法链接不正确，请修改魔法链接！");
-    error.uRLTrueError = true;
-    throw error;
+    throw Error("魔法链接不正确，请修改魔法链接！");
 }
 
 
 //请求某地址
+/**
+ * @param request {Request}
+ * @param url {String}
+ * @param addHeaders {Object}
+ * */
 async function goUrl(request, url, addHeaders) {
     //构建 fetch 参数
     let fp = {
@@ -166,6 +156,9 @@ async function goUrl(request, url, addHeaders) {
     // fp.headers['X-forwarded-for'] = `${getRndInteger(3,5)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}.${getRndInteger(1,255)}`;
 
     let res = await fetch(url, fp);
+    if(!res.ok){
+        throw new Error(`请求被拒绝,错误代码:${res.status} 原因:${res.statusText}`);
+    }
     let headers = new Headers(res.headers);
     headers.set("cookieID",'self');
     return new Response(res.body,{

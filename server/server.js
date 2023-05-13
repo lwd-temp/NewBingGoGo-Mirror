@@ -55,7 +55,9 @@ async function handleRequest(request){
         if (url.pathname==='/turing/conversation/create') { //创建聊天
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            return await goUrl(request, `${mUrl}/turing/conversation/create`);
+            return await goUrl(request, `${mUrl}/turing/conversation/create`,{
+                'new_bing_go_go-plug-create':'true'
+            });
         }
 
         if (url.pathname==='/msrewards/api/v1/enroll') { //加入候补
@@ -157,6 +159,11 @@ async function goUrl(request, url, addHeaders) {
 
     let res = await fetch(url, fp);
     if(!res.ok){
+        if(res.headers.has('cf-mitigated')){
+            let usp =  new URLSearchParams();
+            usp.append('redirect',chrome.runtime.getURL('/web/NewBingGoGo.html'));
+            throw new Error(`<p>被质疑为恶意攻击,需要通过机器人校验。</p><p><a href="${url}?${usp.toString()}" target="_blank">点击前往校验。</a></p>`);
+        }
         throw new Error(`请求被拒绝,错误代码:${res.status} 原因:${res.statusText}`);
     }
     let headers = new Headers(res.headers);

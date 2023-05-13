@@ -47,7 +47,8 @@
         "resources": [
             "/web_plug/Write_Small.html",
             "/web_plug/NewBingGoGo_Small.html",
-            "/web_plug/css/insert/insert.css"
+            "/web_plug/css/insert/insert.css",
+            "/web/NewBingGoGo.html"
         ],
         "matches": [
             "<all_urls>"

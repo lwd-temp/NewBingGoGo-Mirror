@@ -1,107 +1,117 @@
 {
-    "arguments": [
+  "arguments": [
+    {
+      "source": "cib",
+      "optionsSets": [
+        "nlu_direct_response_filter",
+        "deepleo",
+        "disable_emoji_spoken_text",
+        "responsible_ai_policy_235",
+        "enablemm",
+        "h3imaginative",
+        "gencontentv3",
+        "cachewriteext",
+        "cricketansgnd",
+        "e2ecachewrite",
+        "nodlcpcwrite",
+        "nointernalsugg",
+        "rcsprtsalwlst",
+        "saharasugg",
+        "dl_edge_prompt",
+        "noknowimg",
+        "dv3sugg"
+      ],
+      "allowedMessageTypes": [
+        "ActionRequest",
+        "Chat",
+        "Context",
+        "InternalSearchQuery",
+        "InternalSearchResult",
+        "Disengaged",
+        "InternalLoaderMessage",
+        "RenderCardRequest",
+        "AdsQuery",
+        "SemanticSerp",
+        "GenerateContentQuery",
+        "SearchQuery"
+      ],
+      "sliceIds": [
+        "406sportgnds0",
+        "427startpms0",
+        "427vserps0",
+        "505iccric",
+        "505scsv5",
+        "507vaop",
+        "5082tsports",
+        "508jbcars0",
+        "512bicp1",
+        "adssqovr",
+        "allnopvt",
+        "creatorv2t",
+        "disablechatsupp",
+        "encjsreftf",
+        "forallv2",
+        "mlchat7",
+        "mlchatbase",
+        "sacf",
+        "ssoverlap0",
+        "sswebtop1",
+        "sydconfigoptc",
+        "tempcacheread",
+        "temptacache",
+        "wrapnoins",
+        "scprompt2",
+        "ton"
+      ],
+      "verbosity": "verbose",
+      "traceId": "64603a85acd94df18d4b9153181c0985",
+      "isStartOfSession": true,
+      "message": {
+        "locale": "zh-CN",
+        "market": "zh-CN",
+        "region": "US",
+        "location": "lat:47.639557;long:-122.128159;re=1000m;",
+        "locationHints": [
+          {
+            "country": "United States",
+            "state": "Washington",
+            "city": "Index",
+            "zipcode": "98256",
+            "timezoneoffset": -8,
+            "dma": 819,
+            "countryConfidence": 9,
+            "Center": {
+              "Latitude": 47.8201,
+              "Longitude": -121.5543
+            },
+            "RegionType": 2,
+            "SourceType": 1
+          }
+        ],
+        "timestamp": "2023-05-14T09:33:59+08:00",
+        "author": "user",
+        "inputMethod": "Keyboard",
+        "text": "创造力",
+        "messageType": "Chat"
+      },
+      "conversationSignature": "vuuJMDTMrhZE6u6KyjgoVRCj4t6zjjffs5X3yiMgRgU=",
+      "participant": {
+        "id": "985155485310705"
+      },
+      "conversationId": "51D|BingProd|55A2A984BA346607AFE7799938D31FAAAE24CBDC0BF195D1CBBC234C3527048E",
+      "previousMessages": [
         {
-            "source": "cib",
-            "optionsSets": [
-                "nlu_direct_response_filter",
-                "deepleo",
-                "disable_emoji_spoken_text",
-                "responsible_ai_policy_235",
-                "enablemm",
-                "h3imaginative",
-                "cachewriteext",
-                "e2ecachewrite",
-                "nodlcpcwrite",
-                "responseos",
-                "travelansgnd",
-                "dl_edge_prompt",
-                "glprompt",
-                "dv3sugg",
-                "gencontentv3"
-            ],
-            "allowedMessageTypes": [
-                "Chat",
-                "InternalSearchQuery",
-                "InternalSearchResult",
-                "Disengaged",
-                "InternalLoaderMessage",
-                "RenderCardRequest",
-                "AdsQuery",
-                "SemanticSerp",
-                "GenerateContentQuery",
-                "SearchQuery"
-            ],
-            "sliceIds": [
-                "0404sydicnbs0",
-                "185cf",
-                "330uaugs0",
-                "403tvlansgnd",
-                "404e2ewrt",
-                "405suggbs0",
-                "408nodedups0",
-                "afftoalton",
-                "chk1cf",
-                "nopreloadsscf",
-                "perfimpcomb",
-                "sugdivdis",
-                "sydnoinputt",
-                "udscahrfon",
-                "udstrblm5",
-                "wpcssopt",
-                "0329resp",
-                "scctl"
-            ],
-            "verbosity": "verbose",
-            "traceId": "643953efa3fc4c2f825c5e611880c22e",
-            "isStartOfSession": true,
-            "message": {
-                "locale": "zh-CN",
-                "market": "zh-CN",
-                "region": "US",
-                "location": "lat:47.639557;long:-122.128159;re=1000m;",
-                "locationHints": [
-                    {
-                        "country": "United States",
-                        "state": "Texas",
-                        "city": "Dallas",
-                        "zipcode": "75207",
-                        "timezoneoffset": -6,
-                        "dma": 623,
-                        "countryConfidence": 8,
-                        "cityConfidence": 5,
-                        "Center": {
-                            "Latitude": 32.7928,
-                            "Longitude": -96.8274
-                        },
-                        "RegionType": 2,
-                        "SourceType": 1
-                    }
-                ],
-                "timestamp": "2023-04-14T21:23:56+08:00",
-                "author": "user",
-                "inputMethod": "Keyboard",
-                "text": "你好",
-                "messageType": "Chat"
-            },
-            "conversationSignature": "VcSdrf7Dh0nVIXPEub1tPLCbvLW45FQelhAMcmVMmqU=",
-            "participant": {
-                "id": "985155485310705"
-            },
-            "conversationId": "51D|BingProd|EB4DA633232BA903BD345AC445CB741F77706EA183403892661A63A9DC620AD7",
-            "previousMessages": [
-                {
-                    "author": "user",
-                    "description": "<EMPTY>",
-                    "contextType": "WebPage",
-                    "messageType": "Context",
-                    "messageId": "discover-web--page-ping-mriduna-----",
-                    "sourceName": "我需要举办6人晚宴。你能帮我推荐三道不包括坚果或海鲜的菜吗？ - 搜索",
-                    "sourceUrl": "https://www.bing.com/search?q=%E6%88%91%E9%9C%80%E8%A6%81%E4%B8%BE%E5%8A%9E6%E4%BA%BA%E6%99%9A%E5%AE%B4%E3%80%82%E4%BD%A0%E8%83%BD%E5%B8%AE%E6%88%91%E6%8E%A8%E8%8D%90%E4%B8%89%E9%81%93%E4%B8%8D%E5%8C%85%E6%8B%AC%E5%9D%9A%E6%9E%9C%E6%88%96%E6%B5%B7%E9%B2%9C%E7%9A%84%E8%8F%9C%E5%90%97%EF%BC%9F&iscopilotedu=1&form=MA13G9"
-                }
-            ]
+          "author": "user",
+          "description": "已有帐号？ 立即登录\r\n\r\n一个基于微软OpenAI ChatGPT GPT4的New Bing接口的浏览器AI对话插件。提供了好看的对话页面。实现了NewBing的大多数功能，还添加了一些自己的特色功能。开源免费，国内可用！\r\n\r\n聊天实现了NewBing的大多数功能，搜索，画图，天气，地图等等。\r\n\r\n创作实现了NewBing侧边栏的撰写的大多数功能，可更具需求生成文章。\r\n\r\n小窗实现了NewBing侧边栏的根据当前页面信息问答的功能，可以在同一个页面中同时打开多个小窗同时问答，高效地查阅资料和完成文章编辑工作。\r\n\r\n在开始使用插件前阅读这篇文档可以节省大量的时间和精力自己研究。这个 非常重要 ！\r\n\r\n非常重要！ >>> 快速入门.md <<< 非常重要！\r\n\r\n非常欢迎大家反馈自己的建议，和在使用插件的过程中遇到的问题。\r\n\r\n如果有什么值得分享的事情，非常欢迎新建一个issues。\r\n\r\n非常欢迎大家反馈自己的建议，如果有好的建议可以随时新建一个issues。\r\n\r\n如果遇到问题可以先收索下issues，如果有相同的问题可以参考其他人的解决方案。 如果遇到无法解决的问题可以提新的issues，如果是插件运行时发生的问题，请打开F12切换到控制台将红色的报错信息截图提交。如果是其他问题请配上说明。\r\n\r\n如果你是一个喜欢分享的折腾爱好者，可以试试这个web版，无需安装插件就可以分享给他人使用。这个几乎兼容所有浏览器！ https://github.com/jianjianai/NewBingGoGo-Web\r\n\r\n此插件是我开发的第一个浏览器插件， 仅用于学习和交流。\r\n\r\n我现在大一，上学期学的html+css正好用上了，js这学期才开课，现在才学了一半，技术是真的不行，勉勉强强写出来了。如果觉得界面太丑还请见谅，漂亮的真的写不出来QAQ。\r\n\r\n关于封号问题，这个是不存在的。只存在请求次数过多被限制的问题，通常第二天就好了。虽然不存在封号问题，但是为了我自己放心，调用api的时候还是严格按照官网上的请求格式调用的，不会有特征问题，放心用就是了。",
+          "contextType": "WebPage",
+          "messageType": "Context",
+          "sourceName": "NewBingGoGo: 一个基于微软OpenAI ChatGPT GPT4的New Bing接口的浏览器AI对话插件。提供了好看的对话页面。实现了NewBing的大多数功能，还添加了一些自己的特色功能。开源免费，国内可用！",
+          "sourceUrl": "https://gitee.com/jja8/NewBingGoGo"
         }
-    ],
-    "invocationId": "0",
-    "target": "chat",
-    "type": 4
+      ]
+    }
+  ],
+  "invocationId": "0",
+  "target": "chat",
+  "type": 4
 }

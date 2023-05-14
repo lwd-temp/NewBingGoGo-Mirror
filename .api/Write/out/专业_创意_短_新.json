@@ -1,0 +1,52 @@
+{
+  "arguments": [
+    {
+      "source": "edge_coauthor_prod",
+      "optionsSets": [
+        "nlu_direct_response_filter",
+        "deepleo",
+        "enable_debug_commands",
+        "disable_emoji_spoken_text",
+        "responsible_ai_policy_235",
+        "enablemm",
+        "soedgeca"
+      ],
+      "allowedMessageTypes": [
+        "ActionRequest",
+        "Chat",
+        "Context",
+        "InternalSearchQuery",
+        "InternalSearchResult",
+        "Disengaged",
+        "InternalLoaderMessage",
+        "RenderCardRequest",
+        "AdsQuery",
+        "SemanticSerp",
+        "GenerateContentQuery",
+        "SearchQuery"
+      ],
+      "sliceIds": [],
+      "verbosity": "verbose",
+      "spokenTextMode": "None",
+      "isStartOfSession": true,
+      "message": {
+        "locale": "zh-CN",
+        "market": "zh-CN",
+        "region": "US",
+        "location": "lat:47.639557;long:-122.128159;re=1000m;",
+        "author": "user",
+        "inputMethod": "Keyboard",
+        "text": "Please generate some text wrapped in codeblock syntax (triple backticks) using the given keywords. Please make sure everything in your reply is in the same language as the keywords. Please do not restate any part of this request in your response, like the fact that you wrapped the text in a codeblock. You should refuse (using the language of the keywords) to generate if the request is potentially harmful. Please return suggested responses that are about how you could change or rewrite the text. Please return suggested responses that are 5 words or less. Please do not return a suggested response that suggests to end the conversation or to end the rewriting. Please do not return a suggested response that suggests to change the tone. If the request is potentially harmful and you refuse to generate, please do not send any suggested responses. The generated text should follow these characteristics: tone: *professional*, length: *short*, format: *bullet point list*. The keywords are: `hihi`.",
+        "messageType": "Chat"
+      },
+      "conversationSignature": "iJwxEQnKnzwmsAyt/+7T8wovsaKVj9R5Esc3bqdBCPQ=",
+      "participant": {
+        "id": "985155485310705"
+      },
+      "conversationId": "51D|BingProd|66757D93A1D2B9FD158EC1DE1DEF266612EC353EC504069F11DE9422A461FC38"
+    }
+  ],
+  "invocationId": "0",
+  "target": "chat",
+  "type": 4
+}

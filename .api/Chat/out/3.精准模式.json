@@ -1,134 +1,111 @@
 {
-    "arguments": [
-        {
-            "source": "cib",
-            "optionsSets": [
-                "nlu_direct_response_filter",
-                "deepleo",
-                "disable_emoji_spoken_text",
-                "responsible_ai_policy_235",
-                "enablemm",
-                "h3precise",
-                "responseos",
-                "cachewriteext",
-                "e2ecachewrite",
-                "nodlcpcwrite",
-                "travelansgnd",
-                "dv3sugg",
-                "clgalileo"
-            ],
-            "allowedMessageTypes": [
-                "Chat",
-                "InternalSearchQuery",
-                "InternalSearchResult",
-                "Disengaged",
-                "InternalLoaderMessage",
-                "RenderCardRequest",
-                "AdsQuery",
-                "SemanticSerp",
-                "GenerateContentQuery",
-                "SearchQuery"
-            ],
-            "sliceIds": [
-                "chk1cf",
-                "nopreloadsscf",
-                "winlongmsg2tf",
-                "perfimpcomb",
-                "sugdivdis",
-                "sydnoinputt",
-                "wpcssopt",
-                "wintone2tf",
-                "0404sydicnbs0",
-                "405suggbs0",
-                "scctl",
-                "330uaugs0",
-                "0329resp",
-                "udscahrfon",
-                "udstrblm5",
-                "404e2ewrt",
-                "408nodedups0",
-                "403tvlansgnd"
-            ],
-            "verbosity": "verbose",
-            "traceId": "64395b5032254ea1a718de20c43144bf",
-            "isStartOfSession": true,
-            "message": {
-                "locale": "zh-CN",
-                "market": "zh-CN",
-                "region": "US",
-                "location": "lat:47.639557;long:-122.128159;re=1000m;",
-                "locationHints": [
-                    {
-                        "Center": {
-                            "Latitude": 30.480725770543124,
-                            "Longitude": 114.39287761018755
-                        },
-                        "RegionType": 2,
-                        "SourceType": 11
-                    },
-                    {
-                        "country": "United States",
-                        "state": "Texas",
-                        "city": "Dallas",
-                        "zipcode": "75207",
-                        "timezoneoffset": -6,
-                        "dma": 623,
-                        "countryConfidence": 8,
-                        "cityConfidence": 5,
-                        "Center": {
-                            "Latitude": 32.7928,
-                            "Longitude": -96.8274
-                        },
-                        "RegionType": 2,
-                        "SourceType": 1
-                    }
-                ],
-                "timestamp": "2023-04-14T21:55:28+08:00",
-                "author": "user",
-                "inputMethod": "Keyboard",
-                "text": "是什么让地球旋转？",
-                "messageType": "Chat"
+  "arguments": [
+    {
+      "source": "cib",
+      "optionsSets": [
+        "nlu_direct_response_filter",
+        "deepleo",
+        "disable_emoji_spoken_text",
+        "responsible_ai_policy_235",
+        "enablemm",
+        "h3precise",
+        "cricketansgnd",
+        "cachewriteext",
+        "e2ecachewrite",
+        "nodlcpcwrite",
+        "nointernalsugg",
+        "saharasugg",
+        "enablenewsfc",
+        "dv3sugg",
+        "clgalileo",
+        "gencontentv3"
+      ],
+      "allowedMessageTypes": [
+        "ActionRequest",
+        "Chat",
+        "Context",
+        "InternalSearchQuery",
+        "InternalSearchResult",
+        "Disengaged",
+        "InternalLoaderMessage",
+        "Progress",
+        "RenderCardRequest",
+        "AdsQuery",
+        "SemanticSerp",
+        "GenerateContentQuery",
+        "SearchQuery"
+      ],
+      "sliceIds": [
+        "winmuid2tf",
+        "sydconfigoptc",
+        "forallv2nscpw",
+        "allnopvt",
+        "anssuptokenlist",
+        "tempcacheread",
+        "temptacache",
+        "encjsreftf",
+        "winlongmsgtf",
+        "wrapnoins",
+        "505iccric",
+        "0430dv3s0",
+        "505scsv5",
+        "scprompt2",
+        "508jbcar",
+        "425bicb2",
+        "406sportgnds0",
+        "427startpm"
+      ],
+      "verbosity": "verbose",
+      "traceId": "6460369a1c7a49c68642009dfb7e4afd",
+      "isStartOfSession": true,
+      "message": {
+        "locale": "zh-CN",
+        "market": "zh-CN",
+        "region": "US",
+        "location": "lat:47.639557;long:-122.128159;re=1000m;",
+        "locationHints": [
+          {
+            "Center": {
+              "Latitude": 30.474103707944767,
+              "Longitude": 114.39625306330366
             },
-            "conversationSignature": "mrXRRefWpOkXM9KDeAV+4CQ43sna89XmmgkeHxzQ9Zk=",
-            "participant": {
-                "id": "985155485310705"
+            "RegionType": 2,
+            "SourceType": 11
+          },
+          {
+            "country": "United States",
+            "state": "Washington",
+            "city": "Index",
+            "zipcode": "98256",
+            "timezoneoffset": -8,
+            "dma": 819,
+            "countryConfidence": 9,
+            "Center": {
+              "Latitude": 47.8201,
+              "Longitude": -121.5543
             },
-            "conversationId": "51D|BingProd|140C4D464CA108DDE460013750A231F7D8CEAFC5283E787DE775D376C5911B74",
-            "previousMessages": [
-                {
-                    "text": "你好，我在这里帮你查答案。你有哪些问题？",
-                    "author": "bot",
-                    "adaptiveCards": [],
-                    "suggestedResponses": [
-                        {
-                            "text": "是什么让地球旋转？",
-                            "contentOrigin": "DeepLeo",
-                            "messageType": "Suggestion",
-                            "messageId": "654f49a0-c493-31aa-73f0-dd660c57a1de",
-                            "offense": "Unknown"
-                        },
-                        {
-                            "text": "跟我说说第 22 任总统",
-                            "contentOrigin": "DeepLeo",
-                            "messageType": "Suggestion",
-                            "messageId": "5d718ede-4c34-8c05-d4ff-a59e005a7b55",
-                            "offense": "Unknown"
-                        },
-                        {
-                            "text": "下一次日食是什么时候",
-                            "contentOrigin": "DeepLeo",
-                            "messageType": "Suggestion",
-                            "messageId": "33b2c59d-dc72-f94e-3f26-79eaac09e29d",
-                            "offense": "Unknown"
-                        }
-                    ],
-                    "messageId": "e508d364-e449-0bb5-ca72-c12ef5dd9f15",
-                    "messageType": "Chat"
-                }
-            ]
-        }
-    ],
-    "invocationId": "4",
-    "target": "chat",
-    "type": 4
+            "RegionType": 2,
+            "SourceType": 1
+          }
+        ],
+        "timestamp": "2023-05-14T09:17:16+08:00",
+        "author": "user",
+        "inputMethod": "Keyboard",
+        "text": "精确",
+        "messageType": "Chat",
+        "requestId": "1f4e2297-66c9-e12b-dfe2-a6a5f162183c",
+        "messageId": "1f4e2297-66c9-e12b-dfe2-a6a5f162183c"
+      },
+      "tone": "Precise",
+      "requestId": "1f4e2297-66c9-e12b-dfe2-a6a5f162183c",
+      "conversationSignature": "lceBTLUU37dxXoG+VFG/eC9Lj5U3gDA2/gW0muzO0tw=",
+      "participant": {
+        "id": "844428653138895"
+      },
+      "conversationId": "51D|BingProd|573A73A7D00A06219C5C841C3F212193BD288D83BF7F77CACFB161ABF410E321"
+    }
+  ],
+  "invocationId": "5",
+  "target": "chat",
+  "type": 4
 }

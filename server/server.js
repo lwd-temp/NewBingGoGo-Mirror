@@ -60,16 +60,28 @@ async function handleRequest(request){
             });
         }
 
+        if(url.pathname==="/edgesvc/turing/captcha/create"){//请求验证码图片
+            let mUrl = uRLTrue(await getMagicUrl()) ;
+            await copyCookies(mUrl)
+            return await goUrl(request,`${mUrl}/edgesvc/turing/captcha/create`,undefined);
+        }
+
+        if(url.pathname==="/edgesvc/turing/captcha/verify"){//提交验证码
+            let mUrl = uRLTrue(await getMagicUrl()) ;
+            await copyCookies(mUrl)
+            return await goUrl(request,`${mUrl}/edgesvc/turing/captcha/verify?`+ url.search,undefined);
+        }
+
         if (url.pathname==='/msrewards/api/v1/enroll') { //加入候补
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            return await goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search);
+            return await goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search,undefined);
         }
 
         if (url.pathname==='/images/create') { //AI画图
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            return await goUrl(request, `${mUrl}/images/create`+url.search);
+            return await goUrl(request, `${mUrl}/images/create`+url.search,undefined);
         }
 
         if (url.pathname.startsWith('/images/create/async/results')) { //请求AI画图图片

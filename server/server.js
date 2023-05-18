@@ -55,9 +55,7 @@ async function handleRequest(request){
         if (url.pathname==='/turing/conversation/create') { //创建聊天
             let mUrl = uRLTrue(await getMagicUrl()) ;
             await copyCookies(mUrl)
-            return await goUrl(request, `${mUrl}/turing/conversation/create`,{
-                'new_bing_go_go-plug-create':'true'
-            });
+            return await goUrl(request, `${mUrl}/turing/conversation/create`,undefined);
         }
 
         if(url.pathname==="/edgesvc/turing/captcha/create"){//请求验证码图片
@@ -85,7 +83,7 @@ async function handleRequest(request){
         }
 
         if (url.pathname.startsWith('/images/create/async/results')) { //请求AI画图图片
-            let mUrl = uRLTrue(await getMagicUrl()) ;
+            let mUrl = uRLTrue(await getMagicUrl());
             await copyCookies(mUrl)
             let a = url.pathname.replace('/images/create/async/results', `${mUrl}/images/create/async/results`)+url.search;
             return await goUrl(request, a, {
@@ -174,7 +172,8 @@ async function goUrl(request, url, addHeaders) {
         if(res.headers.has('cf-mitigated')){
             let usp =  new URLSearchParams();
             usp.append('redirect',chrome.runtime.getURL('/web/NewBingGoGo.html'));
-            throw new Error(`<p>被质疑为恶意攻击,需要通过机器人校验。</p><p><a href="${url}?${usp.toString()}" target="_blank">点击前往校验。</a></p>`);
+            let mUrl = uRLTrue(await getMagicUrl());
+            throw new Error(`<p>被质疑为恶意攻击,需要通过机器人校验。</p><p><a href="${mUrl}/challenge?${usp.toString()}" target="_blank">点击前往校验。</a></p>`);
         }
         throw new Error(`请求被拒绝,错误代码:${res.status} 原因:${res.statusText}`);
     }

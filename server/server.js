@@ -147,16 +147,13 @@ async function goUrl(request, url, addHeaders) {
         headers: {}
     }
     //保留头部信息
-    let reqHeaders = new Headers(request.headers);
-    let dropHeaders = ["user-agent", "accept", "accept-language"];
-    let he = reqHeaders.entries();
-    for (let h of he) {
-        let key = h[0],
-            value = h[1];
-        if (dropHeaders.includes(key)) {
-            fp.headers[key] = value;
+    let dropHeaders = ["user-agent", "accept", "accept-language","randomAddress"];
+    for (let dropHeader of dropHeaders) {
+        if(request.headers.has(dropHeader)){
+            fp.headers[dropHeader] = request.headers.get(dropHeader);
         }
     }
+
     if (addHeaders) {
         //添加头部信息
         for (let h in addHeaders) {

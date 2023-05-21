@@ -23,6 +23,21 @@ async function handleRequest(request){
         return re
     }
 
+    //server配置请求
+    if(url.pathname==='/web/resource/config.json'){
+        let re;
+        try {
+            let mUrl = uRLTrue(await getMagicUrl()) ;
+            re = await fetch(mUrl+'/web/resource/config.json');
+        }catch (error){
+            console.warn(re);
+        }
+        if(!re || !re.ok){
+            re = await fetch(chrome.runtime.getURL('/web/resource/config.json'));
+        }
+        return re
+    }
+
     //web请求
     if (
         url.pathname.startsWith('/web/')||

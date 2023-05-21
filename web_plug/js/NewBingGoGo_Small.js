@@ -10,6 +10,19 @@ import ChatRecordWorker from "../../web/js/module/ChatRecord/ChatRecordWorker.js
 import ChatFirstMessages_Small from "./module_plug/BingChat/ChatFirstMessages_Small.js";
 import ChatOptionsSets_Small from "./module_plug/BingChat/ChatOptionsSets_Small.js";
 
+/**
+ * 页面加载完成
+ * @param loaded {HTMLElement}
+ */
+function loaded(loaded){
+    if (loaded){
+        loaded.classList.add('loaded');
+        setTimeout(()=>{
+            loaded.remove()
+        },500)
+    }
+}
+
 //页面加载完成之后执行
 window.addEventListener('load',()=>{
     //窗口更新滚动
@@ -288,6 +301,7 @@ window.addEventListener('load',()=>{
     reSetStartChatMessage().then();
     input_update_input_text_sstyle_show_update();
     cueWordManager.loadcueWorld().then();
+    loaded(document.getElementById('load'));
 });
 
 

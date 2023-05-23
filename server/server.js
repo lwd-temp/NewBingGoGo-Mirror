@@ -1,3 +1,6 @@
+let serverConfig = {};//用于预加载，来加速页面打开
+let serverConfigOk = false;
+
 self.addEventListener("fetch",function(event) {
     if (event.request.url.startsWith(chrome.runtime.getURL(''))){
         event.respondWith(handleRequest(event.request))
@@ -5,6 +8,72 @@ self.addEventListener("fetch",function(event) {
     }
    // console.log(event);
 });
+
+
+/**
+ * 当链接更新时重新预加载
+ * */
+chrome.storage.onChanged.addListener(async (c,l) =>{
+    if(l!=="local"){
+        return;
+    }
+    if(!c.GoGoUrl){
+        return;
+    }
+    loadServerConfig().then()
+})
+/**
+ * 加载服务器配置
+ * */
+async function loadServerConfig(){
+    if(serverConfigOk==='loading'){
+        return;
+    }
+    serverConfigOk = 'loading'
+    //先从本地加载
+    try {
+        serverConfig = await (await fetch(chrome.runtime.getURL('/web/resource/config.json'))).json();
+    }catch (error){
+        console.warn(error);
+    }
+
+    //去魔法链接服务加
+    while (true){
+        let conf;
+        let mUrl
+        try {
+            mUrl = uRLTrue(await getMagicUrl());
+            let re = await fetch(mUrl+'/web/resource/config.json');
+            if(re && re.ok){
+                conf = await re.json();
+            }
+        }catch (error){
+            console.warn(error);
+        }
+        if(!mUrl){ // 如果没有魔法链接则加载失败
+            serverConfigOk = false;
+            return;
+        }
+        try {
+            if(mUrl!==uRLTrue(await getMagicUrl())){//如果魔法链接变化了则重新加载
+                continue;
+            }
+            if (!conf){//没有配置则加载失败
+                serverConfigOk = false;
+                return;
+            }else {//否则加载成功
+                serverConfig = conf;
+                serverConfigOk = true;
+                return;
+            }
+        }catch (error){//错误了则加载失败
+            console.warn(error);
+            serverConfigOk = false;
+            return;
+        }
+    }
+}
+loadServerConfig().then();
 
 async function handleRequest(request){
     let url = new URL(request.url);
@@ -25,17 +94,16 @@ async function handleRequest(request){
 
     //server配置请求
     if(url.pathname==='/web/resource/config.json'){
-        let re;
-        try {
-            let mUrl = uRLTrue(await getMagicUrl()) ;
-            re = await fetch(mUrl+'/web/resource/config.json');
-        }catch (error){
-            console.warn(re);
+        if(!serverConfigOk){
+            loadServerConfig().then();
         }
-        if(!re || !re.ok){
-            re = await fetch(chrome.runtime.getURL('/web/resource/config.json'));
-        }
-        return re
+        return new Response(JSON.stringify(serverConfig),{
+            status: 200,
+            statusText: 'ok',
+            headers: {
+                "content-type": "application/json"
+            }
+        });
     }
 
     //web请求

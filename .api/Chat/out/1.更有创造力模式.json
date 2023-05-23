@@ -9,7 +9,6 @@
         "responsible_ai_policy_235",
         "enablemm",
         "h3imaginative",
-        "cricketansgnd",
         "cachewriteext",
         "e2ecachewrite",
         "nodlcpcwrite",
@@ -36,27 +35,27 @@
         "SearchQuery"
       ],
       "sliceIds": [
-        "winmuid2tf",
-        "sydconfigoptc",
-        "forallv2nscpw",
-        "allnopvt",
-        "anssuptokenlist",
+        "winmuid1tf",
+        "516ajcoal",
+        "osbsdusgreccf",
+        "mlchatpc-c",
+        "winlongmsg2tf",
+        "creatgoglt",
+        "creatorv2t",
+        "norespwtf",
         "tempcacheread",
         "temptacache",
-        "encjsreftf",
-        "winlongmsgtf",
         "wrapnoins",
-        "505iccric",
-        "0430dv3s0",
+        "517bicsh",
         "505scsv5",
         "scprompt2",
-        "508jbcar",
-        "425bicb2",
-        "406sportgnds0",
+        "0516conv1",
+        "515vaoprvs",
+        "424dagslnv1s0",
         "427startpm"
       ],
       "verbosity": "verbose",
-      "traceId": "6460369a1c7a49c68642009dfb7e4afd",
+      "traceId": "646c3398f84e47548080ecfc78d8a342",
       "isStartOfSession": true,
       "message": {
         "locale": "zh-CN",
@@ -66,8 +65,8 @@
         "locationHints": [
           {
             "Center": {
-              "Latitude": 30.474103707944767,
-              "Longitude": 114.39625306330366
+              "Latitude": 30.48072522537603,
+              "Longitude": 114.3928744475944
             },
             "RegionType": 2,
             "SourceType": 11
@@ -88,21 +87,21 @@
             "SourceType": 1
           }
         ],
-        "timestamp": "2023-05-14T09:17:16+08:00",
+        "timestamp": "2023-05-23T11:31:38+08:00",
         "author": "user",
         "inputMethod": "Keyboard",
         "text": "创造力",
         "messageType": "Chat",
-        "requestId": "600699c4-397b-0433-c9e5-d376e63d055a",
-        "messageId": "600699c4-397b-0433-c9e5-d376e63d055a"
+        "requestId": "dbe09f57-8dc3-f190-2b6a-44d4fb1de340",
+        "messageId": "dbe09f57-8dc3-f190-2b6a-44d4fb1de340"
       },
       "tone": "Creative",
-      "requestId": "600699c4-397b-0433-c9e5-d376e63d055a",
-      "conversationSignature": "jRMPkoTyJ5OlUt+LvsuFzmJgHkDWS5SjrsKr/G8qQ/I=",
+      "requestId": "dbe09f57-8dc3-f190-2b6a-44d4fb1de340",
+      "conversationSignature": "KetrbSv6JWGG1gttB5s7UurrHnbO008Lpag3yq7b294=",
       "participant": {
-        "id": "844428653138895"
+        "id": "985155485310705"
       },
-      "conversationId": "51D|BingProd|2349ED6ACD23117715B47699E26CA3BBC4104A24966185194A01A3768D6177B2"
+      "conversationId": "51D|BingProd|B166EB0C07E11AC6EC3DC5EBDC556494D231BF2B610318CA05F13E1A030C8D87"
     }
   ],
   "invocationId": "3",

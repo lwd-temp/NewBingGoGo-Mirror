@@ -58,13 +58,14 @@ async function handleRequest(request){
 
     try {//这里面都是需要魔法链接的
         if(url.pathname==='/sydney/ChatHubUrl'){ //请求url
-            if(await getChatHubWithMagic()){
-                let mUrl = uRLTrue(await getMagicUrl()) ;
-                await copyCookies(mUrl)
-                return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
-            }else {
-                return new Response(`wss://sydney.bing.com/sydney/ChatHub`);
-            }
+            // if(await getChatHubWithMagic()){
+            //
+            // }else {
+            //     return new Response(`wss://sydney.bing.com/sydney/ChatHub`);
+            // }
+            let mUrl = uRLTrue(await getMagicUrl()) ;
+            await copyCookies(mUrl)
+            return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
         }
 
         if (url.pathname==='/turing/conversation/create') { //创建聊天
@@ -117,9 +118,11 @@ async function handleRequest(request){
 async function getMagicUrl() {
     return (await chrome.storage.local.get('GoGoUrl')).GoGoUrl;
 }
-async function getChatHubWithMagic() {
-    return !!(await chrome.storage.local.get('ChatHubWithMagic')).ChatHubWithMagic;
-}
+
+
+// async function getChatHubWithMagic() {
+//     return !!(await chrome.storage.local.get('ChatHubWithMagic')).ChatHubWithMagic;
+// }
 
 
 /**

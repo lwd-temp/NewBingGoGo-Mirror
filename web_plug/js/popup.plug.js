@@ -3,7 +3,6 @@ import uRLTrue from "./module_plug/uRLTrue.js";
 
 const url_input = document.querySelector('input#url-input');
 const speak = document.querySelector('p#speak');
-const tallSelect = document.querySelector('select#tallSelect');
 const thisVersion = document.getElementById('thisVersion');
 const lastVersion = document.getElementById('lastVersion');
 const getPublicUrl = document.getElementById('getPublicUrl');
@@ -38,23 +37,7 @@ MagicURL.getMagicUrl().then((v) => {
     loaded();
 });
 
-MagicURL.getChatHubWithMagic().then((chatWithMagic) => {
-    if (chatWithMagic === true) {
-        tallSelect.selectedIndex = 1;
-    } else {
-        tallSelect.selectedIndex = 0;
-    }
-    tallSelect.onchange = () => {
-        switch (tallSelect.selectedIndex) {
-            case 0:
-                MagicURL.setChatHubWithMagic(false).then();
-                break;
-            case 1:
-                MagicURL.setChatHubWithMagic(true).then();
-                break;
-        }
-    }
-});
+
 
 
 function loaded() {

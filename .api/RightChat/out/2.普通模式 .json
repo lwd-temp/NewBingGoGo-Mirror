@@ -10,12 +10,11 @@
         "enablemm",
         "galileo",
         "cachewriteext",
-        "cricketansgnd",
         "e2ecachewrite",
         "nodlcpcwrite",
         "nointernalsugg",
-        "rcsprtsalwlst",
         "saharasugg",
+        "enablenewsfc",
         "dl_edge_prompt",
         "noknowimg",
         "dv3sugg"
@@ -35,35 +34,26 @@
         "SearchQuery"
       ],
       "sliceIds": [
-        "406sportgnds0",
-        "427startpms0",
-        "427vserps0",
-        "505iccric",
-        "505scsv5",
-        "507vaop",
-        "5082tsports",
-        "508jbcars0",
-        "512bicp1",
-        "adssqovr",
-        "allnopvt",
-        "creatorv2t",
+        "toncf",
+        "bcsrcf",
+        "osbsdusgreccf",
+        "mlchat8kml",
         "disablechatsupp",
-        "encjsreftf",
-        "forallv2",
-        "mlchat7",
-        "mlchatbase",
-        "sacf",
-        "ssoverlap0",
-        "sswebtop1",
-        "sydconfigoptc",
+        "creatgoglt",
+        "creatorv2t",
+        "norespwtf",
         "tempcacheread",
         "temptacache",
         "wrapnoins",
+        "517bicsh",
+        "505scsv5",
         "scprompt2",
-        "ton"
+        "515vaoprvs",
+        "424dagslnv1s0",
+        "427startpm"
       ],
       "verbosity": "verbose",
-      "traceId": "64603a85acd94df18d4b9153181c0985",
+      "traceId": "646c3e2b1c7b44a8b2ab489fe9c5e5df",
       "isStartOfSession": true,
       "message": {
         "locale": "zh-CN",
@@ -87,31 +77,29 @@
             "SourceType": 1
           }
         ],
-        "timestamp": "2023-05-14T09:33:59+08:00",
+        "timestamp": "2023-05-23T12:16:46+08:00",
         "author": "user",
         "inputMethod": "Keyboard",
         "text": "平衡",
         "messageType": "Chat"
       },
       "tone": "Balanced",
-      "conversationSignature": "DHkqQxDIA91kE26uiaA++9NBoTa5bXWmLccQ9bs41qU=",
+      "conversationSignature": "1zCuNg7eWiOEjHN6nIr/EFHaahK1nCmY9DCrDk4Cp6c=",
       "participant": {
         "id": "985155485310705"
       },
-      "conversationId": "51D|BingProd|4BE2B5E12B34635759D2B0463B6DF45CC69AE811ECB666131E3B2C228FE47FE0",
+      "conversationId": "51D|BingProd|A5B4C5B0CAB379E06950DE70E7B6114B0C61D5A8F7DFF7DDBB704CE288DFEF1A",
       "previousMessages": [
         {
           "author": "user",
-          "description": "已有帐号？ 立即登录\r\n\r\n一个基于微软OpenAI ChatGPT GPT4的New Bing接口的浏览器AI对话插件。提供了好看的对话页面。实现了NewBing的大多数功能，还添加了一些自己的特色功能。开源免费，国内可用！\r\n\r\n聊天实现了NewBing的大多数功能，搜索，画图，天气，地图等等。\r\n\r\n创作实现了NewBing侧边栏的撰写的大多数功能，可更具需求生成文章。\r\n\r\n小窗实现了NewBing侧边栏的根据当前页面信息问答的功能，可以在同一个页面中同时打开多个小窗同时问答，高效地查阅资料和完成文章编辑工作。\r\n\r\n在开始使用插件前阅读这篇文档可以节省大量的时间和精力自己研究。这个 非常重要 ！\r\n\r\n非常重要！ >>> 快速入门.md <<< 非常重要！\r\n\r\n非常欢迎大家反馈自己的建议，和在使用插件的过程中遇到的问题。\r\n\r\n如果有什么值得分享的事情，非常欢迎新建一个issues。\r\n\r\n非常欢迎大家反馈自己的建议，如果有好的建议可以随时新建一个issues。\r\n\r\n如果遇到问题可以先收索下issues，如果有相同的问题可以参考其他人的解决方案。 如果遇到无法解决的问题可以提新的issues，如果是插件运行时发生的问题，请打开F12切换到控制台将红色的报错信息截图提交。如果是其他问题请配上说明。\r\n\r\n如果你是一个喜欢分享的折腾爱好者，可以试试这个web版，无需安装插件就可以分享给他人使用。这个几乎兼容所有浏览器！ https://github.com/jianjianai/NewBingGoGo-Web\r\n\r\n此插件是我开发的第一个浏览器插件， 仅用于学习和交流。\r\n\r\n我现在大一，上学期学的html+css正好用上了，js这学期才开课，现在才学了一半，技术是真的不行，勉勉强强写出来了。如果觉得界面太丑还请见谅，漂亮的真的写不出来QAQ。\r\n\r\n关于封号问题，这个是不存在的。只存在请求次数过多被限制的问题，通常第二天就好了。虽然不存在封号问题，但是为了我自己放心，调用api的时候还是严格按照官网上的请求格式调用的，不会有特征问题，放心用就是了。",
+          "description": "<EMPTY>",
           "contextType": "WebPage",
-          "messageType": "Context",
-          "sourceName": "NewBingGoGo: 一个基于微软OpenAI ChatGPT GPT4的New Bing接口的浏览器AI对话插件。提供了好看的对话页面。实现了NewBing的大多数功能，还添加了一些自己的特色功能。开源免费，国内可用！",
-          "sourceUrl": "https://gitee.com/jja8/NewBingGoGo"
+          "messageType": "Context"
         }
       ]
     }
   ],
-  "invocationId": "1",
+  "invocationId": "2",
   "target": "chat",
   "type": 4
 }

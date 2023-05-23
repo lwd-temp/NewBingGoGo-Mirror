@@ -1,5 +1,6 @@
+
 # NewBingGoGo : 简单开始和NewBing聊天
-一个基于微软ChatGPT GPT4的NewBing接口的浏览器AI对话插件。提供了好看的对话页面。实现了NewBing的大多数功能，还添加了一些自己的特色功能。开源免费，国内可用！
+一个基于微软OpenAI ChatGPT GPT4的New Bing接口的浏览器AI对话插件。提供了好看的对话页面。实现了NewBing的大多数功能，还添加了一些自己的特色功能。开源免费，国内可用！
 
 ## 主要功能展示
 ### 聊天功能

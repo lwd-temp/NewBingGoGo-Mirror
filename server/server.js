@@ -43,6 +43,15 @@ async function loadServerConfig(){
         let mUrl
         try {
             mUrl = uRLTrue(await getMagicUrl());
+            if (mUrl==="https://www.bing.com") {//如果用的官方
+                serverConfigOk = true;
+                serverConfig = {
+                    "h1": "NewBingGoGo",
+                    "h2": "正在使用bing官方服务聊天服务",
+                    "p": "bing官方服务国内可能无法使用，需要搭配科学上网。"
+                };
+                return;
+            }
             let re = await fetch(mUrl+'/web/resource/config.json');
             if(re && re.ok){
                 conf = await re.json();
@@ -120,60 +129,108 @@ async function handleRequest(request){
         url.hostname = "www.bing.com";
         return goUrl(request, url.toString(), {
             "sec-fetch-site": "same-origin",
-            "referer": "https://www.bing.com/search?q=bingAI"
+            "referer": "https://www.bing.com/search?q=bingAI",
+            "X-forwarded-for":request.headers.get("randomAddress")
         });
     }
 
     try {//这里面都是需要魔法链接的
+        async function bingChatHub(){
+            let randomAddress = request.headers.get("randomAddress");
+            if(randomAddress){
+                await setChatHubHeaderXFFIP(randomAddress);//设置XFFip
+            }
+            return new Response(`wss://sydney.bing.com/sydney/ChatHub`);
+        }
+
         if(url.pathname==='/sydney/ChatHubUrl'){ //请求url
-            // if(await getChatHubWithMagic()){
-            //
-            // }else {
-            //     return new Response(`wss://sydney.bing.com/sydney/ChatHub`);
-            // }
-            let mUrl = uRLTrue(await getMagicUrl()) ;
-            await copyCookies(mUrl)
-            return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
+            if(await getChatHubWithMagic()){
+                let mUrl = uRLTrue(await getMagicUrl());
+                if (mUrl==="https://www.bing.com"){//如果用的官方
+                    return await bingChatHub();
+                }
+                await copyCookies(mUrl)
+                return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
+            }else {
+                return await bingChatHub();
+            }
         }
 
         if (url.pathname==='/turing/conversation/create') { //创建聊天
             let mUrl = uRLTrue(await getMagicUrl()) ;
-            await copyCookies(mUrl)
+            if (mUrl==="https://www.bing.com"){//如果用的官方
+                return await goUrl(request, `${mUrl}/turing/conversation/create`,{
+                    "X-forwarded-for":request.headers.get("randomAddress")
+                });
+            }
+            await copyCookies(mUrl);
             return await goUrl(request, `${mUrl}/turing/conversation/create`,undefined);
         }
 
         if(url.pathname==="/edgesvc/turing/captcha/create"){//请求验证码图片
             let mUrl = uRLTrue(await getMagicUrl()) ;
+            if (mUrl==="https://www.bing.com"){//如果用的官方
+                return await goUrl(request,`https://edgeservices.bing.com/edgesvc/turing/captcha/create`,{
+                    "X-forwarded-for":request.headers.get("randomAddress")
+                });
+            }
             await copyCookies(mUrl)
             return await goUrl(request,`${mUrl}/edgesvc/turing/captcha/create`,undefined);
         }
 
         if(url.pathname==="/edgesvc/turing/captcha/verify"){//提交验证码
             let mUrl = uRLTrue(await getMagicUrl()) ;
+            if (mUrl==="https://www.bing.com"){//如果用的官方
+                return await goUrl(request,`https://edgeservices.bing.com/edgesvc/turing/captcha/verify?`+ url.search,{
+                    "X-forwarded-for":request.headers.get("randomAddress")
+                });
+            }
             await copyCookies(mUrl)
             return await goUrl(request,`${mUrl}/edgesvc/turing/captcha/verify?`+ url.search,undefined);
         }
 
         if (url.pathname==='/msrewards/api/v1/enroll') { //加入候补
             let mUrl = uRLTrue(await getMagicUrl()) ;
-            await copyCookies(mUrl)
-            return await goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search,undefined);
+            let addHeaders = {};
+            if (mUrl==="https://www.bing.com") {//如果用的官方
+                addHeaders = {
+                    "X-forwarded-for":request.headers.get("randomAddress")
+                }
+            }else {
+                await copyCookies(mUrl)//不是官方则需要拷贝
+            }
+            return await goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search,addHeaders);
         }
 
         if (url.pathname==='/images/create') { //AI画图
             let mUrl = uRLTrue(await getMagicUrl()) ;
-            await copyCookies(mUrl)
-            return await goUrl(request, `${mUrl}/images/create`+url.search,undefined);
+            let addHeaders = {};
+            if (mUrl==="https://www.bing.com") {//如果用的官方
+                addHeaders = {
+                    "sec-fetch-site": "same-origin",
+                    "referer": "https://www.bing.com/search?q=bingAI",
+                    "X-forwarded-for":request.headers.get("randomAddress")
+                }
+            }else {
+                await copyCookies(mUrl)//不是官方则需要拷贝
+            }
+            return await goUrl(request, `${mUrl}/images/create`+url.search,addHeaders);
         }
 
         if (url.pathname.startsWith('/images/create/async/results')) { //请求AI画图图片
             let mUrl = uRLTrue(await getMagicUrl());
-            await copyCookies(mUrl)
+            let addHeaders = {};
+            if (mUrl==="https://www.bing.com") {//如果用的官方
+                addHeaders = {
+                    "sec-fetch-site": "same-origin",
+                    "referer": "https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000",
+                    "X-forwarded-for":request.headers.get("randomAddress")
+                }
+            }else {
+                await copyCookies(mUrl)//不是官方则需要拷贝
+            }
             let a = url.pathname.replace('/images/create/async/results', `${mUrl}/images/create/async/results`)+url.search;
-            return await goUrl(request, a, {
-                "sec-fetch-site": "same-origin",
-                "referer": "https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000"
-            });
+            return await goUrl(request, a, addHeaders);
         }
     }catch (error){
         console.warn(error);
@@ -188,9 +245,9 @@ async function getMagicUrl() {
 }
 
 
-// async function getChatHubWithMagic() {
-//     return !!(await chrome.storage.local.get('ChatHubWithMagic')).ChatHubWithMagic;
-// }
+async function getChatHubWithMagic() {
+    return !!(await chrome.storage.local.get('ChatHubWithMagic')).ChatHubWithMagic;
+}
 
 
 /**
@@ -314,11 +371,38 @@ function getReturnError(error) {
 }
 
 
-
-
-
-
-
+/**
+ * 设置 wss://sydney.bing.com/sydney/ChatHub X-forwarded-for 请求头
+ * @param ip {String}
+ * */
+async function setChatHubHeaderXFFIP(ip){
+    await chrome.declarativeNetRequest.updateDynamicRules({removeRuleIds:[85654]})
+    await chrome.declarativeNetRequest.updateDynamicRules(
+        {
+            addRules:[{
+                "id": 85654,
+                "priority": 1,
+                "action": {
+                    "type": "modifyHeaders",
+                    "requestHeaders": [
+                        {
+                            "header": "X-forwarded-for",
+                            "operation": "set",
+                            "value": ip
+                        }
+                    ]
+                },
+                "condition": {
+                    "regexFilter": "^wss?://sydney.bing.com/sydney/ChatHub",
+                    "resourceTypes": [
+                        "websocket"
+                    ]
+                }
+            }]
+        }
+    );
+    console.log("ChatHub X-forwarded-for 已设置为"+ip);
+}
 
 
 

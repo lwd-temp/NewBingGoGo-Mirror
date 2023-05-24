@@ -135,24 +135,35 @@ async function handleRequest(request){
     }
 
     try {//这里面都是需要魔法链接的
-        async function bingChatHub(){
-            let randomAddress = request.headers.get("randomAddress");
-            if(randomAddress){
-                await setChatHubHeaderXFFIP(randomAddress);//设置XFFip
-            }
-            return new Response(`wss://sydney.bing.com/sydney/ChatHub`);
-        }
+
 
         if(url.pathname==='/sydney/ChatHubUrl'){ //请求url
+            async function bingChatHub(isAddRandomAddress,isSetHeader,url){//修改请求头
+                let randomAddress = request.headers.get("randomAddress");
+                if(randomAddress){
+                    if(isSetHeader){
+                        await setWebSocketHeaderXFFIP(randomAddress,url);//设置XFFip
+                    }else {
+                        await setWebSocketHeaderXFFIP(undefined,undefined);//设置XFFip
+                    }
+                }
+                if(isAddRandomAddress && randomAddress){
+                    let p = new URLSearchParams();
+                    p.append("randomAddress",randomAddress)
+                    url = url+"?"+p.toString();
+                }
+                return new Response(url);
+            }
+
             if(await getChatHubWithMagic()){
                 let mUrl = uRLTrue(await getMagicUrl());
                 if (mUrl==="https://www.bing.com"){//如果用的官方
-                    return await bingChatHub();
+                    return await bingChatHub(false,true,`wss://sydney.bing.com/sydney/ChatHub`);
                 }
                 await copyCookies(mUrl)
-                return new Response(`${mUrl.replace('http','ws')}/sydney/ChatHub`);
+                return await bingChatHub(true,false,`${mUrl.replace('http','ws')}/sydney/ChatHub`);
             }else {
-                return await bingChatHub();
+                return await bingChatHub(false,true,`wss://sydney.bing.com/sydney/ChatHub`);
             }
         }
 
@@ -372,36 +383,39 @@ function getReturnError(error) {
 
 
 /**
- * 设置 wss://sydney.bing.com/sydney/ChatHub X-forwarded-for 请求头
+ * 设置 url 的 X-forwarded-for 请求头
  * @param ip {String}
+ * @param url {String}
  * */
-async function setChatHubHeaderXFFIP(ip){
+async function setWebSocketHeaderXFFIP(ip,url){
     await chrome.declarativeNetRequest.updateDynamicRules({removeRuleIds:[85654]})
-    await chrome.declarativeNetRequest.updateDynamicRules(
-        {
-            addRules:[{
-                "id": 85654,
-                "priority": 1,
-                "action": {
-                    "type": "modifyHeaders",
-                    "requestHeaders": [
-                        {
-                            "header": "X-forwarded-for",
-                            "operation": "set",
-                            "value": ip
-                        }
-                    ]
-                },
-                "condition": {
-                    "regexFilter": "^wss?://sydney.bing.com/sydney/ChatHub",
-                    "resourceTypes": [
-                        "websocket"
-                    ]
-                }
-            }]
-        }
-    );
-    console.log("ChatHub X-forwarded-for 已设置为"+ip);
+    if(ip && url){
+        await chrome.declarativeNetRequest.updateDynamicRules(
+            {
+                addRules:[{
+                    "id": 85654,
+                    "priority": 1,
+                    "action": {
+                        "type": "modifyHeaders",
+                        "requestHeaders": [
+                            {
+                                "header": "X-forwarded-for",
+                                "operation": "set",
+                                "value": ip
+                            }
+                        ]
+                    },
+                    "condition": {
+                        "regexFilter": url,
+                        "resourceTypes": [
+                            "websocket"
+                        ]
+                    }
+                }]
+            }
+        );
+        console.log(url+" X-forwarded-for 已设置为"+ip);
+    }
 }
 
 

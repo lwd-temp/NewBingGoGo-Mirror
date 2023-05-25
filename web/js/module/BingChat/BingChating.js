@@ -13,6 +13,7 @@ export default class BingChating {
      */
     bingChat;
     sendMessageManager;
+    historySendMessage = [];
 
     /**
      * @param bingChat {BingChat}对象
@@ -41,7 +42,7 @@ export default class BingChating {
 
     /**
      * @param message {String} 发送的消息
-     * @param onMessage {function} 当收到消息时的回调函数
+     * @param onMessage {function(Object,ReturnMessage)} 当收到消息时的回调函数
      * @return {ReturnMessage}
      * @throws {Error}
      */
@@ -61,10 +62,11 @@ export default class BingChating {
             chatWebSocket.onopen = () => {
                 this.sendMessageManager.sendShakeHandsJson(chatWebSocket);
             }
-            let onopen = (even)=>{
+            let onopen = async (even)=>{
                 if('{}'===JSON.stringify(even)){
-                    this.sendMessageManager.sendJson(chatWebSocket,{"type":6});
-                    this.sendMessageManager.sendChatMessage(chatWebSocket, message);
+                    await this.sendMessageManager.sendJson(chatWebSocket,{"type":6});
+                    let id = await this.sendMessageManager.sendChatMessage(chatWebSocket, message, undefined);
+                    this.addHistorySendMessage(id,message);
                     returnMessage.outOnMessage(onopen);
                 }
             };
@@ -78,5 +80,26 @@ export default class BingChating {
                 throw new Error("无法连接到web服务器，请刷新页面重试:" + e.message);
             }
         }
+    }
+
+    /**
+     * 添加一条历史消息
+     * @param id {number}
+     * @param message {String}
+     * */
+    addHistorySendMessage(id,message){
+        this.historySendMessage[this.historySendMessage.length] = {id:id,message:message};
+        return this.historySendMessage[this.historySendMessage.length-1];
+    }
+
+    /**
+     * 获取最后一条历史消息
+     * @return {{id:number,message:string}}
+     * */
+    getLastSendMessage(){
+        if(this.historySendMessage.length<1){
+            return undefined;
+        }
+        return this.historySendMessage[this.historySendMessage.length-1];
     }
 }

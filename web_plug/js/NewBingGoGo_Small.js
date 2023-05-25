@@ -9,22 +9,12 @@ import SwitchWorker from "../../web/js/module/SwitchWorker.js";
 import ChatRecordWorker from "../../web/js/module/ChatRecord/ChatRecordWorker.js";
 import ChatFirstMessages_Small from "./module_plug/BingChat/ChatFirstMessages_Small.js";
 import ChatOptionsSets_Small from "./module_plug/BingChat/ChatOptionsSets_Small.js";
+import {LoadAnimation} from "../../web/js/module/aToos/AToos.js";
 
-/**
- * 页面加载完成
- * @param loaded {HTMLElement}
- */
-function loaded(loaded){
-    if (loaded){
-        loaded.classList.add('loaded');
-        setTimeout(()=>{
-            loaded.remove()
-        },500)
-    }
-}
+
 
 //页面加载完成之后执行
-window.addEventListener('load',()=>{
+window.addEventListener('load',async ()=>{
     //窗口更新滚动
     new WindowScrollingWorker(document.getElementById('chat'));
     const bingChat = new BingChat(new ChatFirstMessages_Small(),new ChatOptionsSets_Small()); //聊天对象 BingChat 对象
@@ -298,10 +288,20 @@ window.addEventListener('load',()=>{
 
 
 
-    reSetStartChatMessage().then();
+
     input_update_input_text_sstyle_show_update();
     cueWordManager.loadcueWorld().then();
-    loaded(document.getElementById('load'));
+    LoadAnimation.loaded(document.getElementById('load'));
+
+    await reSetStartChatMessage();
+    //如果有发送第一条消息的参数
+    let url = new URL(window.location.href);
+    let sendMessage = url.searchParams.get("sendMessage");
+    if(sendMessage){
+        send(sendMessage).then()
+        url.searchParams.delete("sendMessage");
+        window.history.pushState('','',url.toString());
+    }
 });
 
 

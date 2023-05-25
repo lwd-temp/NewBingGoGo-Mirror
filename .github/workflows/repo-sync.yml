@@ -19,11 +19,20 @@ jobs:
         source_branch: "master"
         destination_branch: "master"
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        sync_tags: "true"
     - name: repo-sync-dev
       uses: repo-sync/github-sync@v2
       with:
         source_repo: "https://gitee.com/jja8/NewBingGoGo.git"
         source_branch: "dev"
         destination_branch: "dev"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        sync_tags: "true"
+    - name: repo-sync-wikis
+      uses: repo-sync/github-sync@v2
+      with:
+        source_repo: "https://gitee.com/jja8/NewBingGoGo.wikis.git"
+        source_branch: "master"
+        destination_branch: "wikis"
         github_token: ${{ secrets.GITHUB_TOKEN }}
         sync_tags: "true"

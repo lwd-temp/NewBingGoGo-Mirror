@@ -26,3 +26,4 @@ jobs:
         source_branch: "dev"
         destination_branch: "dev"
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        sync_tags: "true"

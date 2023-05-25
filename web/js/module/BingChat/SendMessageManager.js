@@ -58,7 +58,7 @@ export default class SendMessageManager {
 
     /**
      * 发送json数据
-     * @param chatWebSocket
+     * @param chatWebSocket {WebSocket}
      * @param json
      * @return Promise<void>
      */

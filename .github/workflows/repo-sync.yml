@@ -18,11 +18,11 @@ jobs:
         source_repo: "https://gitee.com/jja8/NewBingGoGo.git"
         source_branch: "master"
         destination_branch: "master"
-        github_token: ${{ secrets.PAT }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: repo-sync-dev
       uses: repo-sync/github-sync@v2
       with:
         source_repo: "https://gitee.com/jja8/NewBingGoGo.git"
         source_branch: "dev"
         destination_branch: "dev"
-        github_token: ${{ secrets.PAT }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}

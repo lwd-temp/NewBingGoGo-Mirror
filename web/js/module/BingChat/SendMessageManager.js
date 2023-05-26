@@ -83,21 +83,8 @@ export default class SendMessageManager {
      * 获取用于发送的聊天数据
      * @param chatWebSocket {WebSocket}
      * @param chat {String} 聊天消息
-     * @param invocationId {number} 对话id,不指定则正常继续聊天，指定则用于对话恢复
-     * @return {Promise<number>} invocationId 对话id,用于对话恢复
      */
-    async sendChatMessage(chatWebSocket, chat,invocationId) {
-        let theId = undefined;
-        if(invocationId){
-            theId = this.invocationId;
-            this.invocationId = invocationId;
-        }
+    async sendChatMessage(chatWebSocket, chat) {
         await this.sendJson(chatWebSocket, await this.bingChat.chatOptionsSets.getSendJson(this,chat));
-        if(theId){
-            this.invocationId = theId;
-            return invocationId;
-        }else {
-            return this.invocationId++;
-        }
     }
 }

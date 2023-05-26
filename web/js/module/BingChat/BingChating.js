@@ -14,6 +14,7 @@ export default class BingChating {
     bingChat;
     sendMessageManager;
     historySendMessage = [];
+    invocationId = 1;
 
     /**
      * @param bingChat {BingChat}对象
@@ -27,6 +28,7 @@ export default class BingChating {
         let bingChating = new BingChating();
         bingChating.bingChat = bingChat;
         bingChating.sendMessageManager = new SendMessageManager(bingChat,charID, clientId, conversationSignature,theChatType,invocationId);
+        bingChating.invocationId = bingChating.sendMessageManager.invocationId;
         return bingChating;
     }
     /**
@@ -37,16 +39,27 @@ export default class BingChating {
         let bingChating = new BingChating();
         bingChating.bingChat = bingChat;
         bingChating.sendMessageManager = sendMessageManager;
+        bingChating.invocationId = sendMessageManager.invocationId;
         return bingChating;
     }
 
     /**
      * @param message {String} 发送的消息
      * @param onMessage {function(Object,ReturnMessage)} 当收到消息时的回调函数
+     * @param id {number} 用于聊天恢复
      * @return {ReturnMessage}
      * @throws {Error}
      */
-    async sendMessage(message, onMessage) {
+    async sendMessage(message, onMessage,id) {
+        //记录，和分配id
+        if(id){
+            this.sendMessageManager.invocationId = id;
+        }else {
+            this.addHistorySendMessage(this.invocationId,message);
+            this.sendMessageManager.invocationId = this.invocationId;
+            this.invocationId++;
+        }
+
         let restsrstUrl;
         if(window.location.protocol==="chrome-extension:"){
             let re = await nBGGFetch(`${window.location.origin}/sydney/ChatHubUrl`);
@@ -62,15 +75,21 @@ export default class BingChating {
             chatWebSocket.onopen = () => {
                 this.sendMessageManager.sendShakeHandsJson(chatWebSocket);
             }
+            //当连接打开时发送
             let onopen = async (even)=>{
                 if('{}'===JSON.stringify(even)){
                     await this.sendMessageManager.sendJson(chatWebSocket,{"type":6});
-                    let id = await this.sendMessageManager.sendChatMessage(chatWebSocket, message, undefined);
-                    this.addHistorySendMessage(id,message);
+                    await this.sendMessageManager.sendChatMessage(chatWebSocket, message);
                     returnMessage.outOnMessage(onopen);
                 }
             };
             returnMessage.regOnMessage(onopen);
+            //ping回复
+            returnMessage.regOnMessage(async (even)=>{
+                if (even["type"] === 6) {
+                    await this.sendMessageManager.sendJson(chatWebSocket,{"type":6});
+                }
+            });
             return returnMessage;
         } catch (e) {
             console.warn(e);

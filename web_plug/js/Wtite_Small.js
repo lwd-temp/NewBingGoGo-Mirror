@@ -1,9 +1,9 @@
-import ParserReturnWorker from './module/ChatMessage/ParserReturnWorker.js'
-import TitleWorker from './module/TitleWorker.js'
-import BingChat from './module/BingChat/BingChat.js';
-import ChatFirstMessages from "./module/BingChat/ChatFirstMessages.js";
-import ChatOptionsSets_Write from "./module/BingChat/ChatOptionsSets_Write.js";
-import {LoadAnimation} from "./module/aToos/AToos.js";
+import ParserReturnWorker from '../../web/js/module/ChatMessage/ParserReturnWorker.js'
+import TitleWorker from '../../web/js/module/TitleWorker.js'
+import BingChat from '../../web/js/module/BingChat/BingChat.js';
+import ChatFirstMessages from "../../web/js/module/BingChat/ChatFirstMessages.js";
+import ChatOptionsSets_Write from "../../web/js/module/BingChat/ChatOptionsSets_Write.js";
+import {LoadAnimation} from "../../web/js/module/aToos/AToos.js";
 
 /*控制按钮组选择，当选中新的按钮时回调函数*/
 function selectButtonFunRetrun(buttonGroup, returnFun) {
@@ -139,15 +139,6 @@ window.addEventListener('load',async ()=>{
                         parserReturnMessage.addNoLogin();
                     }else if (error.type==='NoPower'){
                         parserReturnMessage.addNoPower();
-                    }else if(error.theType === "cf-mitigated"){
-                        let reUrl = error.theData;
-                        if(reUrl){
-                            let rUrl = new URL(reUrl);
-                            let myUrl = new URL(location.href);
-                            myUrl.searchParams.append("sendMessage",text);
-                            rUrl.searchParams.set("redirect",myUrl.toString());
-                            window.location.href = rUrl.toString();
-                        }
                     }
                 }
                 return;

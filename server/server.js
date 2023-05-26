@@ -245,7 +245,7 @@ async function handleRequest(request){
         }
     }catch (error){
         console.warn(error);
-        return getReturnError("发生错误，请尝试更换魔法链接。"+error.message);
+        return getReturnError("发生错误，请尝试更换魔法链接。"+error.message,error.theType,error.theData);
     }
 
     return getRedirect('/web/NewBingGoGo.html');
@@ -324,7 +324,11 @@ async function goUrl(request, url, addHeaders) {
             let usp =  new URLSearchParams();
             usp.append('redirect',chrome.runtime.getURL('/web/NewBingGoGo.html'));
             let mUrl = uRLTrue(await getMagicUrl());
-            throw new Error(`<p>被质疑为恶意攻击,需要通过机器人校验。</p><p><a href="${mUrl}/challenge?${usp.toString()}" target="_blank">点击前往校验。</a></p>`);
+            let challengeUrl = `${mUrl}/challenge?${usp.toString()}`
+            let error = new Error(`<p>被质疑为恶意攻击,需要通过机器人校验。</p><p><a href="${challengeUrl}" target="_blank">点击前往校验。</a></p>`);
+            error.theType = "cf-mitigated";
+            error.theData = challengeUrl;
+            throw error;
         }
         throw new Error(`请求被拒绝,错误代码:${res.status} 原因:${res.statusText}`);
     }
@@ -367,10 +371,17 @@ function getRedirect(url) {
 }
 
 //获取用于返回的错误信息
-function getReturnError(error) {
+/**
+ * @param error {String} 错误消息
+ * @param type {String} 错误类型
+ * @param data {Object} 数据
+ * */
+function getReturnError(error,type,data) {
     return new Response(JSON.stringify({
         value: 'error',
-        message: error
+        message: error,
+        type:type,
+        data:data
     }), {
         status: 200,
         statusText: 'ok',

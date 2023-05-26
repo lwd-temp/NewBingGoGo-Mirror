@@ -1,7 +1,7 @@
 {
     "name": "NewBingGoGo",
     "description": "一个基于微软NewBing接口的浏览器AI对话插件",
-    "version": "2023.5.24.3",
+    "version": "2023.5.26.1",
     "manifest_version": 3,
     "permissions": [
         "storage",
@@ -48,7 +48,8 @@
             "/web_plug/Write_Small.html",
             "/web_plug/NewBingGoGo_Small.html",
             "/web_plug/css/insert/insert.css",
-            "/web/NewBingGoGo.html"
+            "/web/NewBingGoGo.html",
+            "/web/Write.html"
         ],
         "matches": [
             "<all_urls>"

@@ -13,8 +13,9 @@ export default class BingChating {
      */
     bingChat;
     sendMessageManager;
-    historySendMessage = [];
-    invocationId = 1;
+   // invocationId = 1;
+    // historySendMessage = [];
+
 
     /**
      * @param bingChat {BingChat}对象
@@ -28,7 +29,7 @@ export default class BingChating {
         let bingChating = new BingChating();
         bingChating.bingChat = bingChat;
         bingChating.sendMessageManager = new SendMessageManager(bingChat,charID, clientId, conversationSignature,theChatType,invocationId);
-        bingChating.invocationId = bingChating.sendMessageManager.invocationId;
+        // bingChating.invocationId = bingChating.sendMessageManager.invocationId;
         return bingChating;
     }
     /**
@@ -39,26 +40,25 @@ export default class BingChating {
         let bingChating = new BingChating();
         bingChating.bingChat = bingChat;
         bingChating.sendMessageManager = sendMessageManager;
-        bingChating.invocationId = sendMessageManager.invocationId;
+        // bingChating.invocationId = sendMessageManager.invocationId;
         return bingChating;
     }
 
     /**
      * @param message {String} 发送的消息
      * @param onMessage {function(Object,ReturnMessage)} 当收到消息时的回调函数
-     * @param id {number} 用于聊天恢复
      * @return {ReturnMessage}
      * @throws {Error}
      */
-    async sendMessage(message, onMessage,id) {
-        //记录，和分配id
-        if(id){
-            this.sendMessageManager.invocationId = id;
-        }else {
-            this.addHistorySendMessage(this.invocationId,message);
-            this.sendMessageManager.invocationId = this.invocationId;
-            this.invocationId++;
-        }
+    async sendMessage(message, onMessage) {
+        // //记录，和分配id
+        // if(id){
+        //     this.sendMessageManager.invocationId = id;
+        // }else {
+        //    // this.addHistorySendMessage(this.invocationId,message);
+        //     this.sendMessageManager.invocationId = this.invocationId;
+        //     this.invocationId++;
+        // }
 
         let restsrstUrl;
         if(window.location.protocol==="chrome-extension:"){
@@ -101,24 +101,24 @@ export default class BingChating {
         }
     }
 
-    /**
-     * 添加一条历史消息
-     * @param id {number}
-     * @param message {String}
-     * */
-    addHistorySendMessage(id,message){
-        this.historySendMessage[this.historySendMessage.length] = {id:id,message:message};
-        return this.historySendMessage[this.historySendMessage.length-1];
-    }
-
-    /**
-     * 获取最后一条历史消息
-     * @return {{id:number,message:string}}
-     * */
-    getLastSendMessage(){
-        if(this.historySendMessage.length<1){
-            return undefined;
-        }
-        return this.historySendMessage[this.historySendMessage.length-1];
-    }
+    // /**
+    //  * 添加一条历史消息
+    //  * @param id {number}
+    //  * @param message {String}
+    //  * */
+    // addHistorySendMessage(id,message){
+    //     this.historySendMessage[this.historySendMessage.length] = {id:id,message:message};
+    //     return this.historySendMessage[this.historySendMessage.length-1];
+    // }
+    //
+    // /**
+    //  * 获取最后一条历史消息
+    //  * @return {{id:number,message:string}}
+    //  * */
+    // getLastSendMessage(){
+    //     if(this.historySendMessage.length<1){
+    //         return undefined;
+    //     }
+    //     return this.historySendMessage[this.historySendMessage.length-1];
+    // }
 }

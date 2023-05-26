@@ -86,5 +86,6 @@ export default class SendMessageManager {
      */
     async sendChatMessage(chatWebSocket, chat) {
         await this.sendJson(chatWebSocket, await this.bingChat.chatOptionsSets.getSendJson(this,chat));
+        this.invocationId++;
     }
 }

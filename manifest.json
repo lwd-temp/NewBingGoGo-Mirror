@@ -1,7 +1,7 @@
 {
     "name": "NewBingGoGo",
     "description": "一个基于微软NewBing接口的浏览器AI对话插件",
-    "version": "2023.5.27.3",
+    "version": "2023.5.27.8",
     "manifest_version": 3,
     "permissions": [
         "storage",

@@ -9,15 +9,13 @@
         "responsible_ai_policy_235",
         "enablemm",
         "h3precise",
-        "cachewriteext",
-        "e2ecachewrite",
-        "nodlcpcwrite",
-        "nointernalsugg",
-        "saharasugg",
-        "enablenewsfc",
+        "objopinion",
+        "eredirecturl",
         "dv3sugg",
+        "autosave",
         "clgalileo",
-        "gencontentv3"
+        "gencontentv3",
+        "prompttrcp"
       ],
       "allowedMessageTypes": [
         "ActionRequest",
@@ -36,26 +34,24 @@
       ],
       "sliceIds": [
         "winmuid1tf",
-        "516ajcoal",
         "osbsdusgreccf",
-        "mlchatpc-c",
-        "winlongmsg2tf",
-        "creatgoglt",
+        "contansperf",
+        "mlchatpc2",
+        "winstmsg2tf",
+        "creatgoglt2",
         "creatorv2t",
-        "norespwtf",
-        "tempcacheread",
-        "temptacache",
-        "wrapnoins",
-        "517bicsh",
-        "505scsv5",
-        "scprompt2",
-        "0516conv1",
-        "515vaoprvs",
-        "424dagslnv1s0",
-        "427startpm"
+        "norespwcf",
+        "0521dur5",
+        "dur5",
+        "517opinion",
+        "418dhlths0",
+        "525ptrcp",
+        "kcimgv2cf",
+        "kcimgatt",
+        "427startpms0"
       ],
       "verbosity": "verbose",
-      "traceId": "646c3398f84e47548080ecfc78d8a342",
+      "traceId": "647193183c6448dda4921bd990e199cb",
       "isStartOfSession": true,
       "message": {
         "locale": "zh-CN",
@@ -65,8 +61,8 @@
         "locationHints": [
           {
             "Center": {
-              "Latitude": 30.48072522537603,
-              "Longitude": 114.3928744475944
+              "Latitude": 30.47408907109346,
+              "Longitude": 114.39626690037692
             },
             "RegionType": 2,
             "SourceType": 11
@@ -87,24 +83,24 @@
             "SourceType": 1
           }
         ],
-        "timestamp": "2023-05-23T11:31:38+08:00",
+        "timestamp": "2023-05-27T13:20:30+08:00",
         "author": "user",
         "inputMethod": "Keyboard",
-        "text": "精确",
+        "text": "你是一位大学教授，帮我做一份有关学生学习积极性的PPT，用markdown代码框进行输出",
         "messageType": "Chat",
-        "requestId": "c8c0661d-9279-0250-a8dc-25f4c4f7039d",
-        "messageId": "c8c0661d-9279-0250-a8dc-25f4c4f7039d"
+        "requestId": "2d1b2438-21a7-cbb3-f8d6-36f401c8dbe5",
+        "messageId": "2d1b2438-21a7-cbb3-f8d6-36f401c8dbe5"
       },
       "tone": "Precise",
-      "requestId": "c8c0661d-9279-0250-a8dc-25f4c4f7039d",
-      "conversationSignature": "UkNFE1TmjFqS1/rRe7OS+K+tnXKnzbL/PleBgtjASvE=",
+      "requestId": "2d1b2438-21a7-cbb3-f8d6-36f401c8dbe5",
+      "conversationSignature": "hHPnVb7nKLp4L1rTNpoWGBVpZPQ4QRhDaXfyTu6JJQ0=",
       "participant": {
-        "id": "985155485310705"
+        "id": "844428653138895"
       },
-      "conversationId": "51D|BingProd|11FC068BA4505D75E75F7773DEDCE34AAEC40C023A9011D1C9DD1D89323F782F"
+      "conversationId": "51D|BingProd|7AD58DE12D1FBF828A689EAAEFCF3F25667324A923DDB3C5E953667D277AD365"
     }
   ],
-  "invocationId": "5",
+  "invocationId": "3",
   "target": "chat",
   "type": 4
 }

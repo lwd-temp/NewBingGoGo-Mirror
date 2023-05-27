@@ -33,16 +33,13 @@ function getOptionsSets(tone){
             "responsible_ai_policy_235",
             "enablemm",
             "h3imaginative",
-            "cachewriteext",
-            "e2ecachewrite",
-            "nodlcpcwrite",
-            "nointernalsugg",
-            "saharasugg",
-            "enablenewsfc",
-            "dl_edge_prompt",
+            "objopinion",
+            "chatgptretry",
             "noknowimg",
             "dv3sugg",
-            "gencontentv3"
+            "autosave",
+            "gencontentv3",
+            "prompttrcp"
         ],
         //Balanced 平衡模式选项
         Balanced: [
@@ -52,15 +49,11 @@ function getOptionsSets(tone){
             "responsible_ai_policy_235",
             "enablemm",
             "galileo",
-            "cachewriteext",
-            "e2ecachewrite",
-            "nodlcpcwrite",
-            "nointernalsugg",
-            "saharasugg",
-            "enablenewsfc",
-            "dl_edge_prompt",
+            "objopinion",
+            "chatgptretry",
             "noknowimg",
-            "dv3sugg"
+            "dv3sugg",
+            "autosave"
         ],
         //精准选项
         Precise: [
@@ -70,15 +63,12 @@ function getOptionsSets(tone){
             "responsible_ai_policy_235",
             "enablemm",
             "h3precise",
-            "cachewriteext",
-            "e2ecachewrite",
-            "nodlcpcwrite",
-            "nointernalsugg",
-            "saharasugg",
-            "enablenewsfc",
-            "dl_edge_prompt",
+            "objopinion",
+            "chatgptretry",
             "noknowimg",
-            "dv3sugg"
+            "dv3sugg",
+            "autosave",
+            "prompttrcp"
         ]
     };
     let optionsSets = op[tone];
@@ -133,23 +123,24 @@ function getObj(optionsSets,
                     "SearchQuery"
                 ],
                 "sliceIds": [
-                    "toncf",
-                    "bcsrcf",
+                    "adssqovr",
+                    "cruiseenable",
+                    "savoice",
                     "osbsdusgreccf",
-                    "mlchat8kml",
-                    "disablechatsupp",
-                    "creatgoglt",
+                    "contansperf",
+                    "creatgoglt2",
                     "creatorv2t",
-                    "norespwtf",
-                    "tempcacheread",
-                    "temptacache",
-                    "wrapnoins",
-                    "517bicsh",
-                    "505scsv5",
-                    "scprompt2",
-                    "515vaoprvs",
-                    "424dagslnv1s0",
-                    "427startpm"
+                    "norespwcf",
+                    "0521dur5",
+                    "dur5",
+                    "517opinion",
+                    "418dhlths0",
+                    "0517gptr",
+                    "0517gptr",
+                    "525ptrcp",
+                    "kcimgv2cf",
+                    "kcimgatt",
+                    "427startpms0"
                 ],
                 "verbosity": "verbose",
                 "traceId": getUuidNojian(),

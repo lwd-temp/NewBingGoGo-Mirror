@@ -9,7 +9,8 @@
         "disable_emoji_spoken_text",
         "responsible_ai_policy_235",
         "enablemm",
-        "soedgeca"
+        "soedgeca",
+        "max_turns_5"
       ],
       "allowedMessageTypes": [
         "ActionRequest",
@@ -36,14 +37,14 @@
         "location": "lat:47.639557;long:-122.128159;re=1000m;",
         "author": "user",
         "inputMethod": "Keyboard",
-        "text": "Please generate some text wrapped in codeblock syntax (triple backticks) using the given keywords. Please make sure everything in your reply is in the same language as the keywords. Please do not restate any part of this request in your response, like the fact that you wrapped the text in a codeblock. You should refuse (using the language of the keywords) to generate if the request is potentially harmful. Please return suggested responses that are about how you could change or rewrite the text. Please return suggested responses that are 5 words or less. Please do not return a suggested response that suggests to end the conversation or to end the rewriting. Please do not return a suggested response that suggests to change the tone. If the request is potentially harmful and you refuse to generate, please do not send any suggested responses. The generated text should follow these characteristics: tone: *professional*, length: *short*, format: *bullet point list*. The keywords are: `hihi`.",
+        "text": "Please generate some text wrapped in codeblock syntax (triple backticks) using the given keywords. Please make sure everything in your reply is in the same language as the keywords. Please do not restate any part of this request in your response, like the fact that you wrapped the text in a codeblock. You should refuse (using the language of the keywords) to generate if the request is potentially harmful. Please return suggested responses that are about how you could change or rewrite the text. Please return suggested responses that are 5 words or less. Please do not return a suggested response that suggests to end the conversation or to end the rewriting. Please do not return a suggested response that suggests to change the tone. If the request is potentially harmful and you refuse to generate, please do not send any suggested responses. The generated text should follow these characteristics: tone: *professional*, length: *short*, format: *bullet point list*. The keywords are: `啊啊啊啊啊啊啊`.",
         "messageType": "Chat"
       },
-      "conversationSignature": "iJwxEQnKnzwmsAyt/+7T8wovsaKVj9R5Esc3bqdBCPQ=",
+      "conversationSignature": "guS1qdchTc42w8uEuZQOl49Agj7lf9amEALYcvmXow8=",
       "participant": {
-        "id": "985155485310705"
+        "id": "844428653138895"
       },
-      "conversationId": "51D|BingProd|66757D93A1D2B9FD158EC1DE1DEF266612EC353EC504069F11DE9422A461FC38"
+      "conversationId": "51D|BingProd|1EE3A08649868228FC5E70FC1A02636142116CABE9C80B9F63711CE3C2BDDA85"
     }
   ],
   "invocationId": "0",

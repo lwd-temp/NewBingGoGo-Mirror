@@ -243,6 +243,7 @@ window.addEventListener('load',async ()=>{
                         if(reUrl){
                             let rUrl = new URL(reUrl);
                             let myUrl = new URL(location.href);
+                            myUrl.searchParams.append("ChatMode",chatModeSwitchingManager.chatType);
                             myUrl.searchParams.append("sendMessage",text);
                             rUrl.searchParams.set("redirect",myUrl.toString());
                             window.location.href = rUrl.toString();

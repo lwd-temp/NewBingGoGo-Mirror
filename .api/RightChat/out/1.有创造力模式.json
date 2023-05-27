@@ -9,16 +9,13 @@
         "responsible_ai_policy_235",
         "enablemm",
         "h3imaginative",
-        "cachewriteext",
-        "e2ecachewrite",
-        "nodlcpcwrite",
-        "nointernalsugg",
-        "saharasugg",
-        "enablenewsfc",
-        "dl_edge_prompt",
+        "objopinion",
+        "chatgptretry",
         "noknowimg",
         "dv3sugg",
-        "gencontentv3"
+        "autosave",
+        "gencontentv3",
+        "prompttrcp"
       ],
       "allowedMessageTypes": [
         "ActionRequest",
@@ -35,26 +32,27 @@
         "SearchQuery"
       ],
       "sliceIds": [
-        "toncf",
-        "bcsrcf",
+        "adssqovr",
+        "cruiseenable",
+        "savoice",
         "osbsdusgreccf",
-        "mlchat8kml",
-        "disablechatsupp",
-        "creatgoglt",
+        "contansperf",
+        "creatgoglt2",
         "creatorv2t",
-        "norespwtf",
-        "tempcacheread",
-        "temptacache",
-        "wrapnoins",
-        "517bicsh",
-        "505scsv5",
-        "scprompt2",
-        "515vaoprvs",
-        "424dagslnv1s0",
-        "427startpm"
+        "norespwcf",
+        "0521dur5",
+        "dur5",
+        "517opinion",
+        "418dhlths0",
+        "0517gptr",
+        "0517gptr",
+        "525ptrcp",
+        "kcimgv2cf",
+        "kcimgatt",
+        "427startpms0"
       ],
       "verbosity": "verbose",
-      "traceId": "646c3e2b1c7b44a8b2ab489fe9c5e5df",
+      "traceId": "6471952949e04d8d9a6080d0bf455cb8",
       "isStartOfSession": true,
       "message": {
         "locale": "zh-CN",
@@ -78,18 +76,18 @@
             "SourceType": 1
           }
         ],
-        "timestamp": "2023-05-23T12:16:46+08:00",
+        "timestamp": "2023-05-27T13:29:16+08:00",
         "author": "user",
         "inputMethod": "Keyboard",
-        "text": "创造力",
+        "text": "创作",
         "messageType": "Chat"
       },
       "tone": "Creative",
-      "conversationSignature": "l1thq9SC042jNEFztgQNNS+BXHB4Jz3UiGC7q9FrOs4=",
+      "conversationSignature": "omBr3FZWnukCIAUr4JbsaHW8gm2dkF6p/zJXiHvGh5s=",
       "participant": {
-        "id": "985155485310705"
+        "id": "844428653138895"
       },
-      "conversationId": "51D|BingProd|5BD5F803C44777F68B594011CBB09618ACAA28DD8CE6FB7D3B8C2B6F98EBC90F",
+      "conversationId": "51D|BingProd|2FB6D862055BC3C7C871E55B1536C1479A0F404FAA491084A84F27BBBD6C2A2B",
       "previousMessages": [
         {
           "author": "user",
@@ -100,7 +98,7 @@
       ]
     }
   ],
-  "invocationId": "1",
+  "invocationId": "0",
   "target": "chat",
   "type": 4
 }

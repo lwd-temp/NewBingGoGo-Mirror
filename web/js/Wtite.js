@@ -176,10 +176,10 @@ window.addEventListener('load',async ()=>{
                         if(reUrl){
                             let rUrl = new URL(reUrl);
                             let myUrl = new URL(location.href);
-                            myUrl.searchParams.append("tone",chatOptionsSets_Write.tone);
-                            myUrl.searchParams.append("format",chatOptionsSets_Write.format);
-                            myUrl.searchParams.append("length",chatOptionsSets_Write.length);
-                            myUrl.searchParams.append("sendMessage",text);
+                            myUrl.searchParams.set("tone",chatOptionsSets_Write.tone);
+                            myUrl.searchParams.set("format",chatOptionsSets_Write.format);
+                            myUrl.searchParams.set("length",chatOptionsSets_Write.length);
+                            myUrl.searchParams.set("sendMessage",text);
                             rUrl.searchParams.set("redirect",myUrl.toString());
                             window.location.href = rUrl.toString();
                         }

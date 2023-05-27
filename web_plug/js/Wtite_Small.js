@@ -214,6 +214,7 @@ window.addEventListener('load',async ()=>{
 
     LoadAnimation.loaded(document.getElementById('load'));
 
+    await reSetStartChatMessage();
 
     //如果有发送第一条消息的参数
     let sendMessage = new URL(window.location.href).searchParams.get("sendMessage");

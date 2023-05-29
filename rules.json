@@ -6,14 +6,19 @@
             "type": "modifyHeaders",
             "requestHeaders": [
                 {
-                    "header": "sec-fetch-site",
+                    "header": "Host",
                     "operation": "set",
-                    "value": "same-origin"
+                    "value": "sydney.bing.com"
                 },
                 {
                     "header": "Origin",
                     "operation": "set",
                     "value": "https://www.bing.com"
+                },
+                {
+                    "header": "User-Agent",
+                    "operation": "set",
+                    "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57"
                 }
             ]
         },
@@ -25,50 +30,150 @@
         }
     },
     {
-        "id": 2,
-        "priority": 2,
-        "action": {
-            "type": "modifyHeaders",
-            "requestHeaders": [
-                {
-                    "header": "sec-fetch-site",
-                    "operation": "set",
-                    "value": "same-origin"
-                },
-                {
-                    "header": "referer",
-                    "operation": "set",
-                    "value": "https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000"
-                }
-            ]
-        },
-        "condition": {
-            "regexFilter": "^https?://.*.bing.com/images/create/async/results(.*)",
-            "resourceTypes": [
-                "xmlhttprequest"
-            ]
-        }
-    },
-    {
         "id": 3,
         "priority": 1,
         "action": {
             "type": "modifyHeaders",
             "requestHeaders": [
                 {
-                    "header": "sec-fetch-site",
-                    "operation": "set",
-                    "value": "same-origin"
-                },
-                {
                     "header": "referer",
                     "operation": "set",
-                    "value": "https://www.bing.com/search?q=bingAI"
+                    "value": "https://www.bing.com/search?q=Bing+AI"
+                },
+                {
+                    "header": "User-Agent",
+                    "operation": "set",
+                    "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57"
                 }
             ]
         },
         "condition": {
-            "regexFilter": "^https?://.*.bing.com/images/create(.*)",
+            "regexFilter": "^https?://www.bing.com/turing/conversation/create(.*)",
+            "resourceTypes": [
+                "xmlhttprequest"
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "priority": 1,
+        "action": {
+            "type": "modifyHeaders",
+            "requestHeaders": [
+                {
+                    "header": "referer",
+                    "operation": "set",
+                    "value": "https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,channelstable,&shellsig=709707142d65bbf48ac1671757ee0fd1996e2943&setlang=zh-CN&lightschemeovr=1"
+                },
+                {
+                    "header": "User-Agent",
+                    "operation": "set",
+                    "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57"
+                }
+            ]
+        },
+        "condition": {
+            "regexFilter": "^https?://edgeservices.bing.com/edgesvc/turing/captcha/create(.*)",
+            "resourceTypes": [
+                "xmlhttprequest"
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "priority": 1,
+        "action": {
+            "type": "modifyHeaders",
+            "requestHeaders": [
+                {
+                    "header": "referer",
+                    "operation": "set",
+                    "value": "https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,channelstable,&shellsig=709707142d65bbf48ac1671757ee0fd1996e2943&setlang=zh-CN&lightschemeovr=1"
+                },
+                {
+                    "header": "User-Agent",
+                    "operation": "set",
+                    "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57"
+                }
+            ]
+        },
+        "condition": {
+            "regexFilter": "^https?://edgeservices.bing.com/edgesvc/turing/captcha/verify(.*)",
+            "resourceTypes": [
+                "xmlhttprequest"
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "priority": 1,
+        "action": {
+            "type": "modifyHeaders",
+            "requestHeaders": [
+                {
+                    "header": "referer",
+                    "operation": "set",
+                    "value": "https://www.bing.com/search?q=bingAI"
+                },
+                {
+                    "header": "User-Agent",
+                    "operation": "set",
+                    "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57"
+                }
+            ]
+        },
+        "condition": {
+            "regexFilter": "^https?://www.bing.com/images/create?(.*)",
+            "resourceTypes": [
+                "xmlhttprequest"
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "priority": 1,
+        "action": {
+            "type": "modifyHeaders",
+            "requestHeaders": [
+                {
+                    "header": "referer",
+                    "operation": "set",
+                    "value": "https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000"
+                },
+                {
+                    "header": "User-Agent",
+                    "operation": "set",
+                    "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57"
+                }
+            ]
+        },
+        "condition": {
+            "regexFilter": "^https?://www.bing.com/images/create/async/results(.*)",
+            "resourceTypes": [
+                "xmlhttprequest"
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "priority": 1,
+        "action": {
+            "type": "modifyHeaders",
+            "requestHeaders": [
+                {
+                    "header": "referer",
+                    "operation": "set",
+                    "value": "https://www.bing.com/search?q=bingAI"
+                },
+                {
+                    "header": "User-Agent",
+                    "operation": "set",
+                    "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57"
+                }
+            ]
+        },
+        "condition": {
+            "regexFilter": "^https?://www.bing.com/rp(.*)",
             "resourceTypes": [
                 "xmlhttprequest"
             ]

@@ -128,20 +128,18 @@ async function handleRequest(request){
     if (url.pathname.startsWith('/rp')) { //显示AI画图错误提示图片
         url.hostname = "www.bing.com";
         return goUrl(request, url.toString(), {
-            "sec-fetch-site": "same-origin",
-            "referer": "https://www.bing.com/search?q=bingAI",
             "X-forwarded-for":request.headers.get("randomAddress")
-        });
+        },false);
     }
 
     try {//这里面都是需要魔法链接的
 
 
         if(url.pathname==='/sydney/ChatHubUrl'){ //请求url
-            async function bingChatHub(isAddRandomAddress,isSetHeader,url){//修改请求头
+            async function bingChatHub(isAddRandomAddress,isSetHeaderXFFIP,url){//修改请求头
                 let randomAddress = request.headers.get("randomAddress");
                 if(randomAddress){
-                    if(isSetHeader){
+                    if(isSetHeaderXFFIP){
                         await setWebSocketHeaderXFFIP(randomAddress,url);//设置XFFip
                     }else {
                         await setWebSocketHeaderXFFIP(undefined,undefined);//设置XFFip
@@ -170,12 +168,12 @@ async function handleRequest(request){
         if (url.pathname==='/turing/conversation/create') { //创建聊天
             let mUrl = uRLTrue(await getMagicUrl()) ;
             if (mUrl==="https://www.bing.com"){//如果用的官方
-                return await goUrl(request, `${mUrl}/turing/conversation/create`,{
+                return await goUrl(request, `https://www.bing.com/turing/conversation/create`,{
                     "X-forwarded-for":request.headers.get("randomAddress")
-                });
+                },false);
             }
             await copyCookies(mUrl);
-            return await goUrl(request, `${mUrl}/turing/conversation/create`,undefined);
+            return await goUrl(request, `${mUrl}/turing/conversation/create`,undefined,true);
         }
 
         if(url.pathname==="/edgesvc/turing/captcha/create"){//请求验证码图片
@@ -183,10 +181,10 @@ async function handleRequest(request){
             if (mUrl==="https://www.bing.com"){//如果用的官方
                 return await goUrl(request,`https://edgeservices.bing.com/edgesvc/turing/captcha/create`,{
                     "X-forwarded-for":request.headers.get("randomAddress")
-                });
+                },false);
             }
             await copyCookies(mUrl)
-            return await goUrl(request,`${mUrl}/edgesvc/turing/captcha/create`,undefined);
+            return await goUrl(request,`${mUrl}/edgesvc/turing/captcha/create`,undefined,true);
         }
 
         if(url.pathname==="/edgesvc/turing/captcha/verify"){//提交验证码
@@ -194,54 +192,56 @@ async function handleRequest(request){
             if (mUrl==="https://www.bing.com"){//如果用的官方
                 return await goUrl(request,`https://edgeservices.bing.com/edgesvc/turing/captcha/verify?`+ url.search,{
                     "X-forwarded-for":request.headers.get("randomAddress")
-                });
+                },false);
             }
             await copyCookies(mUrl)
-            return await goUrl(request,`${mUrl}/edgesvc/turing/captcha/verify?`+ url.search,undefined);
+            return await goUrl(request,`${mUrl}/edgesvc/turing/captcha/verify?`+ url.search,undefined,true);
         }
 
         if (url.pathname==='/msrewards/api/v1/enroll') { //加入候补
             let mUrl = uRLTrue(await getMagicUrl()) ;
             let addHeaders = {};
+            let withR = true;
             if (mUrl==="https://www.bing.com") {//如果用的官方
                 addHeaders = {
                     "X-forwarded-for":request.headers.get("randomAddress")
                 }
+                withR = false;
             }else {
                 await copyCookies(mUrl)//不是官方则需要拷贝
             }
-            return await goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search,addHeaders);
+            return await goUrl(request, `${mUrl}/msrewards/api/v1/enroll`+url.search,addHeaders,withR);
         }
 
         if (url.pathname==='/images/create') { //AI画图
             let mUrl = uRLTrue(await getMagicUrl()) ;
             let addHeaders = {};
+            let withR = true;
             if (mUrl==="https://www.bing.com") {//如果用的官方
                 addHeaders = {
-                    "sec-fetch-site": "same-origin",
-                    "referer": "https://www.bing.com/search?q=bingAI",
                     "X-forwarded-for":request.headers.get("randomAddress")
                 }
+                withR = false;
             }else {
                 await copyCookies(mUrl)//不是官方则需要拷贝
             }
-            return await goUrl(request, `${mUrl}/images/create`+url.search,addHeaders);
+            return await goUrl(request, `${mUrl}/images/create`+url.search,addHeaders,withR);
         }
 
         if (url.pathname.startsWith('/images/create/async/results')) { //请求AI画图图片
             let mUrl = uRLTrue(await getMagicUrl());
             let addHeaders = {};
+            let withR = true;
             if (mUrl==="https://www.bing.com") {//如果用的官方
                 addHeaders = {
-                    "sec-fetch-site": "same-origin",
-                    "referer": "https://www.bing.com/images/create?partner=sydney&showselective=1&sude=1&kseed=7000",
                     "X-forwarded-for":request.headers.get("randomAddress")
                 }
+                withR = false;
             }else {
                 await copyCookies(mUrl)//不是官方则需要拷贝
             }
             let a = url.pathname.replace('/images/create/async/results', `${mUrl}/images/create/async/results`)+url.search;
-            return await goUrl(request, a, addHeaders);
+            return await goUrl(request, a, addHeaders,withR);
         }
     }catch (error){
         console.warn(error);
@@ -293,15 +293,19 @@ function uRLTrue(magicUrl) {
  * @param request {Request}
  * @param url {String}
  * @param addHeaders {Object}
+ * @param withRandomAddress {boolean}
  * */
-async function goUrl(request, url, addHeaders) {
+async function goUrl(request, url, addHeaders,withRandomAddress) {
     //构建 fetch 参数
     let fp = {
         method: request.method,
         headers: {}
     }
     //保留头部信息
-    let dropHeaders = ["user-agent", "accept", "accept-language","randomAddress"];
+    let dropHeaders = ["accept", "accept-language","accept-encoding"];
+    if(withRandomAddress){
+        dropHeaders[dropHeaders.length] = "randomAddress";
+    }
     for (let dropHeader of dropHeaders) {
         if(request.headers.has(dropHeader)){
             fp.headers[dropHeader] = request.headers.get(dropHeader);
